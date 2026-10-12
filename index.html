@@ -1,0 +1,1079 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Apakah Anda Siap Bersaing di "Tri-City" Superhub Ekonomi?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Overpass+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: equilateral triangle board (vertical east edge = coastal road Samarinda→Balikpapan, west vertex = IKN),
+   drawn in road-sign language; turn controls, tile detail, players and log in a side column that stacks under 980px. */
+:root{
+  --bg:#E3E8E1; --surface:#F7F8F4; --tile:#FBFCF8; --ink:#14201B; --muted:#56675E; --hair:#C9D3CC;
+  --board:#174A36; --board-2:#1E5A43; --road:#F1C232;
+  --sign:#00704A; --on-sign:#FFFFFF; --warn:#F2B705; --warn-ink:#1B1600; --brown:#7B4A26;
+  --uband:#E4E9E3; --danger:#B3261E; --on-danger:#FFFFFF;
+  --font-display:'Overpass','Highway Gothic','Arial Narrow',system-ui,sans-serif;
+  --font-body:'Overpass',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'Overpass Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1411; --surface:#141D19; --tile:#1B2621; --ink:#E3ECE6; --muted:#94A79D; --hair:#2A3A32;
+    --board:#0F3226; --board-2:#14402F; --road:#D8AE2C;
+    --sign:#0A7A51; --on-sign:#FFFFFF; --warn:#E9B10C; --warn-ink:#1B1600; --brown:#8A5630;
+    --uband:#243129; --danger:#D9473C; --on-danger:#FFFFFF;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1411; --surface:#141D19; --tile:#1B2621; --ink:#E3ECE6; --muted:#94A79D; --hair:#2A3A32;
+  --board:#0F3226; --board-2:#14402F; --road:#D8AE2C;
+  --sign:#0A7A51; --on-sign:#FFFFFF; --warn:#E9B10C; --warn-ink:#1B1600; --brown:#8A5630;
+  --uband:#243129; --danger:#D9473C; --on-danger:#FFFFFF;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45}
+button{font:inherit}
+
+.app{max-width:1340px;margin:0 auto;padding-inline:16px;padding-block:16px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,370px);gap:24px;align-items:start}
+@media (max-width:980px){.app{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- Board ---------- */
+.board{container-type:inline-size;width:min(100%,calc((100dvh - 32px) / 1.12));min-width:0;margin-inline:auto}
+@media (max-width:980px){.board{width:min(100%,720px)}}
+.stage{position:relative;width:100%}
+.stage svg.base{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+.tile{position:absolute;padding:0;margin:0;border:0;display:flex;flex-direction:row;background:var(--tile);color:var(--ink);
+  border-radius:.4cqw;overflow:hidden;cursor:pointer;transform:translate(-50%,-50%) rotate(var(--rot));z-index:1}
+.tile.bs{flex-direction:row-reverse}
+.tile:hover .body{background:color-mix(in oklab,var(--tile),var(--sign) 9%)}
+.tile:focus-visible{outline:.4cqw solid var(--warn);outline-offset:0;z-index:4}
+.tile.here{outline:.42cqw solid var(--hl);outline-offset:0;z-index:3}
+.tile.sel{box-shadow:0 0 0 .32cqw var(--warn);z-index:3}
+
+.own{flex:0 0 .6cqw;background:var(--oc,transparent)}
+.body{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15cqw;padding-inline:.3cqw;text-align:center}
+.nm{display:block;font-weight:800;font-size:clamp(5px,1.12cqw,11.5px);line-height:1.02;text-transform:uppercase;letter-spacing:0;white-space:nowrap}
+.nm .ab{display:none}
+.pr{display:block;font-family:var(--font-mono);font-weight:500;font-size:clamp(5px,1cqw,10.5px);line-height:1;color:var(--muted);font-variant-numeric:tabular-nums}
+.band{flex:0 0 2.4cqw;background:var(--g);color:var(--gt);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2cqw}
+.band.u{background:var(--uband)}
+.band.w{background:var(--warn)}
+.band.go{background:var(--sign)}
+.band.br{background:var(--brown)}
+.ic{width:1.9cqw;height:1.9cqw;min-width:8px;min-height:8px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.band.u .ic{color:var(--ink)}
+.band.go .ic,.band.br .ic{color:#fff}
+.dia{width:1.5cqw;height:1.5cqw;min-width:7px;min-height:7px;transform:rotate(45deg);border:.2cqw solid var(--warn-ink);display:grid;place-items:center}
+.dia b{transform:rotate(-45deg);font:900 clamp(5px,1cqw,10px)/1 var(--font-display);color:var(--warn-ink)}
+.pip{width:.65cqw;height:.65cqw;min-width:3px;min-height:3px;background:#fff;border:1px solid rgba(0,0,0,.55);border-radius:1px}
+.htl{font:900 clamp(5px,1cqw,10px)/1 var(--font-display);background:#B3261E;color:#fff;border:1px solid #fff;border-radius:2px;padding:.25cqw .3cqw}
+.upd{width:.8cqw;height:.8cqw;min-width:4px;min-height:4px;border-radius:50%;background:var(--sign);box-shadow:0 0 0 1px var(--uband)}
+.tile.mort .body{opacity:.4}
+.tile.mort::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 .6cqw,color-mix(in oklab,var(--ink) 18%,transparent) .6cqw 1cqw)}
+.k-wangsit .nm{color:var(--ink)}
+.k-go .nm{color:var(--sign)}
+
+@container (max-width:560px){
+  .nm .full,.pr{display:none}
+  .nm .ab{display:inline;font-size:clamp(6px,1.8cqw,11px)}
+}
+
+.corner{position:absolute;padding:0;margin:0;border:0;border-radius:50%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:2;cursor:pointer;
+  background:var(--sign);color:var(--on-sign);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3cqw;
+  box-shadow:inset 0 0 0 .7cqw var(--sign),inset 0 0 0 1cqw #fff,0 .6cqw 1.6cqw -.4cqw rgba(0,0,0,.45);text-align:center}
+.corner:focus-visible{outline:.4cqw solid var(--warn);outline-offset:.3cqw}
+.corner.here{box-shadow:inset 0 0 0 .7cqw var(--sign),inset 0 0 0 1cqw #fff,0 0 0 .5cqw var(--hl)}
+.corner.sel{box-shadow:inset 0 0 0 .7cqw var(--sign),inset 0 0 0 1cqw #fff,0 0 0 .45cqw var(--warn)}
+.corner .c1{font:700 clamp(6px,1.3cqw,13px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.12em;opacity:.9}
+.corner .c2{font:900 clamp(7px,2.05cqw,20px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.01em}
+.corner .c3{font:500 clamp(5px,1.15cqw,12px)/1 var(--font-mono);opacity:.9;margin-top:.2cqw;font-variant-numeric:tabular-nums}
+.corner{border:.9cqw solid var(--oc,var(--sign))}
+.corner .cb{display:flex;gap:.3cqw;min-height:.8cqw;align-items:center}
+.corner.mort>span{opacity:.4}
+.corner.mort::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 .8cqw,rgba(0,0,0,.28) .8cqw 1.3cqw)}
+
+.ttl{position:absolute;transform:translate(-50%,-50%);width:27cqw;display:flex;flex-direction:column;align-items:center;gap:.6cqw;text-align:center;z-index:1;pointer-events:none}
+.ttl .eb{font:700 clamp(7px,1.45cqw,14px)/1.1 var(--font-display);color:var(--road)}
+.ttl h1{margin:0;display:flex;flex-direction:column;align-items:center;gap:.45cqw;color:#fff;text-transform:uppercase}
+.ttl .tc{font:900 clamp(14px,4.3cqw,42px)/.9 var(--font-display);letter-spacing:-.01em}
+.ttl .sh{font:800 clamp(8px,2.1cqw,20px)/1 var(--font-display);letter-spacing:.05em}
+.slot{position:absolute;transform:translate(-50%,-50%);width:13.5cqw;height:9.6cqw;padding:0;margin:0;cursor:pointer;z-index:1;border-radius:.8cqw;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding-block:.9cqw;font-family:var(--font-display)}
+.slot:focus-visible{outline:.4cqw solid #fff;outline-offset:.3cqw}
+.slot .sl{font:800 clamp(6px,1.2cqw,12px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.08em}
+.slot .ss{font:500 clamp(5px,1cqw,10px)/1 var(--font-mono);opacity:.85}
+.deck{border:0;background:var(--warn);color:var(--warn-ink);
+  box-shadow:inset 0 0 0 .35cqw var(--warn),inset 0 0 0 .6cqw var(--warn-ink),.45cqw .45cqw 0 0 color-mix(in oklab,var(--warn),#000 22%),.9cqw .9cqw 0 0 color-mix(in oklab,var(--warn),#000 40%)}
+.deck .dia{width:2.9cqw;height:2.9cqw;min-width:12px;min-height:12px;border-width:.4cqw}
+.deck .dia b{font-size:clamp(7px,1.8cqw,18px)}
+.deck.on{animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.06)}}
+.jail{border:.35cqw solid #fff;color:#fff;background-color:#1A1E1C;
+  background-image:repeating-linear-gradient(90deg,transparent 0 1.55cqw,rgba(255,255,255,.2) 1.55cqw 1.85cqw)}
+.slot.sel{box-shadow:0 0 0 .45cqw var(--warn)}
+.deck.sel{box-shadow:inset 0 0 0 .35cqw var(--warn),inset 0 0 0 .6cqw var(--warn-ink),0 0 0 .45cqw #fff}
+.pb,.plg{width:.85cqw;height:.85cqw;min-width:4px;min-height:4px;border-radius:50%;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.5);flex:none}
+.pb{background:#E53935}
+.tile.blk::before,.corner.blk::before{content:'';position:absolute;inset:0;background:rgba(8,12,10,.58);pointer-events:none;z-index:1}
+.corner.blk::before{border-radius:50%}
+.sab{border-top:1px solid var(--hair);padding-top:10px}
+.sab .lbl2{margin-bottom:8px}
+.tok.fly{transition:left .9s cubic-bezier(.45,0,.3,1),top .9s cubic-bezier(.45,0,.3,1);animation:flyup .9s ease-in-out;z-index:9}
+@keyframes flyup{50%{scale:1.9;box-shadow:0 1.6cqw 2cqw rgba(0,0,0,.35)}}.plg{background:#7CB342}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.dice{position:absolute;transform:translate(-50%,-50%);display:flex;gap:1.2cqw;z-index:1}
+.die{width:5.4cqw;height:5.4cqw;min-width:22px;min-height:22px;background:#fff;border-radius:.9cqw;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:.75cqw;box-shadow:0 .4cqw 0 rgba(0,0,0,.28)}
+.die i{display:block;border-radius:50%;margin:12%}
+.die i.on{background:#14201B}
+.dice.rolling .die{animation:shake .12s linear infinite}
+@keyframes shake{50%{transform:rotate(9deg) translateY(-.4cqw)}}
+
+.tok{position:absolute;width:2.5cqw;height:2.5cqw;min-width:12px;min-height:12px;border-radius:50%;background:var(--pc);border:2px solid #fff;z-index:5;pointer-events:none;
+  display:grid;place-items:center;font:800 clamp(6px,1.25cqw,12px)/1 var(--font-display);color:#fff;
+  transform:translate(calc(-50% + var(--dx) * 1cqw),calc(-50% + var(--dy) * 1cqw));box-shadow:0 2px 4px rgba(0,0,0,.4);transition:left .11s linear,top .11s linear}
+.tok.now{box-shadow:0 0 0 2px var(--warn),0 2px 4px rgba(0,0,0,.4);z-index:6}
+@media (prefers-reduced-motion: reduce){.tok{transition:none}.dice.rolling .die,.deck.on{animation:none}}
+
+/* ---------- Side column ---------- */
+.side{display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:10px;padding:14px 16px;min-width:0}
+.card h2{margin:0 0 10px;font:800 12px/1 var(--font-display);text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.turn{border:0;background:var(--surface);box-shadow:0 0 0 2px var(--sign);display:flex;flex-direction:column;gap:10px}
+@media (max-width:980px){.turn{position:sticky;bottom:env(safe-area-inset-bottom,0px);z-index:20;box-shadow:0 0 0 2px var(--sign),0 -8px 24px -8px rgba(0,0,0,.35)}.side{order:0}}
+.who{display:flex;align-items:center;gap:10px}
+.chip{width:28px;height:28px;border-radius:50%;background:var(--pc);border:2px solid #fff;box-shadow:0 0 0 1px var(--hair);display:grid;place-items:center;font:800 13px/1 var(--font-display);color:#fff;flex:none}
+.who .nmx{font:800 18px/1.1 var(--font-display);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.money{font-family:var(--font-mono);font-weight:600;font-variant-numeric:tabular-nums}
+.money.neg{color:var(--danger)}
+.tmsg{margin:0;font-size:15px;line-height:1.4}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{appearance:none;border:1px solid var(--hair);background:var(--tile);color:var(--ink);border-radius:7px;padding:9px 14px;font-weight:700;font-size:14px;cursor:pointer;line-height:1.1}
+.btn:hover{border-color:var(--muted)}
+.btn:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+.btn.pri{background:var(--sign);color:var(--on-sign);border-color:var(--sign);box-shadow:inset 0 0 0 2px var(--sign),inset 0 0 0 3.5px rgba(255,255,255,.85);padding:11px 18px;font-size:15px}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.dan{background:var(--danger);border-color:var(--danger);color:var(--on-danger)}
+.btn.sm{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn.armed{background:var(--warn);color:var(--warn-ink);border-color:var(--warn)}
+.hint{margin:0;font-size:13px;color:var(--muted)}
+.hint.warn{color:var(--danger);font-weight:700}
+
+.wcard{background:var(--warn);color:var(--warn-ink);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;box-shadow:inset 0 0 0 2px var(--warn),inset 0 0 0 3.5px var(--warn-ink)}
+.wcard .bigdia{width:30px;height:30px;transform:rotate(45deg);border:3px solid var(--warn-ink);display:grid;place-items:center;margin:4px}
+.wcard .bigdia b{transform:rotate(-45deg);font:900 17px/1 var(--font-display)}
+.wcard .lbl{font:800 11px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.wcard p{margin:0;font-weight:600;font-size:15px;line-height:1.35}
+
+.dt-head{display:flex;gap:10px;align-items:flex-start}
+.dt-sw{width:12px;align-self:stretch;border-radius:3px;background:var(--g);flex:none;min-height:36px}
+.dt-title{font:800 19px/1.15 var(--font-display);margin:0;text-wrap:balance}
+.dt-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.dt-x{margin-left:auto;flex:none}
+table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.rt td{padding:4px 0;border-bottom:1px solid var(--hair)}
+.rt td:last-child{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.rt tr.cur td{font-weight:800}
+.dt-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.dt-acts{margin-top:12px}
+
+.plist{display:flex;flex-direction:column;gap:10px}
+.pl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--hair)}
+.pl:last-child{border-bottom:0;padding-bottom:0}
+.pl.on .pn{text-decoration:underline;text-decoration-color:var(--warn);text-decoration-thickness:3px;text-underline-offset:3px}
+.pl.out{opacity:.5}
+.pn{font-weight:800;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pnw{font-size:12px;color:var(--muted)}
+.props{grid-column:2 / 4;display:flex;flex-wrap:wrap;gap:4px}
+.pc{appearance:none;border:1px solid rgba(0,0,0,.25);width:16px;height:16px;border-radius:3px;background:var(--g);cursor:pointer;padding:0;display:grid;place-items:center;color:var(--ink)}
+.pc.u{background:var(--uband);border-color:var(--hair)}
+.pc .ic{width:11px;height:11px;min-width:0;min-height:0}
+.pc.m{opacity:.4}
+.log{list-style:none;margin:0;padding:0;max-height:260px;overflow:auto;font-size:13.5px;display:flex;flex-direction:column}
+.log li{padding:5px 0;border-bottom:1px solid var(--hair)}
+.log .r{font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-right:6px}
+.foot{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- Overlays ---------- */
+.ov{position:fixed;inset:0;z-index:50;background:rgba(5,15,11,.6);display:grid;place-items:center;padding:16px;overflow:auto}
+.dlg{background:var(--surface);color:var(--ink);border-radius:12px;max-width:520px;width:100%;padding:22px;box-shadow:0 20px 50px -10px rgba(0,0,0,.5)}
+.dlg h2{margin:0 0 6px;font:900 23px/1.08 var(--font-display);text-transform:uppercase;text-wrap:balance}
+.dlg .lead{margin:0 0 16px;color:var(--muted)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.seg button{appearance:none;border:1px solid var(--hair);background:var(--tile);color:var(--ink);border-radius:7px;width:44px;height:40px;font-weight:800;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--sign);color:var(--on-sign);border-color:var(--sign)}
+.names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:16px}
+@media (max-width:440px){.names{grid-template-columns:minmax(0,1fr)}}
+.names label{display:flex;align-items:center;gap:8px;min-width:0}
+.names input{flex:1;min-width:0;border:1px solid var(--hair);background:var(--tile);color:var(--ink);border-radius:7px;padding:8px 10px;font:inherit}
+.names input:focus-visible{outline:2px solid var(--sign);outline-offset:1px}
+.rules{margin:0 0 18px;padding-left:18px;font-size:14px;color:var(--ink)}
+.rules li{margin-bottom:4px}
+.lbl2{font:800 12px/1 var(--font-display);text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 8px}
+.rank{list-style:none;margin:0 0 18px;padding:0}
+.rank li{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--hair)}
+.rank .money{margin-left:auto}
+@container (max-width:560px){
+  .ttl .eb{font-size:1.55cqw}
+  .ttl .sh{font-size:2.05cqw}
+  .ttl .tc{font-size:4.2cqw}
+  .slot .sl{font-size:1.25cqw;letter-spacing:.02em}
+  .slot .ss{font-size:1.1cqw}
+}
+</style>
+
+<div class="app">
+  <div class="board"><div class="stage" id="stage"></div></div>
+  <aside class="side">
+    <section class="card turn" id="turn" aria-live="polite"></section>
+    <section class="card" id="detail" hidden></section>
+    <section class="card"><h2>Pemain</h2><div class="plist" id="players"></div></section>
+    <section class="card"><h2>Catatan permainan</h2><ul class="log" id="log"></ul></section>
+    <div class="foot">
+      <button class="btn sm" id="bNew" type="button">Permainan baru</button>
+      <button class="btn sm" id="bFinish" type="button">Akhiri &amp; hitung pemenang</button>
+    </div>
+  </aside>
+</div>
+
+<div class="ov" id="setup" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="setupT">
+    <h2 id="setupT">Apakah Anda siap bersaing di “Tri-City” Superhub Ekonomi?</h2>
+    <p class="lead">Balikpapan, Ibu Kota Nusantara, dan Samarinda di tiga sudut papan. Main bergantian di satu perangkat.</p>
+    <p class="lbl2">Jumlah pemain</p>
+    <div class="seg" id="seg"></div>
+    <div class="names" id="names"></div>
+    <p class="lbl2">Aturan singkat</p>
+    <ul class="rules">
+      <li>Modal awal IDR 15.000k. Setiap melewati Mulai, terima IDR 2.000k.</li>
+      <li>Kota Balikpapan, Ibu Kota Nusantara, dan Kota Samarinda adalah satu set properti termahal, masing-masing IDR 4.000k.</li>
+      <li>Wilayah lain makin mahal makin dekat ke salah satu kota, dan makin murah makin jauh.</li>
+      <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel.</li>
+      <li>Pos bensin eceran bisa dibangun di properti milikmu jika kamu memiliki SPBU terdekat dari properti itu, atau di properti mana pun jika kamu memiliki Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat, atau SPBE Babulu untuk properti mana pun. Pembangunan keduanya baru gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
+      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa gaji. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
+      <li>Pemilik 2 bandara atau lebih yang berhenti di bandara boleh terbang gratis ke bandara lain.</li>
+      <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanan pembangkit itu jadi setengah sampai giliran si pemilik berikutnya.</li>
+      <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, dan kartu masuk penjara.</li>
+      <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai.</li>
+      <li>Bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, dan kilang adalah utilitas. Sewanya angka dadu × tarif × pengali yang naik setiap kali pemiliknya menambah utilitas.</li>
+      <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
+      <li>Dobel boleh lempar lagi, paling banyak tiga kali lemparan berturut-turut.</li>
+    </ul>
+    <div class="btns"><button class="btn pri" id="bStart" type="button">Mulai main</button><button class="btn" id="bCancel" type="button" hidden>Batal</button></div>
+  </div>
+</div>
+
+<div class="ov" id="over" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="overT">
+    <h2 id="overT"></h2>
+    <p class="lead" id="overL"></p>
+    <ol class="rank" id="rank"></ol>
+    <div class="btns"><button class="btn pri" id="bAgain" type="button">Permainan baru</button><button class="btn" id="bLook" type="button">Lihat papan</button></div>
+  </div>
+</div>
+
+<script>
+/* ================= Data ================= */
+const GO=2000, START=15000, KEY='tricity-superhub-v4';
+const MORT_PASSES=2, JAIL_FINE=500, BENSIN={c:500,r:250}, LPG={c:400,r:200};
+const GRP={
+  1:{c:'#8A5634',t:'#fff',h:1000}, 2:{c:'#86CDEB',t:'#0B2A38',h:750},
+  3:{c:'#CC4C93',t:'#fff',h:2000}, 4:{c:'#EF8A2B',t:'#2A1500',h:1500},
+  5:{c:'#D5373A',t:'#fff',h:1000}, 6:{c:'#F0C42C',t:'#2A2200',h:1500},
+  7:{c:'#0F8C8C',t:'#fff',h:1000}, 8:{c:'#2752A8',t:'#fff',h:1000},
+  9:{c:'#00704A',t:'#fff',h:2000,n:'Tiga Kota'}
+};
+const UT={
+  air:{l:'Bandara',p:2000,f:12,up:'Terminal baru',ic:'plane'},
+  port:{l:'Pelabuhan',p:1800,f:12,up:'Perluasan dermaga',ic:'anchor'},
+  power:{l:'Pembangkit listrik',p:1500,f:10,up:'Unit pembangkit baru',ic:'bolt'},
+  solar:{l:'Pembangkit listrik tenaga surya',p:1500,f:10,up:'Panel surya tambahan',ic:'sun'},
+  fuel:{l:'Pom bensin',p:1200,f:8,up:'Dispenser tambahan',ic:'pump'},
+  refinery:{l:'Fasilitas pengolahan BBM',p:2500,f:15,up:'Unit RDMP',ic:'plant'}
+};
+/* rent ladder by price: base, 1–4 bangunan, hotel */
+const RP={800:[40,200,600,1800,3200,4500],1200:[80,400,1000,3000,4500,6000],1600:[120,600,1800,5000,7000,9000],
+  2000:[160,800,2200,6000,8000,10000],2400:[200,1000,3000,7500,9250,11000],2800:[240,1200,3600,8500,10250,12000],
+  3200:[280,1500,4500,10000,12000,14000],3500:[350,1750,5000,11000,13000,15000],4000:[500,2000,6000,14000,17000,20000]};
+const T=[
+{n:'Bandara SAMS Sepinggan',s:'Bandara|Sepinggan',ab:'BPN',k:'air'},
+{n:'Mulai',t:'go',s:'Mulai',ab:'MULAI'},
+{n:'Kota Balikpapan',c1:'Kota',c2:'Balikpapan',ab:'BPP',g:9,p:4000},
+{n:'PLTU Teluk Balikpapan',s:'PLTU|Teluk Bpp',ab:'PLTU',k:'power'},
+{n:'Pelabuhan Kariangau',s:'Pelabuhan|Kariangau',ab:'KRG',k:'port'},
+{n:'Cari Wangsit',t:'wangsit',loc:'Teluk Balikpapan'},
+{n:'Pelabuhan Penajam',s:'Pelabuhan|Penajam',ab:'PEL',k:'port'},
+{n:'Penajam',ab:'PNJ',g:1,p:2000},
+{n:'Petung',ab:'PTG',g:1,p:1600},
+{n:'SPBE Babulu',s:'SPBE|Babulu',ab:'SPBE',k:'fuel'},
+{n:'Sotek',ab:'STK',g:2,p:800},
+{n:'Maridan',ab:'MRD',g:2,p:1200},
+{n:'Jembatan Pulau Balang',t:'bridge',s:'Jembatan|P. Balang',ab:'JPB'},
+{n:'Bandara VVIP IKN',s:'Bandara|VVIP IKN',ab:'VVIP',k:'air'},
+{n:'Riko',ab:'RKO',g:2,p:2400},
+{n:'PLTS IKN',s:'PLTS|IKN',ab:'PLTS',k:'solar'},
+{n:'Pemaluan',ab:'PML',g:3,p:3200},
+{n:'SPBU Simpang HTI',s:'SPBU|Simp. HTI',ab:'SPBU',k:'fuel'},
+{n:'Ibu Kota Nusantara',c1:'Ibu Kota',c2:'Nusantara',ab:'IKN',g:9,p:4000},
+{n:'Bumi Harapan',s:'Bumi|Harapan',ab:'BMH',g:3,p:3500},
+{n:'SPBU Bukit Raya',s:'SPBU|Bukit Raya',ab:'SPBU',k:'fuel'},
+{n:'Sukaraja',ab:'SKR',g:4,p:2800},
+{n:'Tengin Baru',s:'Tengin|Baru',ab:'TGB',g:4,p:2400},
+{n:'Semoi',ab:'SMI',g:4,p:2000},
+{n:'Mentawir',ab:'MTW',g:5,p:1600},
+{n:'Cari Wangsit',t:'wangsit',loc:'Hutan Bukit Bangkirai'},
+{n:'Simpang Samboja',s:'Simpang|Samboja',ab:'SPS',g:5,p:1200},
+{n:'SPBU KM 38',s:'SPBU|KM 38',ab:'KM38',k:'fuel'},
+{n:'Batuah',ab:'BTH',g:5,p:2000},
+{n:'Loa Janan Ulu',s:'Loa Janan|Ulu',ab:'LJU',g:6,p:2400},
+{n:'Loa Janan Ilir',s:'Loa Janan|Ilir',ab:'LJI',g:6,p:2800},
+{n:'Palaran',ab:'PLR',g:6,p:3200},
+{n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Mahakam IV'},
+{n:'PLTU Embalut',s:'PLTU|Embalut',ab:'PLTU',k:'power'},
+{n:'Kota Samarinda',c1:'Kota',c2:'Samarinda',ab:'SMD',g:9,p:4000},
+{n:'Bandara APT Pranoto',s:'Bandara|Pranoto',ab:'AAP',k:'air'},
+{n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Mahkota 2'},
+{n:'Samarinda Seberang',s:'Samarinda|Seberang',ab:'SMS',g:7,p:2800},
+{n:'Sanga-Sanga',s:'Sanga-|Sanga',ab:'SGS',g:7,p:2400},
+{n:'PLTU Muara Jawa',s:'PLTU|M. Jawa',ab:'PLTU',k:'power'},
+{n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Dondang'},
+{n:'Muara Jawa/Handil',s:'M. Jawa/|Handil',ab:'MJH',g:7,p:1200},
+{n:'SPBU Muara Jawa',s:'SPBU|M. Jawa',ab:'SPBU',k:'fuel'},
+{n:'Teluk Dalam',s:'Teluk|Dalam',ab:'TLD',g:8,p:1200},
+{n:'PLTGU Senipah',s:'PLTGU|Senipah',ab:'PLTGU',k:'power'},
+{n:'Kuala Samboja',s:'Kuala|Samboja',ab:'KSB',g:8,p:2000},
+{n:'Samboja',ab:'SBJ',g:8,p:2400},
+{n:'Kilang Migas Balikpapan',s:'Kilang|Migas Bpp',ab:'KLG',k:'refinery'}
+];
+const N=T.length, IX=n=>{ const i=T.findIndex(t=>t.n===n); if(i<0)throw new Error('Petak tidak ada: '+n); return i; };
+const CITIES=T.map((t,i)=>i).filter(i=>T[i].g===9);
+const SPBU=T.map((t,i)=>i).filter(i=>T[i].k==='fuel'&&T[i].n.startsWith('SPBU '));
+const SPBE=IX('SPBE Babulu'), KILANG=IX('Kilang Migas Balikpapan'), BRIDGE=IX('Jembatan Pulau Balang'), MULAI=IX('Mulai'), BPP=IX('Kota Balikpapan');
+const PORTS=T.map((t,i)=>i).filter(i=>T[i].k==='port'), AIRS=T.map((t,i)=>i).filter(i=>T[i].k==='air');
+const PLANTS=T.map((t,i)=>i).filter(i=>T[i].k==='power'||T[i].k==='solar');
+/* harga wilayah: makin dekat ke kota (jumlah petak), makin mahal */
+const PRICE_BY_DIST={1:3500,2:3200,3:2800,4:2400,5:2000,6:1600,7:1200,8:800};
+T.forEach((t,i)=>{ if(t.g&&t.g!==9){ const d=Math.min(...CITIES.map(c=>Math.min((i-c+N)%N,(c-i+N)%N))); t.p=PRICE_BY_DIST[Math.min(8,Math.max(1,d))]; } });
+T.forEach(t=>{
+  if(t.g){ t.t='prop'; t.r=RP[t.p]; }
+  if(t.k){ t.t='util'; t.p=UT[t.k].p; t.uc=t.p/2; }
+  if(t.t==='wangsit'){ t.s='Cari|Wangsit'; t.ab='CW'; }
+  if(!t.s)t.s=t.n;
+});
+const LV=['','Renovasi rumah tinggal','Rumah kontrakan','Kos-kosan','Penginapan','Hotel'];
+const CARDS=[
+ {x:'Wangsit pertama: pulang ke titik awal. Maju ke Mulai dan terima IDR 2.000k.',a:'to',v:IX('Mulai')},
+ {x:'Dapat undangan meninjau Ibu Kota Nusantara. Maju ke IKN. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Ibu Kota Nusantara')},
+ {x:'Ada tiket promo dari Bandara APT Pranoto. Maju ke sana. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Bandara APT Pranoto')},
+ {x:'Kapal feri ke Penajam sudah menunggu. Maju ke Pelabuhan Kariangau. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Pelabuhan Kariangau')},
+ {x:'Liburan ke pantai Kuala Samboja. Maju ke Kuala Samboja. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Kuala Samboja')},
+ {x:'Maju ke Semoi. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Semoi')},
+ {x:'Tangki hampir kosong. Maju ke SPBU atau SPBE terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'fuel'},
+ {x:'Kejar penerbangan! Maju ke bandara terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'air'},
+ {x:'Listrik padam bergilir. Maju ke pembangkit listrik terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'power'},
+ {x:'Truk mogok di tanjakan, jalan macet. Mundur 3 langkah.',a:'back',v:3},
+ {x:'Mimpi buruk di Jembatan Pulau Balang. Kembali ke Kota Balikpapan tanpa melewati Mulai.',a:'warp',v:IX('Kota Balikpapan')},
+ {x:'Pesut Mahakam muncul di samping perahumu. Pertanda baik: terima IDR 1.000k.',a:'cash',v:1000},
+ {x:'Bekantan mencuri bekalmu di hutan mangrove. Bayar IDR 150k untuk beli makan lagi.',a:'cash',v:-150},
+ {x:'Kena tilang di Tol Balikpapan–Samarinda. Bayar IDR 300k.',a:'cash',v:-300},
+ {x:'Bank salah hitung, kamu diuntungkan. Terima IDR 2.000k.',a:'cash',v:2000},
+ {x:'Biaya berobat di rumah sakit. Bayar IDR 1.000k.',a:'cash',v:-1000},
+ {x:'Hari ulang tahunmu! Terima IDR 100k dari setiap pemain.',a:'collecteach',v:100},
+ {x:'Jadi penyandang dana Festival Erau. Bayar IDR 500k ke setiap pemain.',a:'payeach',v:500},
+ {x:'Renovasi bangunan: bayar IDR 250k per level bangunan dan IDR 1.000k per hotel.',a:'repair',v:[250,1000]},
+ {x:'Iuran perbaikan jalan poros: bayar IDR 400k per level bangunan dan IDR 1.150k per hotel.',a:'repair',v:[400,1150]},
+ {x:'Dividen dari saham kilang. Terima IDR 500k.',a:'cash',v:500},
+ {x:'Jadi pemandu wisata jembatan tajuk Bukit Bangkirai. Terima IDR 250k.',a:'cash',v:250},
+ {x:'Panen lada melimpah. Terima IDR 1.000k.',a:'cash',v:1000},
+ {x:'Uang sekolah anak. Bayar IDR 500k.',a:'cash',v:-500},
+ {x:'Kamu kedapatan memiliki pos bensin eceran yang melanggar hukum. Masuk penjara.',a:'jail'},
+ {x:'Kamu kedapatan memiliki pos LPG eceran yang melanggar hukum. Masuk penjara.',a:'jail'},
+ {x:'Kamu kedapatan memiliki tambang batu bara ilegal. Masuk penjara.',a:'jail'},
+ {x:'Kamu kedapatan menebang kayu ilegal di hutan lindung. Masuk penjara.',a:'jail'},
+ {x:'Kamu kedapatan menimbun solar bersubsidi. Masuk penjara.',a:'jail'}
+];
+const PCOL=['#E03E1A','#1F5FD6','#7A3FD1','#C98500','#D6336C','#37474F'];
+const DEFAULT_NAMES=['Rina','Bayu','Dewi','Anto','Sari','Iwan'];
+const UTILS=[],GROUPS={},CAT={air:[],power:[],fuel:[]};
+T.forEach((t,i)=>{
+  if(t.t==='util'){ UTILS.push(i); if(t.k==='air')CAT.air.push(i); if(t.k==='power'||t.k==='solar')CAT.power.push(i); if(t.k==='fuel')CAT.fuel.push(i); }
+  if(t.g)(GROUPS[t.g]??=[]).push(i);
+});
+const ICONS={
+ plane:'<path d="M12 2c1 0 1.5 1 1.5 2v5l7 4v2l-7-2v4l2 1.5V20L12 19l-3.5 1v-1.5l2-1.5v-4l-7 2v-2l7-4V4c0-1 .5-2 1.5-2z"/>',
+ anchor:'<circle cx="12" cy="5" r="2"/><path d="M12 7v14M8 11h8M4 14a8 8 0 0 0 16 0"/>',
+ bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+ pump:'<path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 21h12M6 8h6"/><path d="M14 10h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V8l-3-3"/>',
+ plant:'<path d="M3 21h18M5 21V10l3-1.5V21M10 21V5l3-2v18M15 21v-8h5v8"/><path d="M12 3c0-1 1-1 1-2"/>',
+ bridge:'<path d="M2 16h20M4 16V8M20 16V8M4 9c4 0 6 4 8 4s4-4 8-4M8 16v-4M12 16v-3M16 16v-4"/>',
+ down:'<path d="M12 4v15M6 13l6 6 6-6"/>'
+};
+
+/* ================= Geometry ================= */
+const SQ3=Math.sqrt(3);
+const GEO=(()=>{
+  const R=10,D=11,M=1.6;
+  const xl=R+M,xr=100-R-M,L=(xr-xl)*2/SQ3,yt=R+M,yb=yt+L,H=yb+R+M,yc=(yt+yb)/2;
+  const V={B:[xr,yb],I:[xl,yc],S:[xr,yt]};
+  const cx=(xl+2*xr)/3,cy=yc,rin=L/(2*SQ3);
+  const rng=(a,b)=>Array.from({length:b-a+1},(_,k)=>a+k);
+  const g=[];
+  const [cB,cI,cS]=CITIES;
+  g[cB]={x:xr,y:yb,corner:true}; g[cI]={x:xl,y:yc,corner:true}; g[cS]={x:xr,y:yt,corner:true};
+  const edges=[['B','I',rng(cB+1,cI-1),-60,'end',[0.5,-SQ3/2]],['I','S',rng(cI+1,cS-1),60,'end',[0.5,SQ3/2]],['S','B',[...rng(cS+1,N-1),...rng(0,cB-1)],0,'start',[-1,0]]];
+  for(const [a,b,ids,rot,band,nrm] of edges){
+    const [ax,ay]=V[a],[bx,by]=V[b],ux=(bx-ax)/L,uy=(by-ay)/L,w=(L-2*R)/ids.length;
+    ids.forEach((i,k)=>{const d=R+(k+.5)*w; g[i]={x:ax+ux*d,y:ay+uy*d,rot,band,w,ux,uy,nx:nrm[0],ny:nrm[1]};});
+  }
+  return {R,D,L,H,V,cx,cy,rin,g,ttl:[cx+4,cy-11.5],deck:[cx-11,cy+.5],jail:[cx+4.5,cy+.5],dice:[cx+4,cy+10.5]};
+})();
+
+/* ================= Helpers ================= */
+const $=s=>document.querySelector(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rnd6=()=>1+Math.floor(Math.random()*6);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const fmt=n=>(n<0?'−':'')+'IDR '+Math.abs(Math.round(n)).toLocaleString('id-ID')+'k';
+const fk=n=>Math.round(n).toLocaleString('id-ID')+'k';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const icon=k=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>`;
+const nearest=(list,pos)=>list.find(j=>j>pos)??list[0];
+const unmortCost=i=>Math.ceil(T[i].p*0.55);
+const circ=(a,b)=>Math.min((a-b+N)%N,(b-a+N)%N);
+function nearestSPBU(i){ const m=Math.min(...SPBU.map(x=>circ(i,x))); return SPBU.filter(x=>circ(i,x)===m); }
+function nearestPlants(i){ const m=Math.min(...PLANTS.map(x=>circ(i,x))); return PLANTS.filter(x=>circ(i,x)===m); }
+const AREA={}; PLANTS.forEach(pl=>{ AREA[pl]=T.map((t,i)=>i).filter(i=>T[i].t==='prop'&&nearestPlants(i).includes(pl)); });
+function blackout(i){ if(!S.blk)return null; const o=S.own[i]; for(const pl of nearestPlants(i)){ const b=S.blk[pl]; if(b&&b.by!==o)return pl; } return null; }
+const shortN=i=>T[i].s.replace('|',' ');
+const posFree=o=>S.own[SPBE]===o&&S.own[KILANG]===o;
+const posVal=i=>(S.eb[i]??0)+(S.el[i]??0);
+const hasPos=i=>S.eb[i]!=null||S.el[i]!=null;
+function nearCity(i){ let best=null; for(const c of CITIES){ const d=Math.min((i-c+N)%N,(c-i+N)%N); if(!best||d<best.d)best={d,c}; } return best; }
+
+let S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4;
+const cur=()=>S.players[S.turn];
+const P=j=>S.players[j];
+const init=p=>esc((p.name.trim().charAt(0)||'?').toUpperCase());
+const ownedBy=j=>Object.keys(S.own).map(Number).filter(k=>S.own[k]===j).sort((a,b)=>a-b);
+const log=t=>{S.log.unshift({t,r:S.round}); if(S.log.length>120)S.log.length=120;};
+const setMsg=t=>{S.msg=t;};
+const gain=(j,amt)=>{P(j).cash+=amt;};
+function pay(from,to,amt){ if(amt<=0)return; const p=P(from); p.cash-=amt; if(to>=0)P(to).cash+=amt; if(p.cash<0)p.debtTo=to; }
+
+function netWorth(j){
+  let v=P(j).cash;
+  for(const k of ownedBy(j)){ const t=T[k]; v+=S.mort[k]?t.p/2:t.p; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h; if(S.up[k])v+=t.uc; v+=posVal(k); }
+  return v;
+}
+function maxRaise(j){
+  let v=P(j).cash;
+  for(const k of ownedBy(j)){ const t=T[k]; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h/2; if(S.up[k])v+=t.uc/2; if(!S.mort[k])v+=t.p/2; v+=posVal(k)/2; }
+  return v;
+}
+
+/* ================= Rules ================= */
+function newGame(names){
+  S={v:4,players:names.map((n,i)=>({name:n,color:PCOL[i],cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
+    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},blk:{},flyOff:false,
+    deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
+    msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
+  log(`Permainan baru: ${names.join(', ')}. Modal awal masing-masing ${fmt(START)}.`);
+  detail=null; overClosed=false;
+}
+const utilMult=o=>Math.min(20,2+2*UTILS.filter(j=>S.own[j]===o).length);
+function rentOf(i){
+  const t=T[i],o=S.own[i],m=S.mod||{};
+  if(t.t==='prop'){ const h=S.houses[i]||0, ex=(S.eb[i]!=null?BENSIN.r:0)+(S.el[i]!=null?LPG.r:0); const r=(h?t.r[h]:t.r[0]*(GROUPS[t.g].every(j=>S.own[j]===o)?2:1))+ex; return blackout(i)!=null?Math.ceil(r/2):r; }
+  if(t.t==='util'){ const d=S.dice[0]+S.dice[1]; return d*UT[t.k].f*utilMult(o)*(S.up[i]?2:1)*(m.x||1); }
+  return 0;
+}
+function tickMortgages(j){
+  for(const k of ownedBy(j)){
+    if(!S.mort[k])continue;
+    S.mort[k]--;
+    if(S.mort[k]<=0){
+      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k];
+      log(`${P(j).name} tidak menebus ${T[k].n} tepat waktu. Bank menyita petak ini dan menjualnya lagi.`);
+    } else log(`Sisa waktu tebus ${T[k].n}: ${S.mort[k]} kali lagi melewati Mulai.`);
+  }
+}
+async function stepTo(target){
+  const p=cur();
+  while(p.pos!==target){
+    p.pos=(p.pos+1)%N;
+    if(p.pos===MULAI){ gain(S.turn,GO); log(`${p.name} melintasi Mulai dan menerima ${fmt(GO)}.`); tickMortgages(S.turn); }
+    if(!RM){ renderTokens(); await sleep(115); }
+  }
+  renderTokens();
+}
+async function animDice(d){
+  const box=$('#dice');
+  if(!RM&&box){ box.classList.add('rolling'); for(let k=0;k<9;k++){ setDie(0,rnd6()); setDie(1,rnd6()); await sleep(55); } box.classList.remove('rolling'); }
+  setDie(0,d[0]); setDie(1,d[1]);
+}
+async function doRoll(){
+  if(!S||S.phase!=='roll'||cur().cash<0)return;
+  const p=cur(); S.phase='busy'; S.here=null; S.flyOff=false; render();
+  const d=[rnd6(),rnd6()]; await animDice(d); S.dice=d;
+  const tot=d[0]+d[1], dbl=d[0]===d[1];
+  if(p.jail){
+    S.again=false;
+    log(`${p.name} mencoba keluar penjara: ${d[0]} + ${d[1]}${dbl?' (dobel)':''}.`);
+    if(dbl){ log(`${p.name} dapat dobel dan bebas. Melangkah ${tot} petak dari Mulai.`); }
+    else{
+      p.jt++;
+      if(p.jt<3){ setMsg(`Belum dobel. Percobaan ${p.jt} dari 3, ${p.name} tetap di penjara.`); S.phase='end'; render(); return; }
+      pay(S.turn,-1,JAIL_FINE); log(`${p.name} gagal dobel 3 kali, membayar denda ${fmt(JAIL_FINE)} lalu bebas.`);
+    }
+    p.jail=false; p.jt=0; p.pos=MULAI; renderTokens(); if(!RM)await sleep(260);
+    await stepTo((MULAI+tot)%N); return land();
+  }
+  if(dbl){ S.doubles++; S.again=S.doubles<3; } else S.again=false;
+  log(`${p.name} melempar ${d[0]} + ${d[1]} = ${tot}${dbl?' (dobel)':''}.`);
+  await stepTo((p.pos+tot)%N);
+  land();
+}
+function land(){
+  const p=cur(),i=p.pos,t=T[i],me=S.turn;
+  S.here=i;
+  if(t.p){
+    const o=S.own[i];
+    if(o==null){ S.pending={type:'buy',i}; S.phase='decide'; setMsg(`${p.name} tiba di ${t.n}. Belum ada pemiliknya, harganya ${fmt(t.p)}.`); render(); return; }
+    if(o===me) setMsg(`${p.name} singgah di miliknya sendiri, ${t.n}.`);
+    else if(S.mort[i]) setMsg(`${t.n} milik ${P(o).name} sedang digadai. Tidak ada sewa.`);
+    else{
+      const r=rentOf(i);
+      const bo=t.t==='prop'?blackout(i):null;
+      const extra=bo!=null?` (setengah harga karena pemadaman dari ${T[bo].n})`:'';
+      pay(me,o,r);
+      setMsg(`${t.n} milik ${P(o).name}. ${p.name} membayar sewa ${fmt(r)}${extra}.`);
+      log(`${p.name} membayar sewa ${fmt(r)} ke ${P(o).name} di ${t.n}.`);
+    }
+  } else if(t.t==='wangsit'){
+    const id=S.deck.shift(); S.deck.push(id);
+    S.pending={type:'card',id,i}; S.phase='decide';
+    setMsg(`${p.name} mencari wangsit di ${t.loc}. Buka kartunya.`); render(); return;
+  } else if(t.t==='bridge'){
+    if(PORTS.some(x=>S.own[x]===me)){
+      S.pending={type:'bridge'}; S.phase='decide';
+      setMsg(`${p.name} berhenti di Jembatan Pulau Balang. Sebagai pemilik pelabuhan, kamu boleh memilih kembali ke Kota Balikpapan atau tetap di jembatan.`); render(); return;
+    }
+    log(`${p.name} berhenti di Jembatan Pulau Balang dan kembali ke Kota Balikpapan.`);
+    p.pos=BPP; renderTokens(); return land();
+  } else if(t.t==='go') setMsg(`${p.name} berhenti tepat di Mulai.`);
+  settle();
+}
+function goJail(){ const p=cur(); p.jail=true; p.jt=0; S.again=false; S.doubles=0; S.here=null; renderTokens(); }
+function payFine(){
+  const p=cur(); if(!p.jail||S.phase!=='roll'||p.cash<JAIL_FINE)return;
+  pay(S.turn,-1,JAIL_FINE); p.jail=false; p.jt=0; p.pos=MULAI; renderTokens();
+  log(`${p.name} membayar denda ${fmt(JAIL_FINE)} dan keluar dari penjara.`);
+  setMsg(`${p.name} bebas. Lempar dadu, langkah dihitung dari Mulai.`); render();
+}
+function doBridge(go){
+  if(S.pending?.type!=='bridge')return;
+  const p=cur(); S.pending=null;
+  if(go){ log(`${p.name} memilih kembali ke Kota Balikpapan dari Jembatan Pulau Balang.`); p.pos=BPP; renderTokens(); return land(); }
+  log(`${p.name} memilih tetap di Jembatan Pulau Balang.`); setMsg(`${p.name} tetap di Jembatan Pulau Balang.`); settle();
+}
+const ownAirs=j=>AIRS.filter(x=>S.own[x]===j);
+async function doFly(dest){
+  if(S.pending?.type!=='fly'||!AIRS.includes(dest)||dest===cur().pos)return;
+  const p=cur(),from=p.pos; S.pending=null; S.phase='busy'; S.flyOff=true;
+  log(`${p.name} terbang gratis dari ${T[from].n} ke ${T[dest].n}.`); setMsg(`${p.name} terbang ke ${T[dest].n}…`); render();
+  const tk=document.querySelector(`#toks [data-j="${S.turn}"]`);
+  if(tk&&!RM)tk.classList.add('fly');
+  p.pos=dest; renderTokens(); if(!RM)await sleep(950);
+  if(tk)tk.classList.remove('fly');
+  land();
+}
+function doNoFly(){ if(S.pending?.type!=='fly')return; S.pending=null; settle(); }
+function sabotage(pl){
+  if(!S||S.own[pl]!==S.turn||S.mort[pl]||S.blk[pl]||S.phase==='busy'||S.phase==='over')return;
+  S.blk[pl]={by:S.turn};
+  const hit=AREA[pl].filter(i=>S.own[i]!=null&&S.own[i]!==S.turn);
+  log(`${cur().name} menyabotase ${T[pl].n}: pemadaman listrik di ${AREA[pl].length} wilayah layanan. ${hit.length} properti lawan kena sewa setengah sampai giliran ${cur().name} berikutnya.`);
+  render();
+}
+function settle(){
+  S.pending=null; S.mod=null;
+  { const p=cur(),i=p.pos;
+    if(!S.flyOff&&!p.jail&&S.here===i&&AIRS.includes(i)&&ownAirs(S.turn).length>=2){
+      S.flyOff=true; S.pending={type:'fly',from:i}; S.phase='decide';
+      S.msg+=` Kamu memiliki ${ownAirs(S.turn).length} bandara, boleh terbang gratis ke bandara lain.`; render(); return;
+    } }
+  S.phase=S.again?'roll':'end';
+  if(S.again) S.msg+=' Dapat dobel, lempar lagi.';
+  else if(S.doubles>=3&&S.dice[0]===S.dice[1]) S.msg+=' Sudah tiga kali lempar, tidak ada lemparan tambahan.';
+  render();
+}
+function doBuy(){
+  if(S.pending?.type!=='buy')return;
+  const i=S.pending.i,t=T[i],p=cur(); if(p.cash<t.p)return;
+  pay(S.turn,-1,t.p); S.own[i]=S.turn;
+  log(`${p.name} membeli ${t.n} seharga ${fmt(t.p)}.`); setMsg(`${p.name} sekarang memiliki ${t.n}.`); settle();
+}
+function doSkip(){
+  if(S.pending?.type!=='buy')return;
+  const t=T[S.pending.i]; log(`${cur().name} tidak membeli ${t.n}.`); setMsg(`${t.n} tetap milik bank.`); settle();
+}
+async function doCard(){
+  if(S.phase!=='decide'||S.pending?.type!=='card')return;
+  const c=CARDS[S.pending.id],me=S.turn,p=cur();
+  S.pending=null; S.phase='busy'; S.flyOff=false; log(`${p.name} · Cari Wangsit: ${c.x}`); setMsg(c.x); render();
+  switch(c.a){
+    case 'to': await stepTo(c.v); return land();
+    case 'near': await stepTo(nearest(CAT[c.c],p.pos)); S.mod={x:2}; return land();
+    case 'back': p.pos=(p.pos+N-c.v)%N; renderTokens(); if(!RM)await sleep(240); return land();
+    case 'warp': p.pos=c.v; renderTokens(); if(!RM)await sleep(240); return land();
+    case 'jail': goJail(); log(`${p.name} masuk penjara.`); setMsg(`${p.name} masuk penjara. Giliran berakhir.`); break;
+    case 'cash':
+      if(c.v>0){ gain(me,c.v); setMsg(`${p.name} menerima ${fmt(c.v)}.`); }
+      else { pay(me,-1,-c.v); setMsg(`${p.name} membayar ${fmt(-c.v)}.`); }
+      break;
+    case 'repair':{
+      let h=0,ht=0; for(const k of ownedBy(me)){ const n=S.houses[k]||0; if(n===5)ht++; else h+=n; }
+      const amt=h*c.v[0]+ht*c.v[1]; pay(me,-1,amt);
+      setMsg(`${p.name} punya ${h} level bangunan dan ${ht} hotel, membayar ${fmt(amt)}.`); break;
+    }
+    case 'payeach':{
+      let n=0; S.players.forEach((q,j)=>{ if(j!==me&&!q.out){ pay(me,j,c.v); n++; } });
+      setMsg(`${p.name} membayar ${fmt(c.v*n)} ke ${n} pemain.`); break;
+    }
+    case 'collecteach':{
+      let n=0; S.players.forEach((q,j)=>{ if(j!==me&&!q.out){ pay(j,me,c.v); n++; } });
+      setMsg(`${p.name} menerima ${fmt(c.v*n)} dari ${n} pemain.`); break;
+    }
+  }
+  settle();
+}
+function nextPlayer(){
+  let n=S.turn;
+  do{ n=(n+1)%S.players.length; }while(P(n).out);
+  if(n<=S.turn)S.round++;
+  S.turn=n; S.doubles=0; S.again=false; S.phase='roll'; S.here=null; S.pending=null;
+  for(const pl of Object.keys(S.blk).map(Number)) if(S.blk[pl].by===n){ delete S.blk[pl]; log(`Listrik di wilayah ${T[pl].n} menyala lagi.`); }
+  const p=cur();
+  setMsg(p.cash<0?`${p.name} masih berutang ${fmt(-p.cash)}. Lunasi dulu sebelum melempar dadu.`:p.jail?`${p.name} di penjara. Coba dapat dobel atau bayar denda ${fmt(JAIL_FINE)}.`:`Giliran ${p.name}. Lempar dadu.`);
+}
+function endTurn(){ if(S.phase!=='end'||cur().cash<0)return; nextPlayer(); render(); }
+
+/* building & mortgage */
+const manageable=i=>S&&S.own[i]===S.turn&&S.phase!=='busy'&&S.phase!=='over';
+function groupOk(i){ const t=T[i],o=S.own[i]; return GROUPS[t.g].every(j=>S.own[j]===o&&!S.mort[j]); }
+function whyNoBuild(i){
+  const t=T[i]; if(t.t!=='prop')return 'x';
+  if(!GROUPS[t.g].every(j=>S.own[j]===S.own[i]))return 'Kumpulkan satu set warna lengkap untuk mulai membangun.';
+  if(!groupOk(i))return 'Tebus dulu semua properti dalam set ini.';
+  const h=S.houses[i]||0; if(h>=5)return 'Petak ini sudah punya hotel.';
+  if(h>Math.min(...GROUPS[t.g].map(j=>S.houses[j]||0)))return 'Bangun merata: naikkan dulu bangunan di petak lain dalam set ini.';
+  if(cur().cash<GRP[t.g].h)return 'Uang tunai tidak cukup untuk membangun.';
+  return '';
+}
+function canSell(i){ const t=T[i],h=S.houses[i]||0; return t.t==='prop'&&h>0&&h>=Math.max(...GROUPS[t.g].map(j=>S.houses[j]||0)); }
+function whyNoMort(i){ const t=T[i]; if(S.mort[i])return 'x'; if(hasPos(i))return 'Bongkar dulu pos bensin atau LPG eceran di petak ini.'; if(t.t==='prop'&&GROUPS[t.g].some(j=>S.houses[j]))return 'Bongkar semua bangunan di set ini sebelum menggadaikan.'; if(S.up[i])return `Bongkar dulu ${UT[t.k].up.toLowerCase()} sebelum menggadaikan.`; return ''; }
+function build(i){ if(!manageable(i)||whyNoBuild(i))return; const g=GRP[T[i].g]; pay(S.turn,-1,g.h); S.houses[i]=(S.houses[i]||0)+1; log(`${cur().name} membangun ${LV[S.houses[i]].toLowerCase()} di ${T[i].n} (${fmt(g.h)}).`); render(); }
+function sellHouse(i){ if(!manageable(i)||!canSell(i))return; const g=GRP[T[i].g]; S.houses[i]--; if(!S.houses[i])delete S.houses[i]; gain(S.turn,g.h/2); log(`${cur().name} menurunkan bangunan di ${T[i].n} (+${fmt(g.h/2)}).`); render(); }
+function upgrade(i){ const t=T[i]; if(!manageable(i)||t.t!=='util'||S.up[i]||S.mort[i]||cur().cash<t.uc)return; pay(S.turn,-1,t.uc); S.up[i]=true; log(`${cur().name} membangun ${UT[t.k].up.toLowerCase()} di ${t.n} (${fmt(t.uc)}). Sewanya kini 2×.`); render(); }
+function downgrade(i){ const t=T[i]; if(!manageable(i)||!S.up[i])return; delete S.up[i]; gain(S.turn,t.uc/2); log(`${cur().name} membongkar ${UT[t.k].up.toLowerCase()} di ${t.n} (+${fmt(t.uc/2)}).`); render(); }
+function posWhy(i,kind){
+  const t=T[i],o=S.own[i]; if(t.t!=='prop')return 'x';
+  if((kind==='b'?S.eb:S.el)[i]!=null)return 'x';
+  if(S.mort[i])return 'Tebus dulu properti ini.';
+  const ns=nearestSPBU(i), near=ns.some(x=>S.own[x]===o), names=ns.map(x=>T[x].n).join(' atau ');
+  if(kind==='b'&&!near&&S.own[KILANG]!==o)return `Pos bensin eceran butuh SPBU terdekat (${names}) atau Kilang Migas Balikpapan.`;
+  if(kind==='l'&&!near&&S.own[SPBE]!==o)return `Pos LPG eceran butuh ${names} atau SPBE Babulu.`;
+  if(!posFree(o)&&cur().cash<(kind==='b'?BENSIN.c:LPG.c))return 'Uang tunai tidak cukup.';
+  return '';
+}
+function buildPos(i,kind){
+  if(!manageable(i)||posWhy(i,kind))return;
+  const cost=posFree(S.turn)?0:(kind==='b'?BENSIN.c:LPG.c), nm=kind==='b'?'pos bensin eceran':'pos LPG eceran';
+  pay(S.turn,-1,cost); (kind==='b'?S.eb:S.el)[i]=cost;
+  log(`${cur().name} membangun ${nm} di ${T[i].n} (${cost?fmt(cost):'gratis'}).`); render();
+}
+function sellPos(i,kind){
+  const st=kind==='b'?S.eb:S.el; if(!manageable(i)||st[i]==null)return;
+  gain(S.turn,st[i]/2); log(`${cur().name} membongkar ${kind==='b'?'pos bensin':'pos LPG'} eceran di ${T[i].n} (+${fmt(st[i]/2)}).`); delete st[i]; render();
+}
+function mortgage(i){ if(!manageable(i)||whyNoMort(i))return; S.mort[i]=MORT_PASSES; gain(S.turn,T[i].p/2); log(`${cur().name} menggadaikan ${T[i].n} (+${fmt(T[i].p/2)}). Wajib ditebus sebelum ${MORT_PASSES} kali melewati Mulai.`); render(); }
+function unmortgage(i){ if(!manageable(i)||!S.mort[i]||cur().cash<unmortCost(i))return; pay(S.turn,-1,unmortCost(i)); delete S.mort[i]; log(`${cur().name} menebus ${T[i].n} (${fmt(unmortCost(i))}).`); render(); }
+
+function autoRaise(j){
+  const p=P(j);
+  while(p.cash<0){
+    const c=ownedBy(j).filter(k=>S.houses[k]); if(!c.length)break;
+    c.sort((a,b)=>(S.houses[b]-S.houses[a])||(T[b].p-T[a].p));
+    const k=c[0]; S.houses[k]--; if(!S.houses[k])delete S.houses[k]; p.cash+=GRP[T[k].g].h/2;
+  }
+  while(p.cash<0){
+    const k=ownedBy(j).find(hasPos); if(k==null)break;
+    for(const st of [S.eb,S.el]) if(st[k]!=null){ p.cash+=st[k]/2; delete st[k]; }
+  }
+  while(p.cash<0){
+    const u=ownedBy(j).filter(k=>S.up[k]); if(u.length){ delete S.up[u[0]]; p.cash+=T[u[0]].uc/2; continue; }
+    const c=ownedBy(j).filter(k=>!S.mort[k]&&!(T[k].g&&GROUPS[T[k].g].some(x=>S.houses[x]))).sort((a,b)=>T[a].p-T[b].p);
+    if(!c.length)break; S.mort[c[0]]=MORT_PASSES; p.cash+=T[c[0]].p/2;
+  }
+}
+function doAutoRaise(){
+  const p=cur(); if(p.cash>=0)return;
+  autoRaise(S.turn);
+  log(`${p.name} menjual bangunan dan menggadaikan properti untuk melunasi utang.`);
+  setMsg(p.cash>=0?`Utang lunas. Uang tunai sekarang ${fmt(p.cash)}.`:`Aset sudah habis, masih kurang ${fmt(-p.cash)}.`);
+  render();
+}
+function bankrupt(){
+  const me=S.turn,p=cur(); if(p.cash>=0||maxRaise(me)>=0)return;
+  autoRaise(me);
+  const c=p.debtTo, props=ownedBy(me);
+  if(c>=0&&!P(c).out){
+    const cr=P(c); cr.cash+=Math.max(0,p.cash); props.forEach(k=>S.own[k]=c);
+    log(`${p.name} bangkrut. Properti dan sisa hartanya diserahkan ke ${cr.name}.`);
+  } else {
+    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k];});
+    log(`${p.name} bangkrut. Semua propertinya kembali ke bank.`);
+  }
+  Object.assign(p,{cash:0,out:true,jail:false}); for(const pl of Object.keys(S.blk).map(Number)) if(S.blk[pl].by===me) delete S.blk[pl];
+  const alive=S.players.map((q,j)=>j).filter(j=>!P(j).out);
+  if(alive.length===1){ S.winner=alive[0]; S.phase='over'; S.pending=null; overClosed=false; setMsg(`${P(alive[0]).name} memenangkan permainan!`); log(`${P(alive[0]).name} menang!`); render(); return; }
+  nextPlayer(); render();
+}
+function finishGame(){
+  const alive=S.players.map((q,j)=>j).filter(j=>!P(j).out);
+  alive.sort((a,b)=>netWorth(b)-netWorth(a));
+  S.winner=alive[0]; S.phase='over'; S.pending=null; overClosed=false;
+  setMsg(`Permainan diakhiri. ${P(S.winner).name} paling kaya dengan aset ${fmt(netWorth(S.winner))}.`);
+  log(`Permainan diakhiri. ${P(S.winner).name} menang dengan aset ${fmt(netWorth(S.winner))}.`);
+  render();
+}
+
+/* ================= Board build ================= */
+function nmHTML(t){
+  const lines=t.s.split('|').map(esc).join('<br>');
+  return `<span class="nm"><span class="full">${lines}</span><span class="ab">${esc(t.ab||'')}</span></span>`;
+}
+function tileInner(t){
+  let band='',body=nmHTML(t);
+  switch(t.t){
+    case 'prop': band=`<span class="band" style="--g:${GRP[t.g].c};--gt:${GRP[t.g].t}"></span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
+    case 'util': band=`<span class="band u">${icon(UT[t.k].ic)}</span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
+    case 'wangsit': band=`<span class="band w"><span class="dia"><b>?</b></span></span>`; break;
+    case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">+${fk(GO)}</span>`; break;
+    case 'bridge': band=`<span class="band br">${icon('bridge')}</span>`; body+=`<span class="pr">→ Bpp</span>`; break;
+  }
+  return `<span class="own"></span><span class="body">${body}</span>${band}`;
+}
+function bridgeLink(){
+  const g=GEO.g[BRIDGE],[bx,by]=GEO.V.B,off=GEO.D/2+1.5,al=Math.sqrt((GEO.R+.7)**2-off**2);
+  const x1=g.x+g.nx*off,y1=g.y+g.ny*off,x2=bx+g.ux*al+g.nx*off,y2=by+g.uy*al+g.ny*off;
+  const ah=1.6,ax=-g.ux,ay=-g.uy,px=-ay,py=ax; // arrow points toward Balikpapan
+  const tip=[x2,y2],l=[x2-ax*ah+px*ah*.55,y2-ay*ah+py*ah*.55],r=[x2-ax*ah-px*ah*.55,y2-ay*ah-py*ah*.55];
+  const mx=(x1+x2)/2+g.nx*1.5,my=(y1+y2)/2+g.ny*1.5,ang=Math.atan2(ay,ax)*180/Math.PI;
+  return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${(x2-ax*ah*.6).toFixed(2)}" y2="${(y2-ay*ah*.6).toFixed(2)}" stroke="var(--road)" stroke-width=".55" stroke-dasharray="1.8 1.2" stroke-linecap="round"/>
+    <circle cx="${x1.toFixed(2)}" cy="${y1.toFixed(2)}" r=".75" fill="var(--road)"/>
+    <polygon points="${[tip,l,r].map(q=>q.map(v=>v.toFixed(2)).join(',')).join(' ')}" fill="var(--road)"/>
+    <text x="${mx.toFixed(2)}" y="${my.toFixed(2)}" transform="rotate(${ang.toFixed(1)} ${mx.toFixed(2)} ${my.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" font-family="Overpass, system-ui, sans-serif" font-weight="700" font-size="1.25" fill="#D9E8DF">Jembatan Pulau Balang → kembali ke Kota Balikpapan</text>`;
+}
+function buildBoard(){
+  const st=$('#stage'), H=GEO.H;
+  st.style.aspectRatio=`100 / ${H.toFixed(3)}`;
+  // base: outer triangle + inner dashed road line
+  const tri=f=>{ const {cx,cy}=GEO; return Object.values(GEO.V).map(([x,y])=>`${(cx+(x-cx)*f).toFixed(2)},${(cy+(y-cy)*f).toFixed(2)}`).join(' '); };
+  const fo=(GEO.rin+GEO.D/2+1.1)/GEO.rin, fi=(GEO.rin-GEO.D/2-1.5)/GEO.rin, fi2=(GEO.rin-GEO.D/2-.4)/GEO.rin;
+  st.innerHTML=`<svg class="base" viewBox="0 0 100 ${H.toFixed(3)}" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="${tri(fo)}" fill="var(--board)" stroke="var(--board)" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="${tri(fi2)}" fill="var(--board-2)" stroke="var(--board-2)" stroke-width="1" stroke-linejoin="round"/>
+    ${bridgeLink()}
+  </svg>`;
+  T.forEach((t,i)=>{
+    const g=GEO.g[i]; const el=document.createElement('button');
+    el.type='button'; el.dataset.i=i; el.style.left=g.x+'%'; el.style.top=(g.y/H*100)+'%';
+    if(g.corner){
+      el.className='corner'; el.style.width=(GEO.R*2)+'cqw';
+      el.innerHTML=`<span class="c1">${esc(t.c1)}</span><span class="c2">${esc(t.c2)}</span><span class="cb"></span><span class="c3">${fk(t.p)}</span>`;
+    } else {
+      el.className=`tile k-${t.t} ${g.band==='start'?'bs':'be'}`;
+      el.style.width=GEO.D+'cqw'; el.style.height=(g.w-.32)+'cqw'; el.style.setProperty('--rot',g.rot+'deg');
+      el.innerHTML=tileInner(t);
+    }
+    el.addEventListener('click',()=>{ detail=detail===i?null:i; renderDetail(); updateTiles(); });
+    st.appendChild(el);
+  });
+  const at=(el,[x,y])=>{ el.style.left=x+'%'; el.style.top=(y/H*100)+'%'; st.appendChild(el); return el; };
+  const mk=(tag,cls,html)=>{ const e=document.createElement(tag); e.className=cls; e.innerHTML=html; return e; };
+  at(mk('div','ttl','<span class="eb">Apakah Anda siap bersaing di</span><h1><span class="tc">“Tri-City”</span><span class="sh">Superhub Ekonomi?</span></h1>'),GEO.ttl);
+  const dk=at(mk('button','slot deck',`<span class="sl">Cari Wangsit</span><span class="dia"><b>?</b></span><span class="ss">${CARDS.length} kartu</span>`),GEO.deck);
+  dk.type='button'; dk.id='deckSlot'; dk.dataset.act='showDetail'; dk.dataset.arg='-2'; dk.setAttribute('aria-label','Tumpukan kartu Cari Wangsit');
+  const jl=at(mk('button','slot jail',`<span class="sl">Penjara</span><span class="ss">Denda ${fk(JAIL_FINE)}</span>`),GEO.jail);
+  jl.type='button'; jl.id='jailSlot'; jl.dataset.act='showDetail'; jl.dataset.arg='-1'; jl.setAttribute('aria-label','Penjara');
+  const dc=at(mk('div','dice','<span class="die" id="d0"></span><span class="die" id="d1"></span>'),GEO.dice); dc.id='dice';
+  for(const k of [0,1]) $('#d'+k).innerHTML='<i></i>'.repeat(9);
+  const tl=document.createElement('div'); tl.id='toks'; st.appendChild(tl);
+}
+const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+function setDie(k,v){ const d=$('#d'+k); [...d.children].forEach((pip,ix)=>pip.classList.toggle('on',FACES[v].includes(ix))); d.setAttribute('aria-label','Dadu '+v); }
+
+/* ================= Rendering ================= */
+function updateTiles(){
+  document.querySelectorAll('#stage [data-i]').forEach(el=>{
+    const i=+el.dataset.i,t=T[i];
+    const here=S&&S.here===i&&S.phase!=='over';
+    el.classList.toggle('here',here); if(here)el.style.setProperty('--hl',cur().color);
+    el.classList.toggle('sel',detail===i);
+    let lab=t.t==='wangsit'?`Cari Wangsit, ${t.loc}`:t.n;
+    if(t.p&&S){
+      const o=S.own[i];
+      if(o!=null)el.style.setProperty('--oc',P(o).color); else el.style.removeProperty('--oc');
+      el.classList.toggle('mort',!!S.mort[i]);
+      el.classList.toggle('blk',t.t==='prop'&&blackout(i)!=null);
+      const band=el.querySelector('.band,.cb');
+      if(t.t==='prop'){
+        const h=S.houses[i]||0;
+        band.innerHTML=(h===5?'<span class="htl">H</span>':'<span class="pip"></span>'.repeat(h))+(S.eb[i]!=null?'<span class="pb"></span>':'')+(S.el[i]!=null?'<span class="plg"></span>':'');
+      } else band.innerHTML=icon(UT[t.k].ic)+(S.up[i]?'<span class="upd"></span>':'');
+      lab+=`, ${o!=null?'milik '+P(o).name:'harga '+fk(t.p)}`;
+    }
+    el.setAttribute('aria-label',lab);
+  });
+  const dk=$('#deckSlot'),jl=$('#jailSlot');
+  if(dk){ dk.classList.toggle('on',!!(S&&S.pending?.type==='card')); dk.classList.toggle('sel',detail===-2); }
+  if(jl) jl.classList.toggle('sel',detail===-1);
+}
+function renderTokens(){
+  const box=$('#toks'); if(!box||!S)return;
+  const byPos={};
+  S.players.forEach((p,j)=>{ if(!p.out)(byPos[p.jail?'J':p.pos]??=[]).push(j); });
+  if(box.children.length!==S.players.length){
+    box.innerHTML=S.players.map((p,j)=>`<span class="tok" data-j="${j}" style="--pc:${p.color}">${init(p)}</span>`).join('');
+  }
+  S.players.forEach((p,j)=>{
+    const el=box.querySelector(`[data-j="${j}"]`); el.hidden=p.out; if(p.out)return;
+    const grp=byPos[p.jail?'J':p.pos], k=grp.indexOf(j), m=grp.length;
+    let dx=0,dy=0;
+    if(p.jail){
+      const [jx,jy]=GEO.jail, row=m>3?(k<3?-1.4:1.4):0, n=m>3?(k<3?3:m-3):m, c=k<3?k:k-3;
+      dx=(c-(n-1)/2)*3; dy=row+.4;
+      el.style.left=jx+'%'; el.style.top=(jy/GEO.H*100)+'%';
+      el.style.setProperty('--dx',dx.toFixed(2)); el.style.setProperty('--dy',dy.toFixed(2));
+      el.classList.toggle('now',j===S.turn&&S.phase!=='over'); return;
+    }
+    const g=GEO.g[p.pos];
+    if(g.corner){ if(m>1){ const a=-Math.PI/2+k*2*Math.PI/m; dx=Math.cos(a)*4.6; dy=Math.sin(a)*4.6; } else dy=4.8; }
+    else{
+      // spread along the inward axis then across the tile
+      const along=(k%2?1:-1)*(m>1?g.w*0.22:0), deep=(Math.floor(k/2)-(Math.ceil(m/2)-1)/2)*2.2;
+      dx=g.ux*along+g.nx*deep; dy=g.uy*along+g.ny*deep;
+    }
+    el.style.left=g.x+'%'; el.style.top=(g.y/GEO.H*100)+'%';
+    el.style.setProperty('--dx',dx.toFixed(2)); el.style.setProperty('--dy',dy.toFixed(2));
+    el.classList.toggle('now',j===S.turn&&S.phase!=='over');
+  });
+}
+function renderCenter(){ setDie(0,S.dice[0]); setDie(1,S.dice[1]); }
+const B=(label,fn,o={})=>`<button class="btn ${o.cls||''}" type="button" data-act="${fn}" ${o.arg!=null?`data-arg="${o.arg}"`:''} ${o.dis?'disabled':''} ${o.id?`id="${o.id}"`:''}>${label}</button>`;
+function renderTurn(){
+  const p=cur(), el=$('#turn');
+  let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
+  if(S.phase==='decide'&&S.pending?.type==='card'){
+    const t=T[S.pending.i];
+    h+=`<div class="wcard"><span class="bigdia"><b>?</b></span><div><div class="lbl">Cari Wangsit · ${esc(t.loc)}</div><p>${esc(CARDS[S.pending.id].x)}</p></div></div>`;
+  } else h+=`<p class="tmsg">${esc(S.msg)}</p>`;
+  const due=ownedBy(S.turn).filter(k=>S.mort[k]===1);
+  if(due.length&&S.phase!=='over')h+=`<p class="hint warn">Tebus sebelum melewati Mulai lagi, atau disita bank: ${due.map(k=>esc(T[k].n)).join(', ')}.</p>`;
+  let b='';
+  if(S.phase==='over'){ b=B('Permainan baru','openSetup',{cls:'pri'})+(overClosed?B('Lihat hasil','showOver'):''); }
+  else if(p.cash<0&&(S.phase==='roll'||S.phase==='end')){
+    const can=maxRaise(S.turn)>=0;
+    h+=`<p class="hint">Utang ${fmt(-p.cash)}. Jual bangunan atau gadaikan properti lewat panel petak, atau pakai tombol di bawah.</p>`;
+    b=can?B('Jual & gadai otomatis','doAutoRaise',{cls:'pri'}):B('Nyatakan bangkrut','bankrupt',{cls:'dan'});
+  }
+  else if(S.phase==='roll'&&p.jail){
+    b=B('Coba dapat dobel','doRoll',{cls:'pri',id:'bRoll'})+B(`Bayar denda ${fk(JAIL_FINE)}`,'payFine',{dis:p.cash<JAIL_FINE});
+    h+=`<p class="hint">Percobaan ${p.jt+1} dari 3. Jika percobaan ketiga gagal, denda dibayar otomatis. Setelah bebas, langkah dihitung dari Mulai.</p>`;
+  }
+  else if(S.phase==='roll') b=B(S.doubles?'Lempar lagi':'Lempar dadu','doRoll',{cls:'pri',id:'bRoll'});
+  else if(S.phase==='busy') b=B('Bergerak…','noop',{dis:true});
+  else if(S.phase==='decide'&&S.pending?.type==='buy'){
+    const t=T[S.pending.i], ok=p.cash>=t.p;
+    b=B(`Beli ${fmt(t.p)}`,'doBuy',{cls:'pri',dis:!ok})+B('Lewati','doSkip');
+    if(!ok)h+=`<p class="hint">Uang tunai kurang ${fmt(t.p-p.cash)}. Gadaikan properti dulu jika ingin membeli.</p>`;
+  }
+  else if(S.phase==='decide'&&S.pending?.type==='card') b=B('Jalankan','doCard',{cls:'pri'});
+  else if(S.phase==='decide'&&S.pending?.type==='bridge') b=B('Kembali ke Kota Balikpapan','bridgeGo',{cls:'pri'})+B('Tetap di jembatan','bridgeStay');
+  else if(S.phase==='decide'&&S.pending?.type==='fly') b=AIRS.filter(x=>x!==p.pos).map(x=>B(`Terbang ke ${T[x].n}${S.own[x]!=null&&S.own[x]!==S.turn?' (milik '+esc(P(S.own[x]).name)+')':''}`,'doFly',{arg:x,cls:'pri'})).join('')+B('Tetap di sini','doNoFly');
+  else if(S.phase==='end') b=B('Akhiri giliran','endTurn',{cls:'pri'});
+  h+=`<div class="btns">${b}</div>`;
+  const mine=PLANTS.filter(x=>S.own[x]===S.turn&&!S.mort[x]);
+  if(mine.length&&S.phase!=='over'&&S.phase!=='busy'){
+    h+=`<div class="sab"><p class="lbl2">Sabotase pemadaman listrik</p><div class="btns">${mine.map(x=>{
+      const n=AREA[x].filter(i=>S.own[i]!=null&&S.own[i]!==S.turn).length;
+      return S.blk[x]?B(`${esc(shortN(x))}: padam`,'noop',{cls:'sm',dis:true}):B(`Padamkan ${esc(shortN(x))} (${n} properti lawan)`,'sabotage',{arg:x,cls:'sm'});}).join('')}</div></div>`;
+  }
+  el.innerHTML=h;
+}
+function renderPlayers(){
+  $('#players').innerHTML=S.players.map((p,j)=>{
+    const props=ownedBy(j).map(k=>{ const t=T[k]; const u=t.t==='util';
+      return `<button class="pc ${u?'u':''} ${S.mort[k]?'m':''}" type="button" data-act="showDetail" data-arg="${k}" style="${u?'':`--g:${GRP[t.g].c}`}" title="${esc(t.n)}" aria-label="${esc(t.n)}">${u?icon(UT[t.k].ic):''}</button>`;}).join('');
+    return `<div class="pl ${j===S.turn&&S.phase!=='over'?'on':''} ${p.out?'out':''}">
+      <span class="chip" style="--pc:${p.color}">${init(p)}</span>
+      <div style="min-width:0"><div class="pn">${esc(p.name)}${p.out?' · bangkrut':''}</div><div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div></div>
+      <span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span>
+      ${props?`<div class="props">${props}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function renderLog(){
+  $('#log').innerHTML=S.log.slice(0,60).map(l=>`<li><span class="r">R${l.r}</span>${esc(l.t)}</li>`).join('');
+}
+function renderDetail(){
+  const el=$('#detail');
+  if(detail==null||!S){ el.hidden=true; return; }
+  if(detail<0){
+    const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
+    const inJ=S.players.filter(p=>p.jail&&!p.out).map(p=>esc(p.name));
+    const [ttl,sub,sw,body]=detail===-1
+      ?['Penjara','Di luar jalur permainan','#1A1E1C',`<p class="dt-note">Pemain masuk penjara lewat kartu Cari Wangsit. Untuk keluar, lempar dadu dobel (paling banyak 3 percobaan, satu per giliran) atau bayar denda ${fmt(JAIL_FINE)} sebelum melempar. Jika percobaan ketiga gagal, denda dibayar otomatis. Setelah bebas, langkah dihitung dari Mulai tanpa gaji.</p><p class="dt-note">Selama di penjara, pemain tetap menerima sewa dari propertinya.</p><p class="dt-note">${inJ.length?'Sedang di penjara: <b>'+inJ.join(', ')+'</b>.':'Penjara sedang kosong.'}</p>`]
+      :['Cari Wangsit','Tumpukan kartu','var(--warn)',`<p class="dt-note">${CARDS.length} kartu berisi hadiah, denda, perintah pindah petak, dan ${CARDS.filter(c=>c.a==='jail').length} kartu masuk penjara. Kartu diambil saat berhenti di petak Cari Wangsit.</p>`];
+    el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${ttl}</h3><div class="dt-sub">${sub}</div></div>${close}</div>${body}`;
+    el.hidden=false; return;
+  }
+  const i=detail,t=T[i],o=S.own[i],mine=manageable(i);
+  let sw='var(--uband)',sub='',body='';
+  const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
+  if(t.t==='prop'){
+    const g=GRP[t.g]; sw=g.c; const h=S.houses[i]||0, full=GROUPS[t.g].every(j=>S.own[j]===o&&o!=null);
+    sub=t.g===9?'Kota · set Tiga Kota, properti termahal':`Properti · set ${GROUPS[t.g].length} petak: ${GROUPS[t.g].map(j=>T[j].n).join(', ')}`;
+    const rows=[[`Sewa dasar`,t.r[0],o!=null&&!h&&!full],[`Satu set lengkap, tanpa bangunan`,t.r[0]*2,o!=null&&!h&&full]];
+    for(let k=1;k<=5;k++)rows.push([`${k<5?k+' · ':''}${LV[k]}`,t.r[k],h===k]);
+    rows.push([`<span class="dot" style="background:#E53935"></span>Tambahan pos bensin eceran`,BENSIN.r,S.eb[i]!=null,'+']);
+    rows.push([`<span class="dot" style="background:#7CB342"></span>Tambahan pos LPG eceran`,LPG.r,S.el[i]!=null,'+']);
+    body+=`<table class="rt">${rows.map(r=>`<tr class="${r[2]?'cur':''}"><td>${r[0]}</td><td>${r[3]||''}${fk(r[1])}</td></tr>`).join('')}</table>`;
+    const nc=nearCity(i), ns=nearestSPBU(i), bo=blackout(i);
+    body+=`<p class="dt-note">Listrik dari ${nearestPlants(i).map(x=>T[x].n).join(' atau ')}.${bo!=null?` <b>Sedang padam</b> karena sabotase ${esc(P(S.blk[bo].by).name)}: sewa jadi setengah.`:''}</p>`;
+    body+=`<p class="dt-note">SPBU terdekat: ${ns.map(x=>T[x].n).join(' atau ')}. Pos bensin eceran ${fmt(BENSIN.c)} (pemilik Kilang Migas Balikpapan bebas memilih lokasi), pos LPG eceran ${fmt(LPG.c)} (pemilik SPBE Babulu bebas memilih lokasi). Gratis hanya jika memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</p>`;
+    if(t.g!==9)body+=`<p class="dt-note">${nc.d} petak dari ${T[nc.c].n}. Makin dekat ke kota, makin mahal.</p>`;
+    body+=`<p class="dt-note">Harga ${fmt(t.p)} · bangunan ${fmt(g.h)} per level · nilai gadai ${fmt(t.p/2)}, tebus ${fmt(unmortCost(i))} paling lambat sebelum ${MORT_PASSES} kali melewati Mulai.</p>`;
+  } else if(t.t==='util'){
+    const u=UT[t.k]; sub=`Utilitas · ${u.l}`;
+    const mult=o!=null?utilMult(o):4;
+    body+=`<table class="rt"><tr><td>Tarif</td><td>${fk(u.f)}</td></tr><tr class="${o!=null?'cur':''}"><td>Pengali ${o!=null?'pemilik saat ini':'jika punya 1 utilitas'}</td><td>×${mult}</td></tr><tr><td>Contoh dadu 7${S.up[i]?', dengan '+u.up.toLowerCase():''}</td><td>${fk(7*u.f*mult*(S.up[i]?2:1))}</td></tr></table>`;
+    if(t.k==='air')body+=`<p class="dt-note">Pemilik 2 bandara atau lebih yang berhenti di bandara mana pun boleh terbang gratis ke bandara lain.</p>`;
+    if(t.k==='port')body+=`<p class="dt-note">Pemilik pelabuhan yang berhenti di Jembatan Pulau Balang boleh memilih tetap di jembatan, tidak harus kembali ke Kota Balikpapan.</p>`;
+    if(PLANTS.includes(i)){
+      const bl=S.blk[i];
+      body+=`<p class="dt-note">Wilayah layanan (${AREA[i].length} properti): ${AREA[i].map(x=>T[x].n).join(', ')}. Pemiliknya boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah ini jadi setengah sampai giliran si pemilik berikutnya.${bl?` <b>Sedang padam</b> oleh ${esc(P(bl.by).name)}.`:''}</p>`;
+    }
+    body+=`<p class="dt-note">Sewa = angka dadu × tarif × pengali. Pengali ×4 untuk 1 utilitas dan naik 2 untuk setiap utilitas tambahan milik orang yang sama, paling tinggi ×20. ${u.up} (${fmt(t.uc)}) melipatgandakan sewa petak ini. Harga ${fmt(t.p)} · nilai gadai ${fmt(t.p/2)}.</p>`;
+  }
+  else if(t.t==='wangsit'){ sw='var(--warn)'; sub=`Kartu · ${t.loc}`; body=`<p class="dt-note">Ambil satu kartu Cari Wangsit. Isinya hadiah, denda, perintah pindah petak, atau perintah masuk penjara.</p>`; }
+  else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti kembali ke Kota Balikpapan tanpa melewati Mulai, jadi tidak ada gaji. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam boleh memilih tetap di jembatan. Setibanya di Balikpapan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
+  else if(t.t==='go'){ sw='var(--sign)'; sub='Titik awal'; body=`<p class="dt-note">Setiap melewati atau berhenti di Mulai, terima ${fmt(GO)}.</p>`; }
+  let own='';
+  if(t.p) own=`<p class="dt-note">${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
+  let acts='';
+  if(mine){
+    const a=[], cash=cur().cash;
+    if(t.t==='prop'){
+      const why=whyNoBuild(i), h=S.houses[i]||0;
+      if(h<5)a.push(B(`Bangun ${LV[h+1].toLowerCase()} (${fk(GRP[t.g].h)})`,'build',{arg:i,dis:!!why}));
+      if(h)a.push(B(`Turunkan (+${fk(GRP[t.g].h/2)})`,'sellHouse',{arg:i,dis:!canSell(i)}));
+      if(why&&why!=='x'&&h<5)acts+=`<p class="hint">${why}</p>`;
+      for(const [kd,nm,st,cst] of [['b','pos bensin eceran',S.eb,BENSIN.c],['l','pos LPG eceran',S.el,LPG.c]]){
+        if(st[i]!=null){ a.push(B(`Bongkar ${nm} (+${fk(st[i]/2)})`,kd==='b'?'sellB':'sellL',{arg:i})); continue; }
+        const w=posWhy(i,kd); a.push(B(`Bangun ${nm} (${posFree(S.turn)?'gratis':fk(cst)})`,kd==='b'?'buildB':'buildL',{arg:i,dis:!!w}));
+        if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`;
+      }
+    }
+    if(PLANTS.includes(i)&&!S.mort[i]&&!S.blk[i])a.push(B('Sabotase pemadaman','sabotage',{arg:i}));
+    if(t.t==='util'&&!S.mort[i]){
+      if(!S.up[i])a.push(B(`${UT[t.k].up} (${fk(t.uc)})`,'upgrade',{arg:i,dis:cash<t.uc}));
+      else a.push(B(`Bongkar ${UT[t.k].up.toLowerCase()} (+${fk(t.uc/2)})`,'downgrade',{arg:i}));
+    }
+    if(S.mort[i])a.push(B(`Tebus (${fk(unmortCost(i))})`,'unmortgage',{arg:i,dis:cash<unmortCost(i)}));
+    else{ const w=whyNoMort(i); a.push(B(`Gadaikan (+${fk(t.p/2)})`,'mortgage',{arg:i,dis:!!w})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
+    acts=`<div class="btns dt-acts">${a.join('')}</div>`+acts;
+  }
+  el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${esc(t.n)}</h3><div class="dt-sub">${esc(sub)}</div></div>${close}</div>${body}${own}${acts}`;
+  el.hidden=false;
+}
+function renderOver(){
+  const ov=$('#over');
+  if(S.phase!=='over'||overClosed){ ov.hidden=true; return; }
+  const w=P(S.winner);
+  $('#overT').textContent=`${w.name} menang!`;
+  $('#overL').textContent=S.msg;
+  const order=S.players.map((p,j)=>j).sort((a,b)=>(P(a).out-P(b).out)||(netWorth(b)-netWorth(a)));
+  $('#rank').innerHTML=order.map(j=>{const p=P(j);return `<li><span class="chip" style="--pc:${p.color}">${init(p)}</span><b>${esc(p.name)}</b>${p.out?' <span class="pnw">bangkrut</span>':''}<span class="money">${fmt(p.out?0:netWorth(j))}</span></li>`;}).join('');
+  ov.hidden=false;
+}
+function render(){
+  if(!S)return;
+  updateTiles(); renderTokens(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
+  $('#bFinish').disabled=S.phase==='over'||S.phase==='busy';
+  if(S.phase!=='busy')save();
+}
+
+/* ================= Persistence & setup ================= */
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
+function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v===4&&Array.isArray(s.players))return s; }catch(e){} return null; }
+function syncNames(){
+  const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value);
+  box.innerHTML=Array.from({length:setupCount},(_,i)=>`<label><span class="chip" style="--pc:${PCOL[i]}">${i+1}</span><input id="name${i}" maxlength="16" value="${esc(prev[i]??DEFAULT_NAMES[i])}" aria-label="Nama pemain ${i+1}"></label>`).join('');
+  $('#seg').innerHTML=[2,3,4,5,6].map(n=>`<button type="button" data-n="${n}" aria-pressed="${n===setupCount}">${n}</button>`).join('');
+}
+function openSetup(){ $('#over').hidden=true; $('#bCancel').hidden=!S||S.phase==='over'; $('#setup').hidden=false; syncNames(); }
+function start(){
+  const names=[...$('#names').querySelectorAll('input')].map((x,i)=>x.value.trim()||DEFAULT_NAMES[i]);
+  newGame(names); $('#setup').hidden=true; render();
+}
+function setArm(id,fn){
+  const b=$(id);
+  if(arm===id){ clearTimeout(armTimer); arm=null; b.classList.remove('armed'); b.textContent=b.dataset.l; fn(); return; }
+  if(arm){ const o=$(arm); o.classList.remove('armed'); o.textContent=o.dataset.l; }
+  arm=id; b.dataset.l=b.textContent; b.textContent='Yakin? Klik lagi'; b.classList.add('armed');
+  clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
+}
+
+const ACTS={doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+  noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
+  showDetail(i){ detail=i; renderDetail(); updateTiles(); }};
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]'); if(!b||b.disabled)return;
+  const f=ACTS[b.dataset.act]; if(!f)return;
+  const a=b.dataset.arg; f(a!=null?+a:undefined);
+});
+$('#seg').addEventListener('click',e=>{ const b=e.target.closest('[data-n]'); if(!b)return; setupCount=+b.dataset.n; syncNames(); });
+$('#bStart').addEventListener('click',start);
+$('#bCancel').addEventListener('click',()=>{ $('#setup').hidden=true; });
+$('#bNew').addEventListener('click',()=>{ if(!S||S.phase==='over')openSetup(); else setArm('#bNew',openSetup); });
+$('#bFinish').addEventListener('click',()=>{ if(S&&S.phase!=='over'&&S.phase!=='busy')setArm('#bFinish',finishGame); });
+$('#bAgain').addEventListener('click',openSetup);
+$('#bLook').addEventListener('click',()=>{ overClosed=true; render(); });
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&detail!=null){ detail=null; renderDetail(); updateTiles(); }
+});
+
+function boot(data){
+  buildBoard();
+  const saved=(data?.S?.v===4?data.S:null)||loadSaved();
+  if(saved){
+    S=saved; for(const k in S.mort) if(S.mort[k]===true) S.mort[k]=MORT_PASSES; S.blk??={}; S.flyOff??=false; if(S.phase==='busy'){ S.phase=S.pending?'decide':'end'; }
+    detail=data?.detail??null; render();
+  } else {
+    S=null; setDie(0,3); setDie(1,4);
+    // show a preview of the board with sample tokens behind the setup dialog
+    openSetup();
+  }
+}
+window.claude?.hot?.snapshot?.(()=>({S,detail}));
+window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data ?? {});
+</script>
+
+</body></html>
