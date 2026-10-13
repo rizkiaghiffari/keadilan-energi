@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="id"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Apakah Anda Siap Bersaing di "Tri-City" Superhub Ekonomi?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,6 +213,25 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .lvl[aria-pressed="true"]{border-color:var(--sign);box-shadow:inset 0 0 0 1px var(--sign);background:color-mix(in oklab,var(--tile),var(--sign) 9%)}
 .lvl:focus-visible,.seg button:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
 .tag{font:700 11px/1 var(--font-body);background:var(--uband);color:var(--muted);border-radius:4px;padding:4px 6px;white-space:nowrap;flex:none}
+.room{display:flex;align-items:baseline;gap:12px;margin:2px 0 10px}
+.room b{font:600 40px/1 var(--font-mono);letter-spacing:.14em;color:var(--sign)}
+.share{display:flex;gap:8px;margin-bottom:14px;min-width:0}
+.share input,#oCodeIn{min-width:0;border:1px solid var(--hair);background:var(--tile);color:var(--ink);border-radius:7px;padding:8px 10px;font:inherit}
+.share input{flex:1;font-size:13px}
+#oCodeIn{display:block;width:8.5ch;font:600 26px/1 var(--font-mono);letter-spacing:.3em;text-align:center;margin-bottom:14px}
+#oCodeIn:focus-visible,.share input:focus-visible{outline:2px solid var(--sign);outline-offset:1px}
+.lobby{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:6px}
+.lobby li{display:flex;gap:8px;align-items:center;font-weight:700;min-width:0}
+.lobby li span{font-weight:400;color:var(--muted);font-size:13px}
+.netmsg{margin:0 0 14px;font-size:14px;line-height:1.4}
+.netmsg.err{color:var(--danger);font-weight:700}
+.netmsg:empty{display:none}
+.netbar{display:flex;flex-direction:column;gap:6px;padding-block:10px}
+.nb{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:14px}
+.nb b{font-weight:800}
+.nb span{color:var(--muted);font-size:13px}
+.ndot{width:9px;height:9px;border-radius:50%;background:#2E9E5B;flex:none}
+.ndot.bad{background:var(--danger)}
 .who .nmx .sub{display:block;font:600 12px/1.3 var(--font-body);color:var(--muted)}
 .think{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
 .think i{width:8px;height:8px;border-radius:50%;background:var(--sign);animation:blink 1s ease-in-out infinite}
@@ -241,6 +260,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 <div class="app">
   <div class="board"><div class="stage" id="stage"></div></div>
   <aside class="side">
+    <section class="card netbar" id="netbar" hidden></section>
     <section class="card turn" id="turn" aria-live="polite"></section>
     <section class="card" id="detail" hidden></section>
     <section class="card"><h2>Pemain</h2><div class="plist" id="players"></div></section>
@@ -255,13 +275,32 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 <div class="ov" id="setup" hidden>
   <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="setupT">
     <h2 id="setupT">Apakah Anda siap bersaing di “Tri-City” Superhub Ekonomi?</h2>
-    <p class="lead">Balikpapan, Ibu Kota Nusantara, dan Samarinda di tiga sudut papan. Main bersama teman di satu perangkat, atau lawan komputer.</p>
+    <p class="lead">Balikpapan, Ibu Kota Nusantara, dan Samarinda di tiga sudut papan. Main bersama di satu perangkat, online dari beberapa gadget, atau lawan komputer.</p>
     <p class="lbl2">Mode</p>
     <div class="seg wide" id="mode"></div>
     <div id="localBox"><p class="lbl2">Jumlah pemain</p><div class="seg" id="seg"></div></div>
     <div id="cpuBox" hidden>
       <p class="lbl2">Jumlah lawan komputer</p><div class="seg" id="cseg"></div>
       <p class="lbl2">Level komputer</p><div class="lvls" id="lvls"></div>
+    </div>
+    <div id="onBox" hidden>
+      <div class="seg wide" id="omode"></div>
+      <div id="oHost">
+        <p class="netmsg" id="oHostIdle">Buat room, lalu bagikan kode atau link ke teman. Teman membuka situs ini di gadgetnya, memilih Online, lalu Gabung room.</p>
+        <div id="oHostOn" hidden>
+          <div class="room"><span class="lbl2">Kode room</span><b id="oCode">····</b></div>
+          <div class="share"><input id="oLink" readonly aria-label="Link undangan"><button class="btn sm" type="button" id="bCopy">Salin link</button></div>
+          <p class="lbl2">Tambah lawan komputer (opsional)</p><div class="seg" id="ocseg"></div>
+          <div class="seg wide" id="olvl"></div>
+        </div>
+      </div>
+      <div id="oJoin" hidden>
+        <p class="lbl2">Kode room</p>
+        <input id="oCodeIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="Kode room">
+      </div>
+      <p class="lbl2" id="oLobbyLbl" hidden>Pemain di room</p>
+      <ul class="lobby" id="oLobby"></ul>
+      <p class="netmsg" id="oMsg" role="status"></p>
     </div>
     <p class="lbl2" id="namesLbl">Nama pemain</p>
     <div class="names" id="names"></div>
@@ -281,7 +320,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
       <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
       <li>Dobel boleh lempar lagi, paling banyak tiga kali lemparan berturut-turut.</li>
     </ul>
-    <div class="btns"><button class="btn pri" id="bStart" type="button">Mulai main</button><button class="btn" id="bCancel" type="button" hidden>Batal</button></div>
+    <div class="btns"><button class="btn pri" id="bStart" type="button">Mulai main</button><button class="btn" id="bLeave" type="button" hidden>Tutup room</button><button class="btn" id="bCancel" type="button" hidden>Batal</button></div>
   </div>
 </div>
 
@@ -294,6 +333,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
   </div>
 </div>
 
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
 /* ================= Data ================= */
 const GO=2000, START=15000, KEY='tricity-superhub-v4';
@@ -531,6 +571,7 @@ async function stepTo(target){
   renderTokens();
 }
 async function animDice(d){
+  if(NET.role==='host')broadcast({t:'dice'});
   const box=$('#dice');
   if(!RM&&box){ box.classList.add('rolling'); for(let k=0;k<9;k++){ setDie(0,rnd6()); setDie(1,rnd6()); await sleep(55); } box.classList.remove('rolling'); }
   setDie(0,d[0]); setDie(1,d[1]);
@@ -893,12 +934,13 @@ function renderTokens(){
     el.style.setProperty('--dx',dx.toFixed(2)); el.style.setProperty('--dy',dy.toFixed(2));
     el.classList.toggle('now',j===S.turn&&S.phase!=='over');
   });
+  if(NET.role==='host')queueSync();
 }
 function renderCenter(){ setDie(0,S.dice[0]); setDie(1,S.dice[1]); }
 const B=(label,fn,o={})=>`<button class="btn ${o.cls||''}" type="button" data-act="${fn}" ${o.arg!=null?`data-arg="${o.arg}"`:''} ${o.dis?'disabled':''} ${o.id?`id="${o.id}"`:''}>${label}</button>`;
 function renderTurn(){
   const p=cur(), el=$('#turn');
-  let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:''}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
+  let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:S.net&&p.dev?`<span class="sub">${p.dev===NET.token?'Kamu':'Gadget lain'+(isOnDev(p.dev)?'':' · terputus')}</span>`:''}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
   if(S.phase==='decide'&&S.pending?.type==='card'){
     const t=T[S.pending.i];
     h+=`<div class="wcard"><span class="bigdia"><b>?</b></span><div><div class="lbl">Cari Wangsit · ${esc(t.loc)}</div><p>${esc(CARDS[S.pending.id].x)}</p></div></div>`;
@@ -906,7 +948,7 @@ function renderTurn(){
   const due=ownedBy(S.turn).filter(k=>S.mort[k]===1);
   if(due.length&&S.phase!=='over')h+=`<p class="hint warn">Tebus sebelum melewati Mulai lagi, atau disita bank: ${due.map(k=>esc(T[k].n)).join(', ')}.</p>`;
   let b='';
-  if(S.phase==='over'){ b=B('Permainan baru','openSetup',{cls:'pri'})+(overClosed?B('Lihat hasil','showOver'):''); }
+  if(S.phase==='over'){ b=(NET.role==='guest'?'':B('Permainan baru','openSetup',{cls:'pri'}))+(overClosed?B('Lihat hasil','showOver'):''); if(NET.role==='guest')h+=`<p class="hint">Menunggu host memulai permainan baru.</p>`; }
   else if(p.cash<0&&(S.phase==='roll'||S.phase==='end')){
     const can=maxRaise(S.turn)>=0;
     h+=`<p class="hint">Utang ${fmt(-p.cash)}. Jual bangunan atau gadaikan properti lewat panel petak, atau pakai tombol di bawah.</p>`;
@@ -928,9 +970,14 @@ function renderTurn(){
   else if(S.phase==='decide'&&S.pending?.type==='fly') b=AIRS.filter(x=>x!==p.pos).map(x=>B(`Terbang ke ${T[x].n}${S.own[x]!=null&&S.own[x]!==S.turn?' (milik '+esc(P(S.own[x]).name)+')':''}`,'doFly',{arg:x,cls:'pri'})).join('')+B('Tetap di sini','doNoFly');
   else if(S.phase==='end') b=B('Akhiri giliran','endTurn',{cls:'pri'});
   if(p.bot&&S.phase!=='over'){ b=''; h+=`<p class="think"><i></i>${esc(p.name)} (${LEVELS[p.bot].n}) sedang bermain…</p>`; }
+  else if(S.phase!=='over'&&!myTurn()){
+    const on=isOnDev(p.dev); b='';
+    h+=`<p class="think"><i></i>${on?`Menunggu ${esc(p.name)} bermain di gadgetnya…`:`${esc(p.name)} terputus. Menunggu dia tersambung lagi…`}</p>`;
+    if(!on&&NET.role==='host')b=B('Ambil alih dengan komputer','takeover');
+  }
   if(b)h+=`<div class="btns">${b}</div>`;
   const mine=PLANTS.filter(x=>S.own[x]===S.turn&&!S.mort[x]);
-  if(!p.bot&&mine.length&&S.phase!=='over'&&S.phase!=='busy'){
+  if(myTurn()&&mine.length&&S.phase!=='over'&&S.phase!=='busy'){
     h+=`<div class="sab"><p class="lbl2">Sabotase pemadaman listrik</p><div class="btns">${mine.map(x=>{
       const n=AREA[x].filter(i=>S.own[i]!=null&&S.own[i]!==S.turn).length;
       return S.blk[x]?B(`${esc(shortN(x))}: padam`,'noop',{cls:'sm',dis:true}):B(`Padamkan ${esc(shortN(x))} (${n} properti lawan)`,'sabotage',{arg:x,cls:'sm'});}).join('')}</div></div>`;
@@ -943,7 +990,7 @@ function renderPlayers(){
       return `<button class="pc ${u?'u':''} ${S.mort[k]?'m':''}" type="button" data-act="showDetail" data-arg="${k}" style="${u?'':`--g:${GRP[t.g].c}`}" title="${esc(t.n)}" aria-label="${esc(t.n)}">${u?icon(UT[t.k].ic):''}</button>`;}).join('');
     return `<div class="pl ${j===S.turn&&S.phase!=='over'?'on':''} ${p.out?'out':''}">
       <span class="chip" style="--pc:${p.color}">${init(p)}</span>
-      <div style="min-width:0"><div class="pn">${esc(p.name)}${p.out?' · bangkrut':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div></div>
+      <div style="min-width:0"><div class="pn">${esc(p.name)}${S.net&&p.dev===NET.token?' · kamu':''}${p.out?' · bangkrut':S.net&&p.dev&&!p.bot&&!isOnDev(p.dev)?' · terputus':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div></div>
       <span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span>
       ${props?`<div class="props">${props}</div>`:''}
     </div>`;
@@ -964,7 +1011,7 @@ function renderDetail(){
     el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${ttl}</h3><div class="dt-sub">${sub}</div></div>${close}</div>${body}`;
     el.hidden=false; return;
   }
-  const i=detail,t=T[i],o=S.own[i],mine=manageable(i);
+  const i=detail,t=T[i],o=S.own[i],mine=manageable(i)&&myTurn();
   let sw='var(--uband)',sub='',body='';
   const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
   if(t.t==='prop'){
@@ -1030,15 +1077,18 @@ function renderOver(){
   $('#overT').textContent=`${w.name} menang!`;
   $('#overL').textContent=S.msg;
   const order=S.players.map((p,j)=>j).sort((a,b)=>(P(a).out-P(b).out)||(netWorth(b)-netWorth(a)));
+  $('#bAgain').hidden=NET.role==='guest';
   $('#rank').innerHTML=order.map(j=>{const p=P(j);return `<li><span class="chip" style="--pc:${p.color}">${init(p)}</span><b>${esc(p.name)}</b>${p.out?' <span class="pnw">bangkrut</span>':''}<span class="money">${fmt(p.out?0:netWorth(j))}</span></li>`;}).join('');
   ov.hidden=false;
 }
 function render(){
   if(!S)return;
   updateTiles(); renderTokens(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
-  $('#bFinish').disabled=S.phase==='over'||S.phase==='busy';
-  if(S.phase!=='busy')save();
-  scheduleBot();
+  $('#bFinish').disabled=S.phase==='over'||S.phase==='busy'||NET.role==='guest';
+  if(arm!=='#bNew')$('#bNew').textContent=NET.role==='guest'?'Keluar room':'Permainan baru';
+  renderNet();
+  if(NET.role!=='guest'){ if(S.phase!=='busy')save(); scheduleBot(); }
+  if(NET.role==='host')queueSync();
 }
 
 /* ================= Komputer ================= */
@@ -1168,20 +1218,268 @@ function botStep(){
   if(S.phase==='end'){ botManage(); return endTurn(); }
 }
 
+/* ================= Online (PeerJS) =================
+   Host gadget menjalankan permainan; tamu mengirim tombol yang ditekan, host membagikan keadaan papan. */
+const PFX='tricity-kaltim-', NETKEY='tricity-net', MAXP=6;
+const PEER_OPTS=Object.assign({debug:0},window.TRICITY_PEER_OPTS||{});
+const NET={role:null,code:null,name:'',peer:null,ready:false,guests:new Map(),conn:null,connected:false,ever:false,lobby:[],on:[],msg:'',err:false,tries:0,rt:null,ct:null,resume:false,idTries:0,
+  token:(()=>{ try{ let t=localStorage.getItem('tricity-dev'); if(!t){ t=Math.random().toString(36).slice(2,10); localStorage.setItem('tricity-dev',t); } return t; }catch(e){ return Math.random().toString(36).slice(2,10); } })()};
+let onMode='host', netCpu=0, netLvl='warlok', syncT=null;
+const myTurn=()=>!!S&&!cur().bot&&(!S.net||cur().dev===NET.token);
+function isOnDev(dev){
+  if(!S?.net||!dev)return true;
+  if(NET.role==='host')return dev===NET.token||!!NET.guests.get(dev)?.on;
+  if(NET.role==='guest')return NET.on.includes(dev);
+  return dev===NET.token;
+}
+const netMsg=(m,err=false)=>{ NET.msg=m; NET.err=err; syncOnline(); renderNet(); };
+function saveNet(){ try{ NET.role?localStorage.setItem(NETKEY,JSON.stringify({role:NET.role,code:NET.code,name:NET.name})):localStorage.removeItem(NETKEY); }catch(e){} }
+function loadNet(){ try{ return JSON.parse(localStorage.getItem(NETKEY)||'null'); }catch(e){ return null; } }
+const inviteLink=()=>location.origin+location.pathname+'?room='+NET.code;
+const onTokens=()=>[NET.token,...[...NET.guests].filter(([t,g])=>g.on).map(([t])=>t)];
+function send(c,m){ try{ if(c&&c.open)c.send(m); }catch(e){} }
+function broadcast(m){ if(NET.role!=='host')return; for(const g of NET.guests.values())if(g.on)send(g.conn,m); }
+function queueSync(){ if(syncT||NET.role!=='host')return; syncT=setTimeout(()=>{ syncT=null; if(S?.net)broadcast({t:'state',S:{...S,log:S.log.slice(0,60)},on:onTokens()}); },0); }
+function lobbyList(){ return [{name:NET.name,host:true},...[...NET.guests.values()].filter(g=>g.on).map(g=>({name:g.name}))]; }
+function sendLobby(){ broadcast({t:'lobby',list:lobbyList()}); syncOnline(); }
+
+function makePeer(id,onOpen){
+  if(typeof Peer==='undefined'){ netMsg('Pustaka PeerJS belum termuat. Periksa koneksi internet, lalu muat ulang halaman.',true); return null; }
+  let pr;
+  try{ pr=id?new Peer(id,PEER_OPTS):new Peer(PEER_OPTS); }catch(e){ netMsg('Browser ini tidak mendukung main online.',true); return null; }
+  pr.on('open',onOpen);
+  pr.on('error',e=>onPeerError(pr,e));
+  pr.on('disconnected',()=>{ if(NET.peer===pr&&!pr.destroyed)setTimeout(()=>{ try{ if(!pr.destroyed&&pr.disconnected)pr.reconnect(); }catch(e){} },2000); });
+  return pr;
+}
+function onPeerError(pr,e){
+  if(NET.peer!==pr)return;
+  const ty=e?.type||'';
+  if(ty==='unavailable-id'&&NET.role==='host'){
+    try{ pr.destroy(); }catch(_){}
+    if(NET.resume&&NET.idTries++<12){ netMsg('Membuka kembali room '+NET.code+'…'); setTimeout(()=>{ if(NET.role==='host')startHostPeer(); },3000); }
+    else{ NET.resume=false; NET.code=String(1000+Math.floor(Math.random()*9000)); startHostPeer(); }
+    return;
+  }
+  if(ty==='peer-unavailable'&&NET.role==='guest'){
+    if(NET.ever)return guestRetry();
+    netMsg(`Room ${NET.code} tidak ditemukan. Pastikan kodenya benar dan host masih membuka game.`,true); return resetNet();
+  }
+  if(ty==='browser-incompatible'){ netMsg('Browser ini tidak mendukung main online. Coba Chrome, Safari, atau Firefox versi terbaru.',true); return resetNet(); }
+  if(['network','server-error','socket-error','socket-closed','ssl-unavailable'].includes(ty)){
+    if(NET.ready||NET.ever){ netMsg('Koneksi ke server PeerJS terganggu. Mencoba menyambung lagi…'); return; }
+    netMsg('Tidak bisa terhubung ke server PeerJS. Main online butuh internet dan harus dibuka dari situs yang kamu deploy (misalnya GitHub Pages).',true); return resetNet();
+  }
+  if(NET.role==='guest'&&NET.ever)return guestRetry();
+}
+
+/* --- host --- */
+function hostRoom(name,code,resume=false){
+  NET.role='host'; NET.name=name; NET.code=code||String(1000+Math.floor(Math.random()*9000)); NET.resume=resume; NET.idTries=0;
+  saveNet(); netMsg(resume?'Membuka kembali room '+NET.code+'…':'Membuat room…'); startHostPeer();
+}
+function startHostPeer(){
+  NET.ready=false;
+  const pr=makePeer(PFX+NET.code,()=>{ NET.ready=true; NET.resume=false; saveNet(); netMsg(S?.net&&S.phase!=='over'?'Room dibuka lagi. Teman akan tersambung otomatis.':'Room siap. Bagikan kode atau link ke teman.'); if(S?.net)render(); });
+  if(!pr)return resetNet();
+  NET.peer=pr;
+  pr.on('connection',c=>{
+    c.on('data',d=>hostData(c,d));
+    c.on('close',()=>hostLost(c));
+    c.on('error',()=>hostLost(c));
+  });
+}
+function hostData(c,d){
+  if(!d||typeof d!=='object')return;
+  const gg=c.tok&&NET.guests.get(c.tok); if(gg&&gg.conn===c)gg.seen=Date.now();
+  if(d.t==='ping')return;
+  if(d.t==='hello'){
+    const tok=String(d.token||'').slice(0,20), name=String(d.name||'Teman').trim().slice(0,16)||'Teman';
+    if(!tok)return;
+    const inGame=S?.net&&S.phase!=='over';
+    const seat=inGame?S.players.find(q=>q.dev===tok):null;
+    if(inGame&&!seat){ send(c,{t:'reject',why:'Permainan di room ini sudah dimulai.'}); return setTimeout(()=>c.close(),400); }
+    if(!inGame&&!NET.guests.has(tok)&&lobbyList().length>=MAXP){ send(c,{t:'reject',why:'Room sudah penuh (maksimal 6 pemain).'}); return setTimeout(()=>c.close(),400); }
+    const old=NET.guests.get(tok); if(old&&old.conn!==c){ try{ old.conn.close(); }catch(_){} }
+    NET.guests.set(tok,{name:seat?seat.name:name,conn:c,on:true,seen:Date.now()});
+    c.tok=tok;
+    if(seat&&seat.tk){ seat.bot=null; delete seat.tk; log(`${seat.name} tersambung lagi dan kembali bermain sendiri.`); }
+    else if(seat) log(`${seat.name} tersambung lagi.`);
+    sendLobby();
+    if(S?.net){ render(); send(c,{t:'state',S:{...S,log:S.log.slice(0,60)},on:onTokens()}); }
+    return;
+  }
+  if(d.t==='act'){
+    const tok=c.tok, a=String(d.a||''), f=ACTS[a];
+    if(!tok||!f||!S?.net||S.phase==='over'||UI_ONLY.includes(a)||HOST_ONLY.includes(a))return;
+    if(cur().bot||cur().dev!==tok)return;
+    const arg=d.arg==null?undefined:Number(d.arg);
+    f(arg);
+  }
+}
+function hostLost(c){
+  const tok=c.tok, g=tok&&NET.guests.get(tok);
+  if(!g||g.conn!==c)return;
+  g.on=false;
+  if(!S?.net||S.phase==='over')NET.guests.delete(tok);
+  else log(`${g.name} terputus dari room.`);
+  sendLobby(); if(S)render();
+}
+function hostStart(){
+  if(NET.role!=='host'||!NET.ready)return;
+  const gs=[...NET.guests].filter(([t,g])=>g.on);
+  if(!gs.length)return netMsg('Belum ada teman yang bergabung.',true);
+  NET.name=($('#name0')?.value.trim()||NET.name).slice(0,16);
+  const humans=[{name:NET.name,dev:NET.token},...gs.map(([t,g])=>({name:g.name,dev:t}))].slice(0,MAXP);
+  for(const [t,g] of NET.guests) if(!humans.some(h=>h.dev===t)) NET.guests.delete(t);
+  const bots=LEVELS[netLvl].names.slice(0,Math.min(netCpu,MAXP-humans.length));
+  newGame([...humans.map(h=>h.name),...bots],[...humans.map(()=>null),...bots.map(()=>netLvl)]);
+  humans.forEach((h,i)=>{ S.players[i].dev=h.dev; });
+  S.net={code:NET.code};
+  $('#setup').hidden=true; NET.msg=''; render();
+}
+function takeover(){
+  if(NET.role!=='host'||!S?.net||S.phase==='over')return;
+  const p=cur(); if(p.bot||!p.dev||isOnDev(p.dev))return;
+  p.bot='warlok'; p.tk=true; log(`${p.name} terputus. Komputer (Warlok) mengambil alih sampai dia tersambung lagi.`); render();
+}
+
+/* --- tamu --- */
+function joinRoom(code,name){
+  NET.role='guest'; NET.code=code; NET.name=name; NET.ever=false; NET.connected=false; NET.tries=0; NET.lobby=[];
+  saveNet(); netMsg('Menyambung ke room '+code+'…');
+  const pr=makePeer(null,()=>connectHost());
+  if(!pr)return resetNet();
+  NET.peer=pr;
+}
+function connectHost(){
+  if(NET.role!=='guest'||!NET.peer||NET.peer.destroyed)return;
+  clearTimeout(NET.ct);
+  const c=NET.peer.connect(PFX+NET.code,{reliable:true,serialization:'json'});
+  NET.conn=c;
+  c.on('open',()=>{ clearTimeout(NET.ct); NET.seen=Date.now(); NET.connected=true; NET.ever=true; NET.tries=0; send(c,{t:'hello',name:NET.name,token:NET.token}); netMsg('Terhubung. Menunggu host memulai permainan.'); });
+  c.on('data',d=>guestData(c,d));
+  c.on('close',()=>{ if(NET.conn===c)guestRetry(); });
+  c.on('error',()=>{ if(NET.conn===c)guestRetry(); });
+  NET.ct=setTimeout(()=>{ if(NET.conn===c&&!c.open){ try{ c.close(); }catch(_){} if(NET.ever)guestRetry(); else{ netMsg('Belum bisa tersambung ke host. Coba sambungkan kedua gadget ke Wi-Fi yang sama, lalu gabung lagi.',true); resetNet(); } } },15000);
+}
+function guestRetry(){
+  if(NET.role!=='guest')return;
+  NET.connected=false; clearTimeout(NET.rt);
+  if(++NET.tries>40){ netMsg('Tidak bisa tersambung lagi ke host. Tekan Keluar room, lalu gabung ulang.',true); return render(); }
+  NET.msg='Koneksi ke host terputus. Mencoba menyambung lagi…'; NET.err=false; renderNet(); syncOnline();
+  NET.rt=setTimeout(connectHost,3000);
+}
+function guestData(c,d){
+  if(NET.conn!==c||!d||typeof d!=='object')return;
+  NET.seen=Date.now();
+  if(d.t==='ping')return;
+  if(d.t==='lobby'){ NET.lobby=Array.isArray(d.list)?d.list:[]; if(!S||S.phase==='over')NET.msg='Terhubung. Menunggu host memulai permainan.'; syncOnline(); renderNet(); return; }
+  if(d.t==='state'&&d.S){ NET.on=Array.isArray(d.on)?d.on:[]; NET.msg=''; NET.err=false; S=d.S; $('#setup').hidden=true; render(); return; }
+  if(d.t==='dice'){ guestDice(); return; }
+  if(d.t==='reject'){ const m=String(d.why||'Ditolak oleh host.'); resetNet(); netMsg(m,true); return; }
+  if(d.t==='bye'){ resetNet(); S=null; openSetup(); netMsg('Host menutup room.',true); }
+}
+async function guestDice(){
+  const box=$('#dice'); if(RM||!box)return;
+  box.classList.add('rolling'); for(let k=0;k<9;k++){ setDie(0,rnd6()); setDie(1,rnd6()); await sleep(55); } box.classList.remove('rolling');
+  if(S)setDie(0,S.dice[0]),setDie(1,S.dice[1]);
+}
+
+/* --- umum --- */
+function netTick(){
+  const now=Date.now();
+  if(NET.role==='host'){
+    broadcast({t:'ping'});
+    for(const g of [...NET.guests.values()]) if(g.on&&now-(g.seen||0)>13000){ const c=g.conn; try{ c.close(); }catch(_){} hostLost(c); }
+  } else if(NET.role==='guest'&&NET.connected&&NET.conn){
+    send(NET.conn,{t:'ping'});
+    if(now-(NET.seen||0)>13000){ const c=NET.conn; NET.conn=null; try{ c.close(); }catch(_){} guestRetry(); }
+  }
+}
+setInterval(netTick,4000);
+function resetNet(){
+  const pr=NET.peer, role=NET.role;
+  clearTimeout(NET.rt); clearTimeout(NET.ct);
+  if(role==='host')broadcast({t:'bye'});
+  Object.assign(NET,{role:null,peer:null,ready:false,conn:null,connected:false,ever:false,lobby:[],on:[],tries:0,resume:false});
+  NET.guests=new Map();
+  setTimeout(()=>{ try{ pr?.destroy(); }catch(_){} },300);
+  saveNet(); syncOnline(); renderNet();
+  if(role==='host'&&S?.net){ delete S.net; S.players.forEach(q=>{ delete q.dev; if(q.tk){ q.bot=null; delete q.tk; } }); render(); }
+}
+function leaveNet(){ const g=NET.role==='guest'; resetNet(); NET.msg=''; if(g){ S=null; openSetup(); } }
+function renderNet(){
+  const el=$('#netbar'); if(!el)return;
+  if(!NET.role){ el.hidden=true; document.title=BASE_TITLE; return; }
+  const ok=NET.role==='host'?NET.ready:NET.connected;
+  const n=NET.role==='host'?onTokens().length:(NET.on.length||NET.lobby.length);
+  el.innerHTML=`<div class="nb"><span class="ndot ${ok?'':'bad'}"></span><b>Online · Room ${esc(NET.code||'')}</b><span>${NET.role==='host'?'Kamu host':'Kamu tamu'}${n?` · ${n} gadget terhubung`:''}</span></div>${NET.msg?`<p class="netmsg ${NET.err?'err':''}">${esc(NET.msg)}</p>`:''}`;
+  el.hidden=false;
+  document.title=S&&S.net&&S.phase!=='over'&&myTurn()?'▶ Giliranmu · '+BASE_TITLE:BASE_TITLE;
+}
+function syncOnline(){
+  const box=$('#onBox'); if(!box)return;
+  const on=setupMode==='online', bs=$('#bStart'), bl=$('#bLeave');
+  box.hidden=!on;
+  if(!on){ bs.hidden=false; bs.disabled=false; bs.textContent='Mulai main'; bl.hidden=true; return; }
+  if(NET.role)onMode=NET.role==='host'?'host':'join';
+  $('#omode').innerHTML=[['host','Buat room'],['join','Gabung room']].map(([k,l])=>`<button type="button" data-om="${k}" aria-pressed="${k===onMode}" ${NET.role&&k!==onMode?'disabled':''}>${l}</button>`).join('');
+  const hosting=NET.role==='host', joined=NET.role==='guest';
+  $('#oHost').hidden=onMode!=='host'; $('#oJoin').hidden=onMode!=='join';
+  $('#oHostIdle').hidden=hosting; $('#oHostOn').hidden=!hosting;
+  if(hosting){
+    $('#oCode').textContent=NET.ready?NET.code:'····';
+    $('#oLink').value=NET.ready?inviteLink():'';
+    const humans=lobbyList().length, maxB=Math.max(0,Math.min(3,MAXP-humans)); if(netCpu>maxB)netCpu=maxB;
+    $('#ocseg').innerHTML=Array.from({length:maxB+1},(_,n)=>`<button type="button" data-oc="${n}" aria-pressed="${n===netCpu}">${n}</button>`).join('');
+    $('#olvl').innerHTML=netCpu?Object.entries(LEVELS).map(([k,v])=>`<button type="button" data-ol="${k}" aria-pressed="${k===netLvl}">${v.n}</button>`).join(''):'';
+  }
+  const ci=$('#oCodeIn'); ci.disabled=joined;
+  const n0=$('#name0'); if(n0)n0.disabled=!!NET.role;
+  const list=hosting?lobbyList():joined?NET.lobby:[];
+  $('#oLobbyLbl').hidden=!list.length;
+  $('#oLobby').innerHTML=list.map((q,i)=>`<li><span class="chip" style="--pc:${PCOL[i%PCOL.length]}">${i+1}</span>${esc(q.name)}${q.host?' <span>host</span>':''}${(hosting&&i===0)||(joined&&!q.host&&q.name===NET.name)?' <span>kamu</span>':''}</li>`).join('');
+  const m=$('#oMsg'); m.textContent=NET.msg||''; m.classList.toggle('err',!!NET.err);
+  bl.hidden=!NET.role; bl.textContent=hosting?'Tutup room':'Keluar room';
+  bs.hidden=false;
+  if(onMode==='host'){
+    if(!hosting){ bs.textContent='Buat room'; bs.disabled=false; }
+    else{ const g=lobbyList().length-1; bs.textContent=g?`Mulai main (${lobbyList().length+Math.min(netCpu,MAXP-lobbyList().length)} pemain)`:'Menunggu teman bergabung…'; bs.disabled=!NET.ready||!g; }
+  } else {
+    if(!joined){ bs.textContent='Gabung'; bs.disabled=false; }
+    else{ bs.textContent=NET.connected?'Menunggu host memulai…':'Menyambung…'; bs.disabled=true; }
+  }
+}
+function onlinePrimary(){
+  const name=($('#name0')?.value.trim()||DEFAULT_NAMES[0]).slice(0,16);
+  if(onMode==='host'){ if(!NET.role)return hostRoom(name); if(NET.role==='host')return hostStart(); }
+  else if(!NET.role){
+    const code=($('#oCodeIn').value||'').replace(/\D/g,'');
+    if(code.length!==4)return netMsg('Masukkan 4 angka kode room dari host.',true);
+    return joinRoom(code,name);
+  }
+}
+const UI_ONLY=['showDetail','closeDetail','showOver','noop'], HOST_ONLY=['takeover','openSetup'];
+const BASE_TITLE=document.title;
+
 /* ================= Persistence & setup ================= */
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
 function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v===4&&Array.isArray(s.players))return s; }catch(e){} return null; }
 function syncNames(){
-  const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value), cpu=setupMode==='cpu', n=cpu?1:setupCount;
+  const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value), cpu=setupMode==='cpu'||setupMode==='online', n=cpu?1:setupCount;
   box.innerHTML=Array.from({length:n},(_,i)=>`<label><span class="chip" style="--pc:${PCOL[i]}">${i+1}</span><input id="name${i}" maxlength="16" value="${esc(prev[i]??DEFAULT_NAMES[i])}" aria-label="${cpu?'Nama kamu':'Nama pemain '+(i+1)}"></label>`).join('');
-  $('#mode').innerHTML=[['local','Main bersama'],['cpu','Lawan komputer']].map(([k,l])=>`<button type="button" data-mode="${k}" aria-pressed="${k===setupMode}">${l}</button>`).join('');
-  $('#localBox').hidden=cpu; $('#cpuBox').hidden=!cpu; $('#namesLbl').textContent=cpu?'Nama kamu':'Nama pemain';
+  $('#mode').innerHTML=[['local','Satu perangkat'],['online','Online (2+ gadget)'],['cpu','Lawan komputer']].map(([k,l])=>`<button type="button" data-mode="${k}" aria-pressed="${k===setupMode}" ${NET.role&&k!=='online'?'disabled':''}>${l}</button>`).join('');
+  $('#localBox').hidden=setupMode!=='local'; $('#cpuBox').hidden=setupMode!=='cpu'; $('#namesLbl').textContent=cpu?'Nama kamu':'Nama pemain';
   $('#seg').innerHTML=[2,3,4,5,6].map(n=>`<button type="button" data-n="${n}" aria-pressed="${n===setupCount}">${n}</button>`).join('');
   $('#cseg').innerHTML=[1,2,3].map(n=>`<button type="button" data-c="${n}" aria-pressed="${n===cpuCount}">${n}</button>`).join('');
   $('#lvls').innerHTML=Object.entries(LEVELS).map(([k,v])=>`<button type="button" class="lvl" data-l="${k}" aria-pressed="${k===cpuLevel}"><b>${v.n}</b><span>${v.d}</span></button>`).join('');
+  syncOnline();
 }
-function openSetup(){ $('#over').hidden=true; $('#bCancel').hidden=!S||S.phase==='over'; $('#setup').hidden=false; syncNames(); }
+function openSetup(){ if(NET.role==='guest'&&S)return; $('#over').hidden=true; $('#bCancel').hidden=!S||S.phase==='over'; $('#setup').hidden=false; syncNames(); }
 function start(){
+  if(setupMode==='online')return onlinePrimary();
+  if(NET.role)resetNet();
   const names=[...$('#names').querySelectorAll('input')].map((x,i)=>x.value.trim()||DEFAULT_NAMES[i]);
   if(setupMode==='cpu'){ const bots=LEVELS[cpuLevel].names.slice(0,cpuCount); newGame([names[0],...bots],[null,...bots.map(()=>cpuLevel)]); }
   else newGame(names);
@@ -1195,23 +1493,41 @@ function setArm(id,fn){
   clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
 }
 
-const ACTS={doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+const ACTS={takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
   showDetail(i){ detail=i; renderDetail(); updateTiles(); }};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b||b.disabled)return;
-  const f=ACTS[b.dataset.act]; if(!f)return;
-  if(isBot()&&S.phase!=='over'&&!['showDetail','closeDetail','showOver','openSetup','noop'].includes(b.dataset.act))return;
-  const a=b.dataset.arg; f(a!=null?+a:undefined);
+  const act=b.dataset.act, f=ACTS[act]; if(!f)return;
+  const a=b.dataset.arg, arg=a!=null?+a:undefined;
+  if(UI_ONLY.includes(act))return f(arg);
+  if(act==='openSetup')return NET.role==='guest'?undefined:f();
+  if(act==='takeover')return NET.role==='host'?f():undefined;
+  if(S&&S.phase!=='over'&&!myTurn())return;
+  if(NET.role==='guest')return send(NET.conn,{t:'act',a:act,arg});
+  f(arg);
 });
 $('#seg').addEventListener('click',e=>{ const b=e.target.closest('[data-n]'); if(!b)return; setupCount=+b.dataset.n; syncNames(); });
 $('#mode').addEventListener('click',e=>{ const b=e.target.closest('[data-mode]'); if(!b)return; setupMode=b.dataset.mode; syncNames(); });
 $('#cseg').addEventListener('click',e=>{ const b=e.target.closest('[data-c]'); if(!b)return; cpuCount=+b.dataset.c; syncNames(); });
 $('#lvls').addEventListener('click',e=>{ const b=e.target.closest('[data-l]'); if(!b)return; cpuLevel=b.dataset.l; syncNames(); });
 $('#bStart').addEventListener('click',start);
+$('#bLeave').addEventListener('click',()=>{ const g=NET.role==='guest'; resetNet(); NET.msg=''; syncOnline(); if(g)S=null; });
+$('#omode').addEventListener('click',e=>{ const b=e.target.closest('[data-om]'); if(!b||NET.role)return; onMode=b.dataset.om; NET.msg=''; syncOnline(); });
+$('#ocseg').addEventListener('click',e=>{ const b=e.target.closest('[data-oc]'); if(!b)return; netCpu=+b.dataset.oc; syncOnline(); });
+$('#olvl').addEventListener('click',e=>{ const b=e.target.closest('[data-ol]'); if(!b)return; netLvl=b.dataset.ol; syncOnline(); });
+$('#oCodeIn').addEventListener('keydown',e=>{ if(e.key==='Enter')start(); });
+$('#bCopy').addEventListener('click',()=>{
+  const inp=$('#oLink'), b=$('#bCopy'), done=()=>{ b.textContent='Tersalin'; setTimeout(()=>{ b.textContent='Salin link'; },1600); };
+  const fall=()=>{ inp.focus(); inp.select(); try{ document.execCommand('copy'); done(); }catch(e){ b.textContent='Salin manual'; } };
+  try{ navigator.clipboard.writeText(inp.value).then(done,fall); }catch(e){ fall(); }
+});
 $('#bCancel').addEventListener('click',()=>{ $('#setup').hidden=true; });
-$('#bNew').addEventListener('click',()=>{ if(!S||S.phase==='over')openSetup(); else setArm('#bNew',openSetup); });
-$('#bFinish').addEventListener('click',()=>{ if(S&&S.phase!=='over'&&S.phase!=='busy')setArm('#bFinish',finishGame); });
+$('#bNew').addEventListener('click',()=>{
+  if(NET.role==='guest')return setArm('#bNew',leaveNet);
+  if(!S||S.phase==='over')openSetup(); else setArm('#bNew',openSetup);
+});
+$('#bFinish').addEventListener('click',()=>{ if(NET.role!=='guest'&&S&&S.phase!=='over'&&S.phase!=='busy')setArm('#bFinish',finishGame); });
 $('#bAgain').addEventListener('click',openSetup);
 $('#bLook').addEventListener('click',()=>{ overClosed=true; render(); });
 document.addEventListener('keydown',e=>{
@@ -1221,6 +1537,22 @@ document.addEventListener('keydown',e=>{
 function boot(data){
   buildBoard();
   const saved=(data?.S?.v===4?data.S:null)||loadSaved();
+  const ns=loadNet(); let room=null;
+  try{ room=new URLSearchParams(location.search).get('room'); }catch(e){}
+  if(ns?.role==='guest'&&ns.code){
+    S=null; setDie(0,3); setDie(1,4); setupMode='online'; onMode='join'; openSetup();
+    $('#name0').value=ns.name||''; $('#oCodeIn').value=ns.code; joinRoom(ns.code,ns.name||DEFAULT_NAMES[0]); return;
+  }
+  if(ns?.role==='host'&&saved?.net?.code){
+    S=saved; S.blk??={}; S.flyOff??=false; if(S.phase==='busy'){ S.phase=S.pending?'decide':'end'; }
+    hostRoom(ns.name||saved.players[0]?.name||DEFAULT_NAMES[0],saved.net.code,true); render(); return;
+  }
+  if(ns)try{ localStorage.removeItem(NETKEY); }catch(e){}
+  if(saved?.net){ delete saved.net; saved.players.forEach(q=>{ delete q.dev; if(q.tk){ q.bot=null; delete q.tk; } }); }
+  if(room&&/^\d{4}$/.test(room)){
+    if(saved){ S=saved; S.blk??={}; S.flyOff??=false; if(S.phase==='busy')S.phase=S.pending?'decide':'end'; render(); } else { S=null; setDie(0,3); setDie(1,4); }
+    setupMode='online'; onMode='join'; openSetup(); $('#oCodeIn').value=room; return;
+  }
   if(saved){
     S=saved; for(const k in S.mort) if(S.mort[k]===true) S.mort[k]=MORT_PASSES; S.blk??={}; S.flyOff??=false; if(S.phase==='busy'){ S.phase=S.pending?'decide':'end'; }
     detail=data?.detail??null; render();
