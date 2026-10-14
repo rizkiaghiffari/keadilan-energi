@@ -117,6 +117,14 @@ button{font:inherit}
 .deck.sel{box-shadow:inset 0 0 0 .35cqw var(--warn),inset 0 0 0 .6cqw var(--warn-ink),0 0 0 .45cqw #fff}
 .pb,.plg{width:.85cqw;height:.85cqw;min-width:4px;min-height:4px;border-radius:50%;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.5);flex:none}
 .pb{background:#E53935}
+.bz{font:800 clamp(5px,.95cqw,10px)/1 var(--font-mono);background:#2F5D3A;color:#fff;border:1px solid #fff;border-radius:2px;padding:.15cqw .3cqw;min-width:1.3cqw;text-align:center}
+.bz.il{background:#C2410C}
+.auc{background:color-mix(in oklab,var(--surface),var(--sign) 10%);border:1px solid var(--sign);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.auc .lbl{font:800 11px/1 var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--sign)}
+.auc p{margin:0;font-size:14px}
+.auc .hi{font:600 20px/1.1 var(--font-mono)}
+.bank{border-top:1px solid var(--hair);padding-top:10px;display:flex;flex-direction:column;gap:8px}
+.bank p{margin:0;font-size:13px;color:var(--muted)}
 .pb.off,.plg.off{opacity:.3;filter:grayscale(1)}
 .tile.blk::before,.corner.blk::before{content:'';position:absolute;inset:0;background:rgba(8,12,10,.58);pointer-events:none;z-index:1}
 .corner.blk::before{border-radius:50%}
@@ -307,18 +315,21 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <div class="names" id="names"></div>
     <p class="lbl2">Aturan singkat</p>
     <ul class="rules">
-      <li>Modal awal IDR 15.000k. Setiap melewati Mulai, terima IDR 2.000k.</li>
+      <li>Modal awal IDR 15.000k. Tidak ada gaji tetap: setiap melewati Mulai, kamu menerima profit dari usaha yang aktif. Tanpa usaha aktif, tidak ada pemasukan.</li>
+      <li>Usaha resmi (kebun sawit, tambang batu bara, tambang migas, pertamini, pangkalan LPG) serta kos-kosan, penginapan, dan hotel menghasilkan profit. Usaha ilegal (kebun sawit dan tambang batu bara dengan bakar hutan, pos bensin dan LPG eceran) lebih murah dan lebih untung, tetapi bisa terkena razia Cari Wangsit: masuk penjara dan usahanya disita negara.</li>
+      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak.</li>
+      <li>Kredit bank tersedia dengan bunga 1–10% per lewat Mulai. Makin besar asetmu dibanding pinjaman, makin kecil bunganya.</li>
       <li>Kota Balikpapan, Ibu Kota Nusantara, dan Kota Samarinda adalah satu set properti termahal, masing-masing IDR 4.000k.</li>
       <li>Wilayah lain makin mahal makin dekat ke salah satu kota, dan makin murah makin jauh.</li>
       <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel.</li>
       <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Pos eceran tidak bisa dibangun di IKN.</li>
       <li>Pos bensin eceran bisa dibangun di properti milikmu jika kamu memiliki SPBU terdekat dari properti itu, atau di properti mana pun jika kamu memiliki Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat, atau SPBE Babulu untuk properti mana pun. Pembangunan keduanya baru gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
-      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa gaji. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
+      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa melewati Mulai. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
       <li>Pemilik 2 bandara atau lebih yang berhenti di bandara boleh terbang gratis ke bandara lain.</li>
       <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanan pembangkit itu jadi setengah sampai giliran si pemilik berikutnya.</li>
       <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: sewa SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa sampai giliran si pemutus berikutnya.</li>
       <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, dan kartu masuk penjara.</li>
-      <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai.</li>
+      <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai tanpa menerima profit.</li>
       <li>Bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, dan kilang adalah utilitas. Sewanya angka dadu × tarif × pengali yang naik setiap kali pemiliknya menambah utilitas.</li>
       <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
       <li>Dobel boleh lempar lagi, paling banyak tiga kali lemparan berturut-turut.</li>
@@ -339,7 +350,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
 /* ================= Data ================= */
-const GO=2000, START=15000, KEY='tricity-superhub-v4';
+const START=15000, KEY='tricity-superhub-v5';
 const MORT_PASSES=2, JAIL_FINE=500, BENSIN={c:500,r:250}, LPG={c:400,r:200};
 const GRP={
   1:{c:'#8A5634',t:'#fff',h:1000}, 2:{c:'#86CDEB',t:'#0B2A38',h:750},
@@ -429,16 +440,28 @@ T.forEach(t=>{
   if(!t.s)t.s=t.n;
 });
 const LV=['','Renovasi rumah tinggal','Rumah kontrakan','Kos-kosan','Penginapan','Hotel'];
+/* ================= Usaha ================= */
+const BIZ_ORDER=['sawit','bara','migas','ptm','plg'];
+const BIZ={
+  sawit:{n:'Kebun sawit',tiles:['Kuala Samboja','Samboja','Simpang Samboja','Muara Jawa/Handil','Sanga-Sanga','Batuah','Loa Janan Ulu','Loa Janan Ilir','Palaran','SPBE Babulu','Petung','Sotek','Maridan','Riko','Pemaluan','Bumi Harapan','Sukaraja','Tengin Baru','Semoi','Mentawir'],r:{c:1500,p:300},i:{c:600,p:500}},
+  bara:{n:'Tambang batu bara',tiles:['Kuala Samboja','Simpang Samboja','Muara Jawa/Handil','Sanga-Sanga','Batuah','Palaran','Teluk Dalam','Mentawir'],r:{c:2500,p:450},i:{c:1000,p:750}},
+  migas:{n:'Tambang migas',tiles:['Sanga-Sanga','Muara Jawa/Handil','Teluk Dalam','Kuala Samboja'],r:{c:4000,p:800}},
+  ptm:{n:'Pertamini',tiles:null,r:{c:1000,p:200}},
+  plg:{n:'Pangkalan LPG',tiles:null,r:{c:800,p:150}}
+};
+const BLD_P=[0,0,0,200,350,600], ECER_P={b:350,l:250};
 const LV_IKN=['','Titik nol IKN','Plaza seremoni','Kompleks kemenko','Istana kepresidenan'];
 const maxLv=i=>i===IKN?4:5, lvName=(i,k)=>(i===IKN?LV_IKN:LV)[k], lc=x=>x.charAt(0).toLowerCase()+x.slice(1);
+BIZ_ORDER.forEach(k=>{ const b=BIZ[k]; b.at=b.tiles?b.tiles.map(IX):T.map((t,i)=>i).filter(i=>T[i].t==='prop'&&T[i].n!=='Ibu Kota Nusantara'); });
+const bizAt=i=>BIZ_ORDER.filter(k=>BIZ[k].at.includes(i));
 const peers=i=>T[i].g===9?(i===IKN?[IKN]:GROUPS[9].filter(x=>x!==IKN)):GROUPS[T[i].g];
 const CARDS=[
- {x:'Wangsit pertama: pulang ke titik awal. Maju ke Mulai dan terima IDR 2.000k.',a:'to',v:IX('Mulai')},
- {x:'Dapat undangan meninjau Ibu Kota Nusantara. Maju ke IKN. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Ibu Kota Nusantara')},
- {x:'Ada tiket promo dari Bandara APT Pranoto. Maju ke sana. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Bandara APT Pranoto')},
- {x:'Kapal feri ke Penajam sudah menunggu. Maju ke Pelabuhan Kariangau. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Pelabuhan Kariangau')},
- {x:'Liburan ke pantai Kuala Samboja. Maju ke Kuala Samboja. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Kuala Samboja')},
- {x:'Maju ke Semoi. Jika melewati Mulai, terima IDR 2.000k.',a:'to',v:IX('Semoi')},
+ {x:'Wangsit pertama: pulang ke titik awal. Maju ke Mulai dan terima profit usahamu.',a:'to',v:IX('Mulai')},
+ {x:'Dapat undangan meninjau Ibu Kota Nusantara. Maju ke IKN. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Ibu Kota Nusantara')},
+ {x:'Ada tiket promo dari Bandara APT Pranoto. Maju ke sana. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Bandara APT Pranoto')},
+ {x:'Kapal feri ke Penajam sudah menunggu. Maju ke Pelabuhan Kariangau. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Pelabuhan Kariangau')},
+ {x:'Liburan ke pantai Kuala Samboja. Maju ke Kuala Samboja. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Kuala Samboja')},
+ {x:'Maju ke Semoi. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Semoi')},
  {x:'Tangki hampir kosong. Maju ke SPBU atau SPBE terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'fuel'},
  {x:'Kejar penerbangan! Maju ke bandara terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'air'},
  {x:'Listrik padam bergilir. Maju ke pembangkit listrik terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'power'},
@@ -457,9 +480,12 @@ const CARDS=[
  {x:'Jadi pemandu wisata jembatan tajuk Bukit Bangkirai. Terima IDR 250k.',a:'cash',v:250},
  {x:'Panen lada melimpah. Terima IDR 1.000k.',a:'cash',v:1000},
  {x:'Uang sekolah anak. Bayar IDR 500k.',a:'cash',v:-500},
- {x:'Kamu kedapatan memiliki pos bensin eceran yang melanggar hukum. Masuk penjara.',a:'jail'},
- {x:'Kamu kedapatan memiliki pos LPG eceran yang melanggar hukum. Masuk penjara.',a:'jail'},
- {x:'Kamu kedapatan memiliki tambang batu bara ilegal. Masuk penjara.',a:'jail'},
+ ...[1,2].flatMap(()=>[
+  {x:'Kamu kedapatan menjual BBM lewat pos bensin eceran yang melanggar hukum. Masuk penjara, semua pos bensin eceranmu disita negara.',x0:'Razia pos bensin eceran di wilayahmu. Petugas tidak menemukan pelanggaran, kamu aman.',a:'raid',k:'eb'},
+  {x:'Kamu kedapatan menjual LPG lewat pos LPG eceran yang melanggar hukum. Masuk penjara, semua pos LPG eceranmu disita negara.',x0:'Razia pos LPG eceran di wilayahmu. Petugas tidak menemukan pelanggaran, kamu aman.',a:'raid',k:'el'},
+  {x:'Kamu kedapatan membuka kebun sawit ilegal dengan cara pembakaran hutan. Masuk penjara, kebun sawit ilegalmu disita negara.',x0:'Patroli kebakaran hutan. Petugas tidak menemukan kebun sawit ilegal milikmu, kamu aman.',a:'raid',k:'sawit'},
+  {x:'Kamu kedapatan membuka tambang batu bara ilegal dengan cara pembakaran hutan. Masuk penjara, tambang batu bara ilegalmu disita negara.',x0:'Razia tambang batu bara ilegal. Petugas tidak menemukan pelanggaran milikmu, kamu aman.',a:'raid',k:'bara'}
+ ]),
  {x:'Kamu kedapatan menebang kayu ilegal di hutan lindung. Masuk penjara.',a:'jail'},
  {x:'Kamu kedapatan menimbun solar bersubsidi. Masuk penjara.',a:'jail'}
 ];
@@ -527,7 +553,7 @@ const posVal=i=>(S.eb[i]??0)+(S.el[i]??0);
 const hasPos=i=>S.eb[i]!=null||S.el[i]!=null;
 function nearCity(i){ let best=null; for(const c of CITIES){ const d=Math.min((i-c+N)%N,(c-i+N)%N); if(!best||d<best.d)best={d,c}; } return best; }
 
-let S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
+let bankOpen=false, S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
 const cur=()=>S.players[S.turn];
 const P=j=>S.players[j];
 const init=p=>esc((p.name.trim().charAt(0)||'?').toUpperCase());
@@ -537,21 +563,38 @@ const setMsg=t=>{S.msg=t;};
 const gain=(j,amt)=>{P(j).cash+=amt;};
 function pay(from,to,amt){ if(amt<=0)return; const p=P(from); p.cash-=amt; if(to>=0)P(to).cash+=amt; if(p.cash<0)p.debtTo=to; }
 
+const hasBiz=i=>hasPos(i)||!!(S.biz?.[i]&&Object.keys(S.biz[i]).length);
+const bizVal=i=>{ let v=posVal(i); const b=S.biz?.[i]||{}; for(const k in b)v+=BIZ[k][b[k]].c; return v; };
+function tileProfit(i){
+  const o=S.own[i]; if(o==null||S.mort[i])return {lg:0,il:0};
+  let lg=0,il=0; const b=S.biz?.[i]||{};
+  for(const k in b){ const d=BIZ[k][b[k]]; if(b[k]==='i')il+=d.p; else lg+=d.p; }
+  if(S.eb[i]!=null&&!posOff(i,'b'))il+=ECER_P.b;
+  if(S.el[i]!=null&&!posOff(i,'l'))il+=ECER_P.l;
+  const h=S.houses[i]||0; if(T[i].t==='prop'&&i!==IKN&&h>=3){ let v=BLD_P[h]; if(blackout(i)!=null)v=Math.ceil(v/2); lg+=v; }
+  return {lg,il};
+}
+function profitOf(j){ let s=0; for(const k of ownedBy(j)){ const r=tileProfit(k); s+=r.lg+r.il; } return s; }
+const loansOf=j=>(S.loans?.[j])||[];
+const debtOf=j=>loansOf(j).reduce((a,l)=>a+l.a,0);
+const interestOf=j=>loansOf(j).reduce((a,l)=>a+Math.ceil(l.a*l.r/100),0);
+function loanCap(j){ return Math.max(0,Math.floor((netWorth(j)-debtOf(j))/100)*100); }
+function loanRate(j,a){ const eq=Math.max(1,netWorth(j)); return Math.max(1,Math.min(10,Math.round(1+9*((debtOf(j)+a)/eq)))); }
 function netWorth(j){
   let v=P(j).cash;
-  for(const k of ownedBy(j)){ const t=T[k]; v+=S.mort[k]?t.p/2:t.p; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h; if(S.up[k])v+=t.uc; v+=posVal(k); }
-  return v;
+  for(const k of ownedBy(j)){ const t=T[k]; v+=S.mort[k]?t.p/2:t.p; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h; if(S.up[k])v+=t.uc; v+=bizVal(k); }
+  return v-debtOf(j);
 }
 function maxRaise(j){
   let v=P(j).cash;
-  for(const k of ownedBy(j)){ const t=T[k]; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h/2; if(S.up[k])v+=t.uc/2; if(!S.mort[k])v+=t.p/2; v+=posVal(k)/2; }
+  for(const k of ownedBy(j)){ const t=T[k]; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h/2; if(S.up[k])v+=t.uc/2; if(!S.mort[k])v+=t.p/2; v+=bizVal(k)/2; }
   return v;
 }
 
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
-  S={v:4,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
-    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},blk:{},cutB:{},cutL:{},flyOff:false,
+  S={v:5,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
+    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},loans:{},auc:null,offerUsed:false,blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
   log(`Permainan baru: ${names.join(', ')}. Modal awal masing-masing ${fmt(START)}.`);
@@ -569,16 +612,23 @@ function tickMortgages(j){
     if(!S.mort[k])continue;
     S.mort[k]--;
     if(S.mort[k]<=0){
-      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k];
+      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k];
       log(`${P(j).name} tidak menebus ${T[k].n} tepat waktu. Bank menyita petak ini dan menjualnya lagi.`);
     } else log(`Sisa waktu tebus ${T[k].n}: ${S.mort[k]} kali lagi melewati Mulai.`);
   }
+}
+function passMulai(j){
+  const p=P(j), pr=profitOf(j);
+  if(pr>0){ gain(j,pr); log(`${p.name} melintasi Mulai dan menerima profit usaha ${fmt(pr)}.`); }
+  else log(`${p.name} melintasi Mulai tanpa usaha aktif, tidak ada pemasukan.`);
+  const it=interestOf(j); if(it){ pay(j,-1,it); log(`${p.name} membayar bunga kredit bank ${fmt(it)}.`); }
+  tickMortgages(j);
 }
 async function stepTo(target){
   const p=cur();
   while(p.pos!==target){
     p.pos=(p.pos+1)%N;
-    if(p.pos===MULAI){ gain(S.turn,GO); log(`${p.name} melintasi Mulai dan menerima ${fmt(GO)}.`); tickMortgages(S.turn); }
+    if(p.pos===MULAI)passMulai(S.turn);
     if(!RM){ renderTokens(); await sleep(115); }
   }
   renderTokens();
@@ -590,7 +640,7 @@ async function animDice(d){
   setDie(0,d[0]); setDie(1,d[1]);
 }
 async function doRoll(){
-  if(!S||S.phase!=='roll'||cur().cash<0)return;
+  if(!S||S.auc||S.phase!=='roll'||cur().cash<0)return;
   const p=cur(); S.phase='busy'; S.here=null; S.flyOff=false; render();
   const d=[rnd6(),rnd6()]; await animDice(d); S.dice=d;
   const tot=d[0]+d[1], dbl=d[0]===d[1];
@@ -704,16 +754,25 @@ function doSkip(){
   if(S.pending?.type!=='buy')return;
   const t=T[S.pending.i]; log(`${cur().name} tidak membeli ${t.n}.`); setMsg(`${t.n} tetap milik bank.`); settle();
 }
+function raidHits(j,k){ return ownedBy(j).filter(i=>k==='eb'?S.eb[i]!=null:k==='el'?S.el[i]!=null:S.biz[i]?.[k]==='i'); }
+const cardText=(c,j)=>c.a==='raid'&&!raidHits(j,c.k).length?c.x0:c.x;
 async function doCard(){
   if(S.phase!=='decide'||S.pending?.type!=='card')return;
   const c=CARDS[S.pending.id],me=S.turn,p=cur();
-  S.pending=null; S.phase='busy'; S.flyOff=false; log(`${p.name} · Cari Wangsit: ${c.x}`); setMsg(c.x); render();
+  S.pending=null; S.phase='busy'; S.flyOff=false; log(`${p.name} · Cari Wangsit: ${cardText(c,me)}`); setMsg(cardText(c,me)); render();
   switch(c.a){
     case 'to': await stepTo(c.v); return land();
     case 'near': await stepTo(nearest(CAT[c.c],p.pos)); S.mod={x:2}; return land();
     case 'back': p.pos=(p.pos+N-c.v)%N; renderTokens(); if(!RM)await sleep(240); return land();
     case 'warp': p.pos=c.v; renderTokens(); if(!RM)await sleep(240); return land();
     case 'jail': goJail(); log(`${p.name} masuk penjara.`); setMsg(`${p.name} masuk penjara. Giliran berakhir.`); break;
+    case 'raid':{
+      const hit=raidHits(me,c.k);
+      if(!hit.length){ setMsg(c.x0); break; }
+      for(const k of hit){ if(c.k==='eb')delete S.eb[k]; else if(c.k==='el')delete S.el[k]; else delete S.biz[k][c.k]; }
+      goJail(); log(`${p.name} masuk penjara. ${hit.length} usaha ilegalnya disita negara (${hit.map(k=>T[k].n).join(', ')}).`);
+      setMsg(`${p.name} masuk penjara dan ${hit.length} usaha ilegalnya disita negara.`); break;
+    }
     case 'cash':
       if(c.v>0){ gain(me,c.v); setMsg(`${p.name} menerima ${fmt(c.v)}.`); }
       else { pay(me,-1,-c.v); setMsg(`${p.name} membayar ${fmt(-c.v)}.`); }
@@ -738,16 +797,16 @@ function nextPlayer(){
   let n=S.turn;
   do{ n=(n+1)%S.players.length; }while(P(n).out);
   if(n<=S.turn)S.round++;
-  S.turn=n; S.doubles=0; S.again=false; S.phase='roll'; S.here=null; S.pending=null; S.botManaged=false;
+  S.turn=n; S.doubles=0; S.again=false; S.phase='roll'; S.here=null; S.pending=null; S.botManaged=false; S.offerUsed=false;
   for(const pl of Object.keys(S.blk).map(Number)) if(S.blk[pl].by===n){ delete S.blk[pl]; log(`Listrik di wilayah ${T[pl].n} menyala lagi.`); }
   for(const [st,w] of [[S.cutB,'BBM'],[S.cutL,'LPG']]) for(const x of Object.keys(st).map(Number)) if(st[x]===n){ delete st[x]; log(`Suplai ${w} ke ${T[x].n} pulih.`); }
   const p=cur();
   setMsg(p.cash<0?`${p.name} masih berutang ${fmt(-p.cash)}. Lunasi dulu sebelum melempar dadu.`:p.jail?`${p.name} di penjara. Coba dapat dobel atau bayar denda ${fmt(JAIL_FINE)}.`:`Giliran ${p.name}. Lempar dadu.`);
 }
-function endTurn(){ if(S.phase!=='end'||cur().cash<0)return; nextPlayer(); render(); }
+function endTurn(){ if(S.phase!=='end'||S.auc||cur().cash<0)return; nextPlayer(); render(); }
 
 /* building & mortgage */
-const manageable=i=>S&&S.own[i]===S.turn&&S.phase!=='busy'&&S.phase!=='over';
+const manageable=i=>S&&!S.auc&&S.own[i]===S.turn&&S.phase!=='busy'&&S.phase!=='over';
 function groupOk(i){ const t=T[i],o=S.own[i]; return GROUPS[t.g].every(j=>S.own[j]===o&&!S.mort[j]); }
 function whyNoBuild(i){
   const t=T[i]; if(t.t!=='prop')return 'x';
@@ -766,7 +825,7 @@ function whyNoBuild(i){
   return '';
 }
 function canSell(i){ const t=T[i],h=S.houses[i]||0; return t.t==='prop'&&h>0&&h>=Math.max(...peers(i).map(j=>S.houses[j]||0)); }
-function whyNoMort(i){ const t=T[i]; if(S.mort[i])return 'x'; if(hasPos(i))return 'Bongkar dulu pos bensin atau LPG eceran di petak ini.'; if(t.t==='prop'&&peers(i).some(j=>S.own[j]===S.own[i]&&S.houses[j]))return 'Bongkar semua bangunan di set ini sebelum menggadaikan.'; if(S.up[i])return `Bongkar dulu ${UT[t.k].up.toLowerCase()} sebelum menggadaikan.`; return ''; }
+function whyNoMort(i){ const t=T[i]; if(S.mort[i])return 'x'; if(hasBiz(i))return 'Tutup dulu semua usaha dan pos eceran di petak ini.'; if(t.t==='prop'&&peers(i).some(j=>S.own[j]===S.own[i]&&S.houses[j]))return 'Bongkar semua bangunan di set ini sebelum menggadaikan.'; if(S.up[i])return `Bongkar dulu ${UT[t.k].up.toLowerCase()} sebelum menggadaikan.`; return ''; }
 function build(i){ if(!manageable(i)||whyNoBuild(i))return; const g=GRP[T[i].g]; pay(S.turn,-1,g.h); S.houses[i]=(S.houses[i]||0)+1; log(`${cur().name} membangun ${lc(lvName(i,S.houses[i]))} di ${T[i].n} (${fmt(g.h)}).`); render(); }
 function sellHouse(i){ if(!manageable(i)||!canSell(i))return; const g=GRP[T[i].g]; S.houses[i]--; if(!S.houses[i])delete S.houses[i]; gain(S.turn,g.h/2); log(`${cur().name} menurunkan bangunan di ${T[i].n} (+${fmt(g.h/2)}).`); render(); }
 function upgrade(i){ const t=T[i]; if(!manageable(i)||t.t!=='util'||S.up[i]||S.mort[i]||cur().cash<t.uc)return; pay(S.turn,-1,t.uc); S.up[i]=true; log(`${cur().name} membangun ${UT[t.k].up.toLowerCase()} di ${t.n} (${fmt(t.uc)}). Sewanya kini 2×.`); render(); }
@@ -791,6 +850,93 @@ function sellPos(i,kind){
   const st=kind==='b'?S.eb:S.el; if(!manageable(i)||st[i]==null)return;
   gain(S.turn,st[i]/2); log(`${cur().name} membongkar ${kind==='b'?'pos bensin':'pos LPG'} eceran di ${T[i].n} (+${fmt(st[i]/2)}).`); delete st[i]; render();
 }
+function bizWhy(i,k,m){
+  const t=T[i],o=S.own[i]; if(!BIZ[k].at.includes(i)||S.biz[i]?.[k]||!BIZ[k][m])return 'x';
+  if(S.mort[i])return 'Tebus dulu petak ini.';
+  if(cur().cash<BIZ[k][m].c)return 'Uang tunai tidak cukup.';
+  return '';
+}
+function bizBuild(arg){
+  const i=Math.floor(arg/100), c=arg%100, k=BIZ_ORDER[c>>1], m=c&1?'i':'r';
+  if(!k||!manageable(i)||bizWhy(i,k,m))return;
+  pay(S.turn,-1,BIZ[k][m].c); (S.biz[i]??={})[k]=m;
+  log(`${cur().name} membuka ${lc(BIZ[k].n)}${m==='i'?' dengan cara membakar hutan':' secara resmi'} di ${T[i].n} (${fmt(BIZ[k][m].c)}).`); render();
+}
+function bizSell(arg){
+  const i=Math.floor(arg/100), k=BIZ_ORDER[arg%100], m=S.biz[i]?.[k];
+  if(!k||!manageable(i)||!m)return;
+  gain(S.turn,BIZ[k][m].c/2); delete S.biz[i][k];
+  log(`${cur().name} menutup ${lc(BIZ[k].n)} di ${T[i].n} (+${fmt(BIZ[k][m].c/2)}).`); render();
+}
+/* --- kredit bank --- */
+function takeLoan(a){
+  const j=S.turn; a=Math.round(a);
+  if(!S||S.auc||S.phase==='busy'||S.phase==='over'||!(a>0)||a>loanCap(j))return;
+  const r=loanRate(j,a); (S.loans[j]??=[]).push({a,r}); gain(j,a);
+  log(`${cur().name} mengambil kredit bank ${fmt(a)} dengan bunga ${r}% per lewat Mulai.`); render();
+}
+function repayLoan(k){
+  const j=S.turn, l=loansOf(j)[k];
+  if(!S||S.auc||S.phase==='busy'||S.phase==='over'||!l||cur().cash<l.a)return;
+  pay(j,-1,l.a); S.loans[j].splice(k,1);
+  log(`${cur().name} melunasi kredit bank ${fmt(l.a)}.`); render();
+}
+/* --- lelang --- */
+const AUC_ACTS=['aucBid','aucPass','aucAccept','aucReject'], AUC_INC=[100,500,1000];
+function aucWhy(i,o){
+  const t=T[i]; if(!t.p||o==null||S.own[i]!==o)return 'x';
+  if(S.mort[i])return 'Properti yang sedang digadai tidak bisa dilelang.';
+  if(t.t==='prop'&&peers(i).some(x=>S.own[x]===o&&S.houses[x]))return 'Jual dulu semua bangunan di set ini sebelum dilelang.';
+  return '';
+}
+const aucReady=()=>!!S&&!S.auc&&(S.phase==='roll'||S.phase==='end')&&cur().cash>=0;
+const aucActor=()=>S.auc.phase==='confirm'?S.auc.seller:S.auc.cur;
+const actor=()=>S?.auc?aucActor():S?.turn;
+const actP=()=>P(actor());
+function aucOrder(from,skip){ const n=S.players.length, o=[]; for(let s=1;s<=n;s++){ const x=(from+s)%n; if(!P(x).out&&x!==skip)o.push(x); } return o; }
+function aucStep(from){
+  const a=S.auc, o=a.order, k0=o.indexOf(from);
+  for(let s=1;s<=o.length;s++){ const x=o[(k0+s+o.length)%o.length]; if(a.active.includes(x)&&x!==a.high?.who){ a.cur=x; return render(); } }
+  aucEnd();
+}
+function startAuction(i){
+  if(!aucReady()||S.own[i]!==S.turn||aucWhy(i,S.turn))return;
+  const order=aucOrder(S.turn,S.turn); if(!order.length)return;
+  S.auc={i,seller:S.turn,kind:'own',min:Math.max(100,Math.round(T[i].p/200)*100),high:null,order,active:[...order],cur:order[0],phase:'bid'};
+  log(`${cur().name} melelang ${T[i].n}. Penawaran dibuka mulai ${fmt(S.auc.min)}.`); render();
+}
+function makeOffer(arg){
+  const i=arg%100, amt=Math.floor(arg/100), me=S.turn, o=S.own[i];
+  if(!aucReady()||S.offerUsed||o==null||o===me||P(o).out||aucWhy(i,o)||!(amt>=100)||amt>cur().cash)return;
+  S.offerUsed=true;
+  const order=aucOrder(o,o);
+  S.auc={i,seller:o,kind:'offer',by:me,min:amt,high:{who:me,amt},order,active:[...order],cur:me,phase:'bid'};
+  log(`${cur().name} menawar ${T[i].n} milik ${P(o).name} seharga ${fmt(amt)}. Lelang dibuka untuk pemain lain.`);
+  aucStep(me);
+}
+function aucBid(inc){
+  const a=S.auc; if(!a||a.phase!=='bid'||!AUC_INC.includes(inc))return;
+  const x=a.cur, amt=(a.high?a.high.amt:a.min-100)+inc; if(amt>P(x).cash)return;
+  a.high={who:x,amt}; log(`${P(x).name} menawar ${T[a.i].n} seharga ${fmt(amt)}.`); aucStep(x);
+}
+function aucPass(){
+  const a=S.auc; if(!a||a.phase!=='bid')return;
+  const x=a.cur; a.active=a.active.filter(y=>y!==x); log(`${P(x).name} mundur dari lelang ${T[a.i].n}.`); aucStep(x);
+}
+function aucEnd(){
+  const a=S.auc;
+  if(!a.high){ log(`Lelang ${T[a.i].n} selesai tanpa penawar.`); setMsg(`Tidak ada yang menawar ${T[a.i].n}.`); S.auc=null; return render(); }
+  if(a.kind==='offer'){ a.phase='confirm'; return render(); }
+  aucSell();
+}
+function aucSell(){
+  const a=S.auc, w=a.high.who;
+  pay(w,a.seller,a.high.amt); S.own[a.i]=w;
+  log(`${P(w).name} memenangkan lelang ${T[a.i].n} seharga ${fmt(a.high.amt)} dari ${P(a.seller).name}.`);
+  setMsg(`${T[a.i].n} kini milik ${P(w).name}.`); S.auc=null; render();
+}
+function aucAccept(){ if(S.auc?.phase==='confirm')aucSell(); }
+function aucReject(){ const a=S.auc; if(a?.phase!=='confirm')return; log(`${P(a.seller).name} menolak penawaran ${fmt(a.high.amt)} untuk ${T[a.i].n}.`); setMsg(`${P(a.seller).name} tidak menjual ${T[a.i].n}.`); S.auc=null; render(); }
 function mortgage(i){ if(!manageable(i)||whyNoMort(i))return; S.mort[i]=MORT_PASSES; gain(S.turn,T[i].p/2); log(`${cur().name} menggadaikan ${T[i].n} (+${fmt(T[i].p/2)}). Wajib ditebus sebelum ${MORT_PASSES} kali melewati Mulai.`); render(); }
 function unmortgage(i){ if(!manageable(i)||!S.mort[i]||cur().cash<unmortCost(i))return; pay(S.turn,-1,unmortCost(i)); delete S.mort[i]; log(`${cur().name} menebus ${T[i].n} (${fmt(unmortCost(i))}).`); render(); }
 
@@ -802,8 +948,8 @@ function autoRaise(j){
     const k=c[0]; S.houses[k]--; if(!S.houses[k])delete S.houses[k]; p.cash+=GRP[T[k].g].h/2;
   }
   while(p.cash<0){
-    const k=ownedBy(j).find(hasPos); if(k==null)break;
-    for(const st of [S.eb,S.el]) if(st[k]!=null){ p.cash+=st[k]/2; delete st[k]; }
+    const k=ownedBy(j).find(hasBiz); if(k==null)break;
+    p.cash+=bizVal(k)/2; delete S.eb[k]; delete S.el[k]; delete S.biz[k];
   }
   while(p.cash<0){
     const u=ownedBy(j).filter(k=>S.up[k]); if(u.length){ delete S.up[u[0]]; p.cash+=T[u[0]].uc/2; continue; }
@@ -827,9 +973,10 @@ function bankrupt(){
     const cr=P(c); cr.cash+=Math.max(0,p.cash); props.forEach(k=>S.own[k]=c);
     log(`${p.name} bangkrut. Properti dan sisa hartanya diserahkan ke ${cr.name}.`);
   } else {
-    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k];});
+    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k];});
     log(`${p.name} bangkrut. Semua propertinya kembali ke bank.`);
   }
+  if(S.loans)delete S.loans[me];
   Object.assign(p,{cash:0,out:true,jail:false}); for(const pl of Object.keys(S.blk).map(Number)) if(S.blk[pl].by===me) delete S.blk[pl]; for(const st of [S.cutB,S.cutL]) for(const x in st) if(st[x]===me) delete st[x];
   const alive=S.players.map((q,j)=>j).filter(j=>!P(j).out);
   if(alive.length===1){ S.winner=alive[0]; S.phase='over'; S.pending=null; overClosed=false; setMsg(`${P(alive[0]).name} memenangkan permainan!`); log(`${P(alive[0]).name} menang!`); render(); return; }
@@ -855,7 +1002,7 @@ function tileInner(t){
     case 'prop': band=`<span class="band" style="--g:${GRP[t.g].c};--gt:${GRP[t.g].t}"></span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
     case 'util': band=`<span class="band u">${icon(UT[t.k].ic)}</span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
     case 'wangsit': band=`<span class="band w"><span class="dia"><b>?</b></span></span>`; break;
-    case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">+${fk(GO)}</span>`; break;
+    case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">profit</span>`; break;
     case 'bridge': band=`<span class="band br">${icon('bridge')}</span>`; body+=`<span class="pr">→ Bpp</span>`; break;
   }
   return `<span class="own"></span><span class="body">${body}</span>${band}`;
@@ -911,6 +1058,7 @@ const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
 function setDie(k,v){ const d=$('#d'+k); [...d.children].forEach((pip,ix)=>pip.classList.toggle('on',FACES[v].includes(ix))); d.setAttribute('aria-label','Dadu '+v); }
 
 /* ================= Rendering ================= */
+function bizBadge(i){ const b=S.biz?.[i]; const n=b?Object.keys(b).length:0; return n?`<span class="bz${Object.values(b).includes('i')?' il':''}">${n}</span>`:''; }
 function updateTiles(){
   document.querySelectorAll('#stage [data-i]').forEach(el=>{
     const i=+el.dataset.i,t=T[i];
@@ -927,7 +1075,8 @@ function updateTiles(){
       if(t.t==='prop'){
         const h=S.houses[i]||0;
         band.innerHTML=(h&&h===maxLv(i)?`<span class="htl">${i===IKN?'Istana':'H'}</span>`:'<span class="pip"></span>'.repeat(h))+(S.eb[i]!=null?`<span class="pb${posOff(i,'b')?' off':''}"></span>`:'')+(S.el[i]!=null?`<span class="plg${posOff(i,'l')?' off':''}"></span>`:'');
-      } else band.innerHTML=icon(UT[t.k].ic)+(S.up[i]?'<span class="upd"></span>':'');
+        band.innerHTML+=bizBadge(i);
+      } else band.innerHTML=icon(UT[t.k].ic)+(S.up[i]?'<span class="upd"></span>':'')+bizBadge(i);
       lab+=`, ${o!=null?'milik '+P(o).name:'harga '+fk(t.p)}`;
     }
     el.setAttribute('aria-label',lab);
@@ -969,12 +1118,38 @@ function renderTokens(){
 }
 function renderCenter(){ setDie(0,S.dice[0]); setDie(1,S.dice[1]); }
 const B=(label,fn,o={})=>`<button class="btn ${o.cls||''}" type="button" data-act="${fn}" ${o.arg!=null?`data-arg="${o.arg}"`:''} ${o.dis?'disabled':''} ${o.id?`id="${o.id}"`:''}>${label}</button>`;
+function renderAuction(el){
+  const a=S.auc, x=aucActor(), ap=P(x), t=T[a.i];
+  let h=`<div class="who"><span class="chip" style="--pc:${ap.color}">${init(ap)}</span><span class="nmx">${esc(ap.name)}<span class="sub">${a.phase==='confirm'?'Pemilik memutuskan':'Giliran menawar'}${ap.bot?' · Komputer':''}</span></span><span class="money">${fmt(ap.cash)}</span></div>`;
+  h+=`<div class="auc"><span class="lbl">Lelang · ${esc(t.n)}</span><p>Pemilik ${esc(P(a.seller).name)}${a.kind==='offer'?` · dibuka oleh penawaran ${esc(P(a.by).name)}`:''} · harga petak ${fmt(t.p)}</p>
+    <p class="hi">${a.high?fmt(a.high.amt):'Belum ada tawaran'}</p><p>${a.high?`Tertinggi: ${esc(P(a.high.who).name)}`:`Tawaran mulai ${fmt(a.min)}`}</p>
+    <p>Masih ikut: ${a.active.map(y=>esc(P(y).name)).join(', ')||'tidak ada'}</p></div>`;
+  let b='';
+  if(a.phase==='bid'){ const base=a.high?a.high.amt:a.min-100; b=AUC_INC.map((n,k)=>B(`Tawar ${fk(base+n)}`,'aucBid',{arg:n,cls:k?'':'pri',dis:base+n>ap.cash})).join('')+B('Mundur','aucPass'); }
+  else b=B(`Terima ${fk(a.high.amt)} dari ${esc(P(a.high.who).name)}`,'aucAccept',{cls:'pri'})+B('Tolak','aucReject');
+  if(ap.bot)h+=`<p class="think"><i></i>${esc(ap.name)} sedang berpikir…</p>`;
+  else if(!myTurn())h+=`<p class="think"><i></i>Menunggu ${esc(ap.name)} di gadgetnya…</p>`;
+  else h+=`<div class="btns">${b}</div>`;
+  el.innerHTML=h;
+}
+function bankHTML(p){
+  const j=S.turn, ls=loansOf(j), cap=loanCap(j);
+  let h=`<div class="bank"><div class="btns">${B(bankOpen?'Tutup kredit bank':`Kredit bank${ls.length?` · utang ${fk(debtOf(j))}`:''}`,'toggleBank',{cls:'sm'})}</div>`;
+  if(!bankOpen)return h+'</div>';
+  h+=`<p>Profit per lewat Mulai ${fmt(profitOf(j))}${ls.length?` · bunga ${fmt(interestOf(j))} per lewat Mulai`:''}. Plafon pinjaman ${fmt(cap)} (aset bersih dikurangi utang).</p>`;
+  const opts=[...new Set([1000,2000,5000,10000,cap].filter(x=>x>0&&x<=cap))].sort((x,y)=>x-y);
+  if(opts.length)h+=`<div class="btns">${opts.map(x=>B(`Pinjam ${fk(x)} · ${loanRate(j,x)}%`,'takeLoan',{arg:x,cls:'sm'})).join('')}</div>`;
+  else h+=`<p>Bank belum bisa memberi pinjaman: aset bersihmu tidak cukup.</p>`;
+  if(ls.length)h+=`<div class="btns">${ls.map((l,k)=>B(`Lunasi ${fk(l.a)} (${l.r}%)`,'repayLoan',{arg:k,cls:'sm',dis:p.cash<l.a})).join('')}</div>`;
+  return h+'</div>';
+}
 function renderTurn(){
+  if(S.auc&&S.phase!=='over')return renderAuction($('#turn'));
   const p=cur(), el=$('#turn');
   let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:S.net&&p.dev?`<span class="sub">${p.dev===NET.token?'Kamu':'Gadget lain'+(isOnDev(p.dev)?'':' · terputus')}</span>`:''}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
   if(S.phase==='decide'&&S.pending?.type==='card'){
     const t=T[S.pending.i];
-    h+=`<div class="wcard"><span class="bigdia"><b>?</b></span><div><div class="lbl">Cari Wangsit · ${esc(t.loc)}</div><p>${esc(CARDS[S.pending.id].x)}</p></div></div>`;
+    h+=`<div class="wcard"><span class="bigdia"><b>?</b></span><div><div class="lbl">Cari Wangsit · ${esc(t.loc)}</div><p>${esc(cardText(CARDS[S.pending.id],S.turn))}</p></div></div>`;
   } else h+=`<p class="tmsg">${esc(S.msg)}</p>`;
   const due=ownedBy(S.turn).filter(k=>S.mort[k]===1);
   if(due.length&&S.phase!=='over')h+=`<p class="hint warn">Tebus sebelum melewati Mulai lagi, atau disita bank: ${due.map(k=>esc(T[k].n)).join(', ')}.</p>`;
@@ -982,7 +1157,7 @@ function renderTurn(){
   if(S.phase==='over'){ b=(NET.role==='guest'?'':B('Permainan baru','openSetup',{cls:'pri'}))+(overClosed?B('Lihat hasil','showOver'):''); if(NET.role==='guest')h+=`<p class="hint">Menunggu host memulai permainan baru.</p>`; }
   else if(p.cash<0&&(S.phase==='roll'||S.phase==='end')){
     const can=maxRaise(S.turn)>=0;
-    h+=`<p class="hint">Utang ${fmt(-p.cash)}. Jual bangunan atau gadaikan properti lewat panel petak, atau pakai tombol di bawah.</p>`;
+    h+=`<p class="hint">Utang ${fmt(-p.cash)}. Jual bangunan, tutup usaha, gadaikan properti lewat panel petak, ambil kredit bank, atau pakai tombol di bawah.</p>`;
     b=can?B('Jual & gadai otomatis','doAutoRaise',{cls:'pri'}):B('Nyatakan bangkrut','bankrupt',{cls:'dan'});
   }
   else if(S.phase==='roll'&&p.jail){
@@ -1007,6 +1182,7 @@ function renderTurn(){
     if(!on&&NET.role==='host')b=B('Ambil alih dengan komputer','takeover');
   }
   if(b)h+=`<div class="btns">${b}</div>`;
+  if(myTurn()&&S.phase!=='over'&&S.phase!=='busy')h+=bankHTML(p);
   const mine=PLANTS.filter(x=>S.own[x]===S.turn&&!S.mort[x]);
   if(myTurn()&&mine.length&&S.phase!=='over'&&S.phase!=='busy'){
     h+=`<div class="sab"><p class="lbl2">Sabotase pemadaman listrik</p><div class="btns">${mine.map(x=>{
@@ -1028,7 +1204,7 @@ function renderPlayers(){
       return `<button class="pc ${u?'u':''} ${S.mort[k]?'m':''}" type="button" data-act="showDetail" data-arg="${k}" style="${u?'':`--g:${GRP[t.g].c}`}" title="${esc(t.n)}" aria-label="${esc(t.n)}">${u?icon(UT[t.k].ic):''}</button>`;}).join('');
     return `<div class="pl ${j===S.turn&&S.phase!=='over'?'on':''} ${p.out?'out':''}">
       <span class="chip" style="--pc:${p.color}">${init(p)}</span>
-      <div style="min-width:0"><div class="pn">${esc(p.name)}${S.net&&p.dev===NET.token?' · kamu':''}${p.out?' · bangkrut':S.net&&p.dev&&!p.bot&&!isOnDev(p.dev)?' · terputus':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div></div>
+      <div style="min-width:0"><div class="pn">${esc(p.name)}${S.net&&p.dev===NET.token?' · kamu':''}${p.out?' · bangkrut':S.net&&p.dev&&!p.bot&&!isOnDev(p.dev)?' · terputus':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div>${p.out?'':`<div class="pnw">Profit per Mulai ${fk(profitOf(j))}${debtOf(j)?` · kredit ${fk(debtOf(j))}`:''}</div>`}</div>
       <span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span>
       ${props?`<div class="props">${props}</div>`:''}
     </div>`;
@@ -1044,8 +1220,8 @@ function renderDetail(){
     const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
     const inJ=S.players.filter(p=>p.jail&&!p.out).map(p=>esc(p.name));
     const [ttl,sub,sw,body]=detail===-1
-      ?['Penjara','Di luar jalur permainan','#1A1E1C',`<p class="dt-note">Pemain masuk penjara lewat kartu Cari Wangsit. Untuk keluar, lempar dadu dobel (paling banyak 3 percobaan, satu per giliran) atau bayar denda ${fmt(JAIL_FINE)} sebelum melempar. Jika percobaan ketiga gagal, denda dibayar otomatis. Setelah bebas, langkah dihitung dari Mulai tanpa gaji.</p><p class="dt-note">Selama di penjara, pemain tetap menerima sewa dari propertinya.</p><p class="dt-note">${inJ.length?'Sedang di penjara: <b>'+inJ.join(', ')+'</b>.':'Penjara sedang kosong.'}</p>`]
-      :['Cari Wangsit','Tumpukan kartu','var(--warn)',`<p class="dt-note">${CARDS.length} kartu berisi hadiah, denda, perintah pindah petak, dan ${CARDS.filter(c=>c.a==='jail').length} kartu masuk penjara. Kartu diambil saat berhenti di petak Cari Wangsit.</p>`];
+      ?['Penjara','Di luar jalur permainan','#1A1E1C',`<p class="dt-note">Pemain masuk penjara lewat kartu Cari Wangsit. Untuk keluar, lempar dadu dobel (paling banyak 3 percobaan, satu per giliran) atau bayar denda ${fmt(JAIL_FINE)} sebelum melempar. Jika percobaan ketiga gagal, denda dibayar otomatis. Setelah bebas, langkah dihitung dari Mulai tanpa menerima profit.</p><p class="dt-note">Selama di penjara, pemain tetap menerima sewa dari propertinya.</p><p class="dt-note">${inJ.length?'Sedang di penjara: <b>'+inJ.join(', ')+'</b>.':'Penjara sedang kosong.'}</p>`]
+      :['Cari Wangsit','Tumpukan kartu','var(--warn)',`<p class="dt-note">${CARDS.length} kartu berisi hadiah, denda, perintah pindah petak, ${CARDS.filter(c=>c.a==='jail').length} kartu masuk penjara, dan ${CARDS.filter(c=>c.a==='raid').length} kartu razia usaha ilegal (penjara dan sita bila kedapatan). Kartu diambil saat berhenti di petak Cari Wangsit.</p>`];
     el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${ttl}</h3><div class="dt-sub">${sub}</div></div>${close}</div>${body}`;
     el.hidden=false; return;
   }
@@ -1088,8 +1264,15 @@ function renderDetail(){
     body+=`<p class="dt-note">Sewa = angka dadu × tarif × pengali. Pengali ×4 untuk 1 utilitas dan naik 2 untuk setiap utilitas tambahan milik orang yang sama, paling tinggi ×20. ${u.up} (${fmt(t.uc)}) melipatgandakan sewa petak ini. Harga ${fmt(t.p)} · nilai gadai ${fmt(t.p/2)}.</p>`;
   }
   else if(t.t==='wangsit'){ sw='var(--warn)'; sub=`Kartu · ${t.loc}`; body=`<p class="dt-note">Ambil satu kartu Cari Wangsit. Isinya hadiah, denda, perintah pindah petak, atau perintah masuk penjara.</p>`; }
-  else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti kembali ke Kota Balikpapan tanpa melewati Mulai, jadi tidak ada gaji. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam boleh memilih tetap di jembatan. Setibanya di Balikpapan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
-  else if(t.t==='go'){ sw='var(--sign)'; sub='Titik awal'; body=`<p class="dt-note">Setiap melewati atau berhenti di Mulai, terima ${fmt(GO)}.</p>`; }
+  else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti kembali ke Kota Balikpapan tanpa melewati Mulai, jadi tidak ada profit usaha. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam boleh memilih tetap di jembatan. Setibanya di Balikpapan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
+  else if(t.t==='go'){ sw='var(--sign)'; sub='Titik awal'; body=`<p class="dt-note">Tidak ada gaji tetap. Setiap melewati atau berhenti di Mulai, pemain menerima total profit dari usaha aktifnya, lalu membayar bunga kredit bank jika ada.${S?` Profit ${esc(cur().name)} saat ini ${fmt(profitOf(S.turn))} per lewat Mulai.`:''}</p>`; }
+  if(t.p&&bizAt(i).length+(t.t==='prop'&&i!==IKN?2:0)){
+    const tp=tileProfit(i), b=S.biz[i]||{};
+    const list=[...BIZ_ORDER.filter(k=>b[k]).map(k=>`${BIZ[k].n}${b[k]==='i'?' (ilegal)':' (resmi)'} +${fk(BIZ[k][b[k]].p)}`),
+      ...(S.eb[i]!=null?[`Pos bensin eceran (ilegal) +${fk(posOff(i,'b')?0:ECER_P.b)}`]:[]),...(S.el[i]!=null?[`Pos LPG eceran (ilegal) +${fk(posOff(i,'l')?0:ECER_P.l)}`]:[]),
+      ...((S.houses[i]||0)>=3&&i!==IKN?[`${lvName(i,S.houses[i])} +${fk(BLD_P[S.houses[i]])}`]:[])];
+    body+=`<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
+  }
   let own='';
   if(t.p) own=`<p class="dt-note">${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
   let acts='';
@@ -1112,9 +1295,23 @@ function renderDetail(){
       if(!S.up[i])a.push(B(`${UT[t.k].up} (${fk(t.uc)})`,'upgrade',{arg:i,dis:cash<t.uc}));
       else a.push(B(`Bongkar ${UT[t.k].up.toLowerCase()} (+${fk(t.uc/2)})`,'downgrade',{arg:i}));
     }
+    for(const k of bizAt(i)){
+      const m=S.biz[i]?.[k];
+      if(m){ a.push(B(`Tutup ${lc(BIZ[k].n)} (+${fk(BIZ[k][m].c/2)})`,'bizSell',{arg:i*100+BIZ_ORDER.indexOf(k)})); continue; }
+      for(const md of ['r','i']){ if(!BIZ[k][md])continue; const w=bizWhy(i,k,md);
+        a.push(B(`${md==='r'?'Buka':'Bakar hutan:'} ${lc(BIZ[k].n)}${md==='r'&&BIZ[k].i?' resmi':''} (${fk(BIZ[k][md].c)})`,'bizBuild',{arg:i*100+BIZ_ORDER.indexOf(k)*2+(md==='i'?1:0),dis:!!w})); }
+    }
+    { const w=aucWhy(i,S.turn); a.push(B('Lelang petak ini','startAuction',{arg:i,dis:!!w||!aucReady()})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
     if(S.mort[i])a.push(B(`Tebus (${fk(unmortCost(i))})`,'unmortgage',{arg:i,dis:cash<unmortCost(i)}));
     else{ const w=whyNoMort(i); a.push(B(`Gadaikan (+${fk(t.p/2)})`,'mortgage',{arg:i,dis:!!w})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
     acts=`<div class="btns dt-acts">${a.join('')}</div>`+acts;
+  }
+  if(o!=null&&o!==S.turn&&myTurn()&&!S.auc&&!P(o).out&&t.p){
+    const w=aucWhy(i,o), c=cur().cash, offs=[...new Set([.6,1,1.4].map(f=>Math.max(100,Math.round(t.p*f/100)*100)))];
+    acts+=`<p class="dt-note"><b>Ajukan penawaran</b> untuk membuka lelang. Pemain lain boleh menawar lebih tinggi, lalu ${esc(P(o).name)} memilih menerima atau menolak. Sekali per giliran.</p>`;
+    if(w)acts+=`<p class="hint">${w}</p>`;
+    else if(S.offerUsed)acts+=`<p class="hint">Kamu sudah mengajukan penawaran di giliran ini.</p>`;
+    else acts+=`<div class="btns dt-acts">${offs.map(x=>B(`Tawar ${fk(x)}`,'makeOffer',{arg:x*100+i,dis:x>c||!aucReady()})).join('')}</div>`;
   }
   el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${esc(t.n)}</h3><div class="dt-sub">${esc(sub)}</div></div>${close}</div>${body}${own}${acts}`;
   el.hidden=false;
@@ -1148,7 +1345,7 @@ const LEVELS={
 };
 const BOT_DELAY=850, PD=[0,0,1,2,3,4,5,6,5,4,3,2,1].map(v=>v/36);
 let botTimer=null;
-const isBot=()=>!!(S&&cur()?.bot&&!cur().out);
+const isBot=()=>!!(S&&S.phase!=='over'&&actP()?.bot&&!actP().out);
 function scheduleBot(){ clearTimeout(botTimer); if(!S||S.phase==='over'||S.phase==='busy'||!isBot())return; botTimer=setTimeout(botStep,RM?300:BOT_DELAY); }
 const rivals=j=>S.players.map((q,k)=>k).filter(k=>k!==j&&!P(k).out);
 const ownsRestOf=(i,j)=>!!T[i].g&&GROUPS[T[i].g].filter(x=>x!==i).every(x=>S.own[x]===j);
@@ -1159,7 +1356,7 @@ function threat(j){ let m=0; for(const k in S.own){ if(S.own[k]!==j)m=Math.max(m
 const MT={base:700,k:.6,cap:6000,buy:.5};
 function reserveFor(j){ const L=P(j).bot; return L==='pendatang'?3500:L==='warlok'?2000+threat(j)*.3:Math.min(MT.cap,MT.base+threat(j)*MT.k); }
 function danger(x,j){ let s=0; for(let d=2;d<=12;d++){ const i=(x+d)%N; if(S.own[i]!=null&&S.own[i]!==j)s+=PD[d]*rentGuess(i,d); } return s; }
-function junk(j){ return ownedBy(j).filter(k=>!S.mort[k]&&!hasPos(k)&&!S.up[k]&&!isFullSet(k)&&!(T[k].g&&peers(k).some(x=>S.own[x]===j&&S.houses[x]))).sort((a,b)=>rentGuess(a)-rentGuess(b)||T[a].p-T[b].p); }
+function junk(j){ return ownedBy(j).filter(k=>!S.mort[k]&&!hasBiz(k)&&!S.up[k]&&!isFullSet(k)&&!(T[k].g&&peers(k).some(x=>S.own[x]===j&&S.houses[x]))).sort((a,b)=>rentGuess(a)-rentGuess(b)||T[a].p-T[b].p); }
 function raiseBy(need,keep=[]){ const p=cur(); for(const k of junk(S.turn)){ if(p.cash>=need)break; if(!keep.includes(k))mortgage(k); } return p.cash>=need; }
 
 function botBuy(){
@@ -1225,10 +1422,55 @@ function botManage(){
     const cost=posFree(j)?0:(kd==='b'?BENSIN.c:LPG.c);
     if(!cost||p.cash-cost>=res*(L==='mafia'?1:1.6))buildPos(i,kd);
   }
+  botLoans(); botBiz();
   if(L!=='pendatang') for(const i of ownedBy(j)){
     const t=T[i]; if(t.t!=='util'||S.up[i]||S.mort[i])continue;
     if(p.cash-t.uc>=res*(L==='mafia'?1.4:2.5)+1000)upgrade(i);
   }
+}
+function botBiz(){
+  const p=cur(),j=S.turn,L=p.bot,res=reserveFor(j), opts=[];
+  for(const i of ownedBy(j)){ if(S.mort[i])continue; for(const k of bizAt(i)) for(const m of ['r','i']){
+    if(!BIZ[k][m]||(m==='i'&&L!=='mafia'))continue; if(bizWhy(i,k,m)!=='')continue;
+    if(m==='r'&&BIZ[k].i&&L==='mafia')continue;
+    opts.push({i,k,m,c:BIZ[k][m].c,roi:BIZ[k][m].p/BIZ[k][m].c}); } }
+  opts.sort((a,b)=>b.roi-a.roi);
+  const maxN=L==='pendatang'?1:L==='warlok'?3:6, floor=L==='pendatang'?6000:L==='warlok'?res*.8:res*.5;
+  let n=0; for(const o of opts){ if(n>=maxN)break; if(S.biz[o.i]?.[o.k])continue; if(p.cash-o.c<floor)continue; bizBuild(o.i*100+BIZ_ORDER.indexOf(o.k)*2+(o.m==='i'?1:0)); n++; }
+}
+function botLoans(){
+  const p=cur(),j=S.turn,L=p.bot,res=reserveFor(j);
+  for(const k of loansOf(j).map((l,k)=>k).sort((x,y)=>loansOf(j)[y].r-loansOf(j)[x].r)){ const l=loansOf(j)[k]; if(l&&p.cash-l.a>=res*1.2){ repayLoan(k); return botLoans(); } }
+}
+function botRescueLoan(){
+  const p=cur(),j=S.turn,L=p.bot, need=Math.ceil((-p.cash+300)/100)*100, cap=loanCap(j);
+  if(need<=0||cap<need)return false;
+  if(loanRate(j,need)>(L==='pendatang'?10:L==='warlok'?8:6))return false;
+  takeLoan(need); return true;
+}
+function botAuction(){
+  const a=S.auc, x=aucActor(), q=P(x), L=q.bot, t=T[a.i];
+  if(a.phase==='confirm'){
+    const keep=(isFullSet(a.i)||ownsRestOf(a.i,x)?1.6:1.15)*(t.p+bizVal(a.i))*(L==='pendatang'?.9:L==='mafia'?1.1:1);
+    return a.high.amt>=keep?aucAccept():aucReject();
+  }
+  const key=ownsRestOf(a.i,x)||blocksRival(a.i,x)||(t.g===9);
+  let v=(t.p+bizVal(a.i)*.8)*(key?(L==='mafia'?1.7:1.4):1)*(L==='pendatang'?.8:L==='mafia'?1.05:1);
+  if(L==='pendatang')v*=.8+Math.random()*.3;
+  const lim=Math.min(v,q.cash-reserveFor(x)*(L==='mafia'?.3:.6));
+  const next=(a.high?a.high.amt:a.min-100)+100;
+  return next<=lim?aucBid(100):aucPass();
+}
+function botOffer(){
+  const p=cur(),j=S.turn,L=p.bot; if(L!=='mafia'||S.offerUsed||!aucReady())return false;
+  const res=reserveFor(j);
+  for(const i of T.map((t,k)=>k)){
+    const o=S.own[i]; if(o==null||o===j||P(o).out||aucWhy(i,o))continue;
+    if(!ownsRestOf(i,j))continue;
+    const amt=Math.round(T[i].p*1.3/100)*100; if(p.cash-amt<res*.5)continue;
+    makeOffer(amt*100+i); return true;
+  }
+  return false;
 }
 function botFine(){
   const p=cur(),L=p.bot; if(p.cash<JAIL_FINE||L==='pendatang')return false;
@@ -1255,8 +1497,10 @@ function botFly(){
 }
 function botStep(){
   if(!isBot()||S.phase==='busy'||S.phase==='over')return;
+  if(S.auc)return botAuction();
   const p=cur();
   if(p.cash<0&&(S.phase==='roll'||S.phase==='end')){
+    if(botRescueLoan())return;
     if(p.bot==='mafia')for(const k of junk(S.turn)){ if(p.cash>=0)break; mortgage(k); }
     if(p.cash<0)autoRaise(S.turn);
     if(p.cash<0)return bankrupt();
@@ -1264,7 +1508,7 @@ function botStep(){
   }
   if(S.phase==='decide'){
     switch(S.pending?.type){
-      case 'buy': return botBuy();
+      case 'buy': { const t=T[S.pending.i]; if(p.bot==='mafia'&&p.cash<t.p&&(ownsRestOf(S.pending.i,S.turn)||t.g===9)){ const need=Math.ceil((t.p-p.cash+200)/100)*100; if(need<=loanCap(S.turn)&&loanRate(S.turn,need)<=4)takeLoan(need); } return botBuy(); }
       case 'card': return doCard();
       case 'bridge': return doBridge(botBridge());
       case 'fly': { const d=botFly(); return d==null?doNoFly():doFly(d); }
@@ -1272,7 +1516,7 @@ function botStep(){
     return;
   }
   if(S.phase==='roll'){
-    if(!S.botManaged){ S.botManaged=true; botManage(); }
+    if(!S.botManaged){ S.botManaged=true; botManage(); if(botOffer())return; }
     if(p.jail&&botFine())return payFine();
     return doRoll();
   }
@@ -1286,7 +1530,7 @@ const PEER_OPTS=Object.assign({debug:0},window.TRICITY_PEER_OPTS||{});
 const NET={role:null,code:null,name:'',peer:null,ready:false,guests:new Map(),conn:null,connected:false,ever:false,lobby:[],on:[],msg:'',err:false,tries:0,rt:null,ct:null,resume:false,idTries:0,
   token:(()=>{ try{ let t=localStorage.getItem('tricity-dev'); if(!t){ t=Math.random().toString(36).slice(2,10); localStorage.setItem('tricity-dev',t); } return t; }catch(e){ return Math.random().toString(36).slice(2,10); } })()};
 let onMode='host', netCpu=0, netLvl='warlok', syncT=null;
-const myTurn=()=>!!S&&!cur().bot&&(!S.net||cur().dev===NET.token);
+const myTurn=()=>!!S&&!actP().bot&&(!S.net||actP().dev===NET.token);
 function isOnDev(dev){
   if(!S?.net||!dev)return true;
   if(NET.role==='host')return dev===NET.token||!!NET.guests.get(dev)?.on;
@@ -1373,7 +1617,8 @@ function hostData(c,d){
   if(d.t==='act'){
     const tok=c.tok, a=String(d.a||''), f=ACTS[a];
     if(!tok||!f||!S?.net||S.phase==='over'||UI_ONLY.includes(a)||HOST_ONLY.includes(a))return;
-    if(cur().bot||cur().dev!==tok)return;
+    if(actP().bot||actP().dev!==tok)return;
+    if(S.auc&&!AUC_ACTS.includes(a))return;
     const arg=d.arg==null?undefined:Number(d.arg);
     f(arg);
   }
@@ -1521,12 +1766,12 @@ function onlinePrimary(){
     PENDING=null; syncResume(); return joinRoom(code,name);
   }
 }
-const UI_ONLY=['showDetail','closeDetail','showOver','noop'], HOST_ONLY=['takeover','openSetup'];
+const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank'], HOST_ONLY=['takeover','openSetup'];
 const BASE_TITLE=document.title;
 
 /* ================= Persistence & setup ================= */
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
-function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v===4&&Array.isArray(s.players))return s; }catch(e){} return null; }
+function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v===5&&Array.isArray(s.players))return s; }catch(e){} return null; }
 function syncNames(){
   const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value), cpu=setupMode==='cpu'||setupMode==='online', n=cpu?1:setupCount;
   box.innerHTML=Array.from({length:n},(_,i)=>`<label><span class="chip" style="--pc:${PCOL[i]}">${i+1}</span><input id="name${i}" maxlength="16" value="${esc(prev[i]??DEFAULT_NAMES[i])}" aria-label="${cpu?'Nama kamu':'Nama pemain '+(i+1)}"></label>`).join('');
@@ -1556,7 +1801,7 @@ function setArm(id,fn){
   clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
 }
 
-const ACTS={cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+const ACTS={bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
   showDetail(i){ detail=i; renderDetail(); updateTiles(); }};
 document.addEventListener('click',e=>{
@@ -1567,6 +1812,7 @@ document.addEventListener('click',e=>{
   if(act==='openSetup')return NET.role==='guest'?undefined:f();
   if(act==='takeover')return NET.role==='host'?f():undefined;
   if(S&&S.phase!=='over'&&!myTurn())return;
+  if(S?.auc&&!AUC_ACTS.includes(act))return;
   if(NET.role==='guest')return send(NET.conn,{t:'act',a:act,arg});
   f(arg);
 });
@@ -1601,7 +1847,7 @@ document.addEventListener('keydown',e=>{
 let PENDING=null;
 function fixState(x){
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
-  x.blk??={}; x.cutB??={}; x.cutL??={}; x.flyOff??=false;
+  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.flyOff??=false;
   if(x.phase==='busy')x.phase=x.pending?'decide':'end';
   delete x.eb?.[IKN]; delete x.el?.[IKN]; if((x.houses?.[IKN]||0)>4)x.houses[IKN]=4;
   return x;
@@ -1616,7 +1862,7 @@ function resumeSaved(){
 }
 function boot(data){
   buildBoard();
-  if(data?.S?.v===4){ S=fixState(data.S); detail=data.detail??null; render(); return; }
+  if(data?.S?.v===5){ S=fixState(data.S); detail=data.detail??null; render(); return; }
   const saved=loadSaved(), ns=loadNet(); let room=null;
   try{ room=new URLSearchParams(location.search).get('room'); }catch(e){}
   S=null; setDie(0,3); setDie(1,4);
