@@ -325,12 +325,14 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
       <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Pos eceran tidak bisa dibangun di IKN.</li>
       <li>Pos bensin eceran bisa dibangun di properti milikmu jika kamu memiliki SPBU terdekat dari properti itu, atau di properti mana pun jika kamu memiliki Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat, atau SPBE Babulu untuk properti mana pun. Pembangunan keduanya baru gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
       <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa melewati Mulai. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
-      <li>Pemilik 2 bandara atau lebih yang berhenti di bandara boleh terbang gratis ke bandara lain.</li>
+      <li>Siapa pun yang berhenti di bandara boleh membeli tiket IDR 400k untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</li>
       <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanan pembangkit itu jadi setengah sampai giliran si pemilik berikutnya.</li>
-      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: sewa SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa sampai giliran si pemutus berikutnya.</li>
+      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa sampai giliran si pemutus berikutnya.</li>
       <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, dan kartu masuk penjara.</li>
       <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai tanpa menerima profit.</li>
-      <li>Bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, dan kilang adalah utilitas. Sewanya angka dadu × tarif × pengali yang naik setiap kali pemiliknya menambah utilitas.</li>
+      <li>Bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, dan kilang adalah utilitas. Utilitas tidak memungut sewa: berhenti di utilitas milik pemain lain gratis. Pemiliknya menerima profit setiap lewat Mulai, dan peningkatan utilitas melipatgandakan profit itu.</li>
+      <li>Jika SPBU terdekat milik pemain lain, kamu tetap bisa membuka pos bensin atau LPG eceran lewat nego setoran ilegal ke pemilik SPBU itu: 10–50% profit pos eceran, dibayar setiap kamu lewat Mulai. SPBE Babulu dan Kilang Migas Balikpapan tidak menerima nego semacam itu.</li>
+      <li>Harga beli dan biaya peningkatan PLTU didiskon 50% jika kamu sudah punya tambang batu bara; PLTGU didiskon 50% jika kamu sudah punya tambang migas. PLTS IKN tidak mendapat diskon.</li>
       <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
       <li>Dobel boleh lempar lagi, paling banyak tiga kali lemparan berturut-turut.</li>
     </ul>
@@ -462,9 +464,9 @@ const CARDS=[
  {x:'Kapal feri ke Penajam sudah menunggu. Maju ke Pelabuhan Kariangau. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Pelabuhan Kariangau')},
  {x:'Liburan ke pantai Kuala Samboja. Maju ke Kuala Samboja. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Kuala Samboja')},
  {x:'Maju ke Semoi. Jika melewati Mulai, terima profit usahamu.',a:'to',v:IX('Semoi')},
- {x:'Tangki hampir kosong. Maju ke SPBU atau SPBE terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'fuel'},
- {x:'Kejar penerbangan! Maju ke bandara terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'air'},
- {x:'Listrik padam bergilir. Maju ke pembangkit listrik terdekat. Jika sudah ada pemiliknya, bayar 2× sewa.',a:'near',c:'power'},
+ {x:'Tangki hampir kosong. Maju ke SPBU atau SPBE terdekat.',a:'near',c:'fuel'},
+ {x:'Kejar penerbangan! Maju ke bandara terdekat. Di sana kamu boleh membeli tiket ke bandara lain.',a:'near',c:'air'},
+ {x:'Listrik padam bergilir. Maju ke pembangkit listrik terdekat.',a:'near',c:'power'},
  {x:'Truk mogok di tanjakan, jalan macet. Mundur 3 langkah.',a:'back',v:3},
  {x:'Mimpi buruk di Jembatan Pulau Balang. Kembali ke Kota Balikpapan tanpa melewati Mulai.',a:'warp',v:IX('Kota Balikpapan')},
  {x:'Pesut Mahakam muncul di samping perahumu. Pertanda baik: terima IDR 1.000k.',a:'cash',v:1000},
@@ -565,12 +567,23 @@ function pay(from,to,amt){ if(amt<=0)return; const p=P(from); p.cash-=amt; if(to
 
 const hasBiz=i=>hasPos(i)||!!(S.biz?.[i]&&Object.keys(S.biz[i]).length);
 const bizVal=i=>{ let v=posVal(i); const b=S.biz?.[i]||{}; for(const k in b)v+=BIZ[k][b[k]].c; return v; };
+const UTP={air:300,port:250,power:250,solar:200,fuel:200,refinery:450}, FARE=400;
+const upPaid=i=>S.up[i]===true?T[i].uc:(S.up[i]||0);
+function utilProfit(i){ let v=UTP[T[i].k]*(S.up[i]?2:1); const c=cutCount(i); return c?Math.ceil(v/2**c):v; }
+const COAL_PLANTS=PLANTS.filter(i=>T[i].n.startsWith('PLTU ')), GAS_PLANTS=PLANTS.filter(i=>T[i].n.startsWith('PLTGU'));
+const ownsMine=(j,k)=>ownedBy(j).some(i=>S.biz[i]?.[k]);
+const plantDisc=(i,j)=>(COAL_PLANTS.includes(i)&&ownsMine(j,'bara'))||(GAS_PLANTS.includes(i)&&ownsMine(j,'migas'));
+const priceFor=(i,j)=>plantDisc(i,j)?T[i].p/2:T[i].p;
+const upCost=(i,j)=>plantDisc(i,j)?T[i].uc/2:T[i].uc;
+function fareParts(from,to,j){ const r=[]; for(const e of [from,to]){ const o=S.own[e]; if(o===j)continue; r.push({to:o!=null&&!P(o).out&&!S.mort[e]?o:-1,a:FARE/2}); } return r; }
+const fareOf=(from,to,j)=>fareParts(from,to,j).reduce((a,x)=>a+x.a,0);
 function tileProfit(i){
   const o=S.own[i]; if(o==null||S.mort[i])return {lg:0,il:0};
   let lg=0,il=0; const b=S.biz?.[i]||{};
   for(const k in b){ const d=BIZ[k][b[k]]; if(b[k]==='i')il+=d.p; else lg+=d.p; }
   if(S.eb[i]!=null&&!posOff(i,'b'))il+=ECER_P.b;
   if(S.el[i]!=null&&!posOff(i,'l'))il+=ECER_P.l;
+  if(T[i].t==='util')lg+=utilProfit(i);
   const h=S.houses[i]||0; if(T[i].t==='prop'&&i!==IKN&&h>=3){ let v=BLD_P[h]; if(blackout(i)!=null)v=Math.ceil(v/2); lg+=v; }
   return {lg,il};
 }
@@ -582,19 +595,19 @@ function loanCap(j){ return Math.max(0,Math.floor((netWorth(j)-debtOf(j))/100)*1
 function loanRate(j,a){ const eq=Math.max(1,netWorth(j)); return Math.max(1,Math.min(10,Math.round(1+9*((debtOf(j)+a)/eq)))); }
 function netWorth(j){
   let v=P(j).cash;
-  for(const k of ownedBy(j)){ const t=T[k]; v+=S.mort[k]?t.p/2:t.p; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h; if(S.up[k])v+=t.uc; v+=bizVal(k); }
+  for(const k of ownedBy(j)){ const t=T[k]; v+=S.mort[k]?t.p/2:t.p; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h; if(S.up[k])v+=upPaid(k); v+=bizVal(k); }
   return v-debtOf(j);
 }
 function maxRaise(j){
   let v=P(j).cash;
-  for(const k of ownedBy(j)){ const t=T[k]; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h/2; if(S.up[k])v+=t.uc/2; if(!S.mort[k])v+=t.p/2; v+=bizVal(k)/2; }
+  for(const k of ownedBy(j)){ const t=T[k]; if(t.g)v+=(S.houses[k]||0)*GRP[t.g].h/2; if(S.up[k])v+=upPaid(k)/2; if(!S.mort[k])v+=t.p/2; v+=bizVal(k)/2; }
   return v;
 }
 
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
   S={v:5,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
-    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},loans:{},auc:null,offerUsed:false,blk:{},cutB:{},cutL:{},flyOff:false,
+    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
   log(`Permainan baru: ${names.join(', ')}. Modal awal masing-masing ${fmt(START)}.`);
@@ -604,7 +617,7 @@ const utilMult=o=>Math.min(20,2+2*UTILS.filter(j=>S.own[j]===o).length);
 function rentOf(i){
   const t=T[i],o=S.own[i],m=S.mod||{};
   if(t.t==='prop'){ const h=S.houses[i]||0, ex=(S.eb[i]!=null&&!posOff(i,'b')?BENSIN.r:0)+(S.el[i]!=null&&!posOff(i,'l')?LPG.r:0); const r=(h?t.r[h]:t.r[0]*(GROUPS[t.g].every(j=>S.own[j]===o)?2:1))+ex; return blackout(i)!=null?Math.ceil(r/2):r; }
-  if(t.t==='util')return utilRent(i,S.dice[0]+S.dice[1],m.x||1);
+  if(t.t==='util')return 0;
   return 0;
 }
 function tickMortgages(j){
@@ -612,7 +625,7 @@ function tickMortgages(j){
     if(!S.mort[k])continue;
     S.mort[k]--;
     if(S.mort[k]<=0){
-      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k];
+      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');
       log(`${P(j).name} tidak menebus ${T[k].n} tepat waktu. Bank menyita petak ini dan menjualnya lagi.`);
     } else log(`Sisa waktu tebus ${T[k].n}: ${S.mort[k]} kali lagi melewati Mulai.`);
   }
@@ -621,6 +634,7 @@ function passMulai(j){
   const p=P(j), pr=profitOf(j);
   if(pr>0){ gain(j,pr); log(`${p.name} melintasi Mulai dan menerima profit usaha ${fmt(pr)}.`); }
   else log(`${p.name} melintasi Mulai tanpa usaha aktif, tidak ada pemasukan.`);
+  payDeals(j);
   const it=interestOf(j); if(it){ pay(j,-1,it); log(`${p.name} membayar bunga kredit bank ${fmt(it)}.`); }
   tickMortgages(j);
 }
@@ -640,7 +654,7 @@ async function animDice(d){
   setDie(0,d[0]); setDie(1,d[1]);
 }
 async function doRoll(){
-  if(!S||S.auc||S.phase!=='roll'||cur().cash<0)return;
+  if(!S||S.auc||S.deal||S.phase!=='roll'||cur().cash<0)return;
   const p=cur(); S.phase='busy'; S.here=null; S.flyOff=false; render();
   const d=[rnd6(),rnd6()]; await animDice(d); S.dice=d;
   const tot=d[0]+d[1], dbl=d[0]===d[1];
@@ -666,9 +680,10 @@ function land(){
   S.here=i;
   if(t.p){
     const o=S.own[i];
-    if(o==null){ S.pending={type:'buy',i}; S.phase='decide'; setMsg(`${p.name} tiba di ${t.n}. Belum ada pemiliknya, harganya ${fmt(t.p)}.`); render(); return; }
+    if(o==null){ const pr=priceFor(i,me); S.pending={type:'buy',i}; S.phase='decide'; setMsg(`${p.name} tiba di ${t.n}. Belum ada pemiliknya, harganya ${fmt(pr)}${pr<t.p?` (diskon 50% dari ${fmt(t.p)} karena kamu punya tambang ${COAL_PLANTS.includes(i)?'batu bara':'migas'})`:''}.`); render(); return; }
     if(o===me) setMsg(`${p.name} singgah di miliknya sendiri, ${t.n}.`);
     else if(S.mort[i]) setMsg(`${t.n} milik ${P(o).name} sedang digadai. Tidak ada sewa.`);
+    else if(t.t==='util') setMsg(`${t.n} milik ${P(o).name}. Utilitas tidak memungut sewa, ${p.name} singgah gratis.`);
     else{
       const r=rentOf(i);
       const bo=t.t==='prop'?blackout(i):null, cc=cutCount(i);
@@ -707,8 +722,12 @@ function doBridge(go){
 const ownAirs=j=>AIRS.filter(x=>S.own[x]===j);
 async function doFly(dest){
   if(S.pending?.type!=='fly'||!AIRS.includes(dest)||dest===cur().pos)return;
-  const p=cur(),from=p.pos; S.pending=null; S.phase='busy'; S.flyOff=true;
-  log(`${p.name} terbang gratis dari ${T[from].n} ke ${T[dest].n}.`); setMsg(`${p.name} terbang ke ${T[dest].n}…`); render();
+  const p=cur(),from=p.pos, parts=fareParts(from,dest,S.turn), fee=parts.reduce((a,x)=>a+x.a,0);
+  if(p.cash<fee)return;
+  S.pending=null; S.phase='busy'; S.flyOff=true;
+  for(const x of parts)pay(S.turn,x.to,x.a);
+  const who=parts.map(x=>`${fk(x.a)} ke ${x.to<0?'bank':P(x.to).name}`).join(', ');
+  log(fee?`${p.name} membeli tiket ${fmt(fee)} (${who}) dan terbang dari ${T[from].n} ke ${T[dest].n}.`:`${p.name} terbang gratis dari ${T[from].n} ke ${T[dest].n} (kedua bandara miliknya).`); setMsg(`${p.name} terbang ke ${T[dest].n}…`); render();
   const tk=document.querySelector(`#toks [data-j="${S.turn}"]`);
   if(tk&&!RM)tk.classList.add('fly');
   p.pos=dest; renderTokens(); if(!RM)await sleep(950);
@@ -729,15 +748,15 @@ function cutSupply(kind,x){
   if(!SPBU.includes(x)||S.own[x]==null||S.own[x]===S.turn||P(S.own[x]).out||st[x]!=null)return;
   st[x]=S.turn;
   const pos=kind==='b'?S.eb:S.el, n=T.map((t,i)=>i).filter(i=>pos[i]!=null&&S.own[i]!==S.turn&&nearestSPBU(i).includes(x)).length;
-  log(`${cur().name} memutus suplai ${kind==='b'?'BBM':'LPG'} ke ${T[x].n} milik ${P(S.own[x]).name}. Sewa SPBU itu jadi setengah${n?` dan ${n} pos ${kind==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa`:''} sampai giliran ${cur().name} berikutnya.`);
+  log(`${cur().name} memutus suplai ${kind==='b'?'BBM':'LPG'} ke ${T[x].n} milik ${P(S.own[x]).name}. Profit SPBU itu jadi setengah${n?` dan ${n} pos ${kind==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa`:''} sampai giliran ${cur().name} berikutnya.`);
   render();
 }
 function settle(){
   S.pending=null; S.mod=null;
   { const p=cur(),i=p.pos;
-    if(!S.flyOff&&!p.jail&&S.here===i&&AIRS.includes(i)&&ownAirs(S.turn).length>=2){
+    if(!S.flyOff&&!p.jail&&S.here===i&&AIRS.includes(i)){
       S.flyOff=true; S.pending={type:'fly',from:i}; S.phase='decide';
-      S.msg+=` Kamu memiliki ${ownAirs(S.turn).length} bandara, boleh terbang gratis ke bandara lain.`; render(); return;
+      S.msg+=` Kamu boleh membeli tiket untuk terbang ke bandara lain.`; render(); return;
     } }
   S.phase=S.again?'roll':'end';
   if(S.again) S.msg+=' Dapat dobel, lempar lagi.';
@@ -746,9 +765,9 @@ function settle(){
 }
 function doBuy(){
   if(S.pending?.type!=='buy')return;
-  const i=S.pending.i,t=T[i],p=cur(); if(p.cash<t.p)return;
-  pay(S.turn,-1,t.p); S.own[i]=S.turn;
-  log(`${p.name} membeli ${t.n} seharga ${fmt(t.p)}.`); setMsg(`${p.name} sekarang memiliki ${t.n}.`); settle();
+  const i=S.pending.i,t=T[i],p=cur(),pr=priceFor(i,S.turn); if(p.cash<pr)return;
+  pay(S.turn,-1,pr); S.own[i]=S.turn;
+  log(`${p.name} membeli ${t.n} seharga ${fmt(pr)}${pr<t.p?' (diskon 50%)':''}.`); setMsg(`${p.name} sekarang memiliki ${t.n}.`); settle();
 }
 function doSkip(){
   if(S.pending?.type!=='buy')return;
@@ -762,14 +781,14 @@ async function doCard(){
   S.pending=null; S.phase='busy'; S.flyOff=false; log(`${p.name} · Cari Wangsit: ${cardText(c,me)}`); setMsg(cardText(c,me)); render();
   switch(c.a){
     case 'to': await stepTo(c.v); return land();
-    case 'near': await stepTo(nearest(CAT[c.c],p.pos)); S.mod={x:2}; return land();
+    case 'near': await stepTo(nearest(CAT[c.c],p.pos)); return land();
     case 'back': p.pos=(p.pos+N-c.v)%N; renderTokens(); if(!RM)await sleep(240); return land();
     case 'warp': p.pos=c.v; renderTokens(); if(!RM)await sleep(240); return land();
     case 'jail': goJail(); log(`${p.name} masuk penjara.`); setMsg(`${p.name} masuk penjara. Giliran berakhir.`); break;
     case 'raid':{
       const hit=raidHits(me,c.k);
       if(!hit.length){ setMsg(c.x0); break; }
-      for(const k of hit){ if(c.k==='eb')delete S.eb[k]; else if(c.k==='el')delete S.el[k]; else delete S.biz[k][c.k]; }
+      for(const k of hit){ if(c.k==='eb'){ delete S.eb[k]; dropDeal(k,'b'); } else if(c.k==='el'){ delete S.el[k]; dropDeal(k,'l'); } else delete S.biz[k][c.k]; }
       goJail(); log(`${p.name} masuk penjara. ${hit.length} usaha ilegalnya disita negara (${hit.map(k=>T[k].n).join(', ')}).`);
       setMsg(`${p.name} masuk penjara dan ${hit.length} usaha ilegalnya disita negara.`); break;
     }
@@ -797,16 +816,16 @@ function nextPlayer(){
   let n=S.turn;
   do{ n=(n+1)%S.players.length; }while(P(n).out);
   if(n<=S.turn)S.round++;
-  S.turn=n; S.doubles=0; S.again=false; S.phase='roll'; S.here=null; S.pending=null; S.botManaged=false; S.offerUsed=false;
+  S.turn=n; S.doubles=0; S.again=false; S.phase='roll'; S.here=null; S.pending=null; S.botManaged=false; S.offerUsed=false; S.dealTried=[];
   for(const pl of Object.keys(S.blk).map(Number)) if(S.blk[pl].by===n){ delete S.blk[pl]; log(`Listrik di wilayah ${T[pl].n} menyala lagi.`); }
   for(const [st,w] of [[S.cutB,'BBM'],[S.cutL,'LPG']]) for(const x of Object.keys(st).map(Number)) if(st[x]===n){ delete st[x]; log(`Suplai ${w} ke ${T[x].n} pulih.`); }
   const p=cur();
   setMsg(p.cash<0?`${p.name} masih berutang ${fmt(-p.cash)}. Lunasi dulu sebelum melempar dadu.`:p.jail?`${p.name} di penjara. Coba dapat dobel atau bayar denda ${fmt(JAIL_FINE)}.`:`Giliran ${p.name}. Lempar dadu.`);
 }
-function endTurn(){ if(S.phase!=='end'||S.auc||cur().cash<0)return; nextPlayer(); render(); }
+function endTurn(){ if(S.phase!=='end'||S.auc||S.deal||cur().cash<0)return; nextPlayer(); render(); }
 
 /* building & mortgage */
-const manageable=i=>S&&!S.auc&&S.own[i]===S.turn&&S.phase!=='busy'&&S.phase!=='over';
+const manageable=i=>S&&!S.auc&&!S.deal&&S.own[i]===S.turn&&S.phase!=='busy'&&S.phase!=='over';
 function groupOk(i){ const t=T[i],o=S.own[i]; return GROUPS[t.g].every(j=>S.own[j]===o&&!S.mort[j]); }
 function whyNoBuild(i){
   const t=T[i]; if(t.t!=='prop')return 'x';
@@ -828,18 +847,60 @@ function canSell(i){ const t=T[i],h=S.houses[i]||0; return t.t==='prop'&&h>0&&h>
 function whyNoMort(i){ const t=T[i]; if(S.mort[i])return 'x'; if(hasBiz(i))return 'Tutup dulu semua usaha dan pos eceran di petak ini.'; if(t.t==='prop'&&peers(i).some(j=>S.own[j]===S.own[i]&&S.houses[j]))return 'Bongkar semua bangunan di set ini sebelum menggadaikan.'; if(S.up[i])return `Bongkar dulu ${UT[t.k].up.toLowerCase()} sebelum menggadaikan.`; return ''; }
 function build(i){ if(!manageable(i)||whyNoBuild(i))return; const g=GRP[T[i].g]; pay(S.turn,-1,g.h); S.houses[i]=(S.houses[i]||0)+1; log(`${cur().name} membangun ${lc(lvName(i,S.houses[i]))} di ${T[i].n} (${fmt(g.h)}).`); render(); }
 function sellHouse(i){ if(!manageable(i)||!canSell(i))return; const g=GRP[T[i].g]; S.houses[i]--; if(!S.houses[i])delete S.houses[i]; gain(S.turn,g.h/2); log(`${cur().name} menurunkan bangunan di ${T[i].n} (+${fmt(g.h/2)}).`); render(); }
-function upgrade(i){ const t=T[i]; if(!manageable(i)||t.t!=='util'||S.up[i]||S.mort[i]||cur().cash<t.uc)return; pay(S.turn,-1,t.uc); S.up[i]=true; log(`${cur().name} membangun ${UT[t.k].up.toLowerCase()} di ${t.n} (${fmt(t.uc)}). Sewanya kini 2×.`); render(); }
-function downgrade(i){ const t=T[i]; if(!manageable(i)||!S.up[i])return; delete S.up[i]; gain(S.turn,t.uc/2); log(`${cur().name} membongkar ${UT[t.k].up.toLowerCase()} di ${t.n} (+${fmt(t.uc/2)}).`); render(); }
+function upgrade(i){ const t=T[i], c=upCost(i,S.turn); if(!manageable(i)||t.t!=='util'||S.up[i]||S.mort[i]||cur().cash<c)return; pay(S.turn,-1,c); S.up[i]=c; log(`${cur().name} membangun ${lc(UT[t.k].up)} di ${t.n} (${fmt(c)}${c<t.uc?', diskon 50%':''}). Profitnya kini 2×.`); render(); }
+function downgrade(i){ const t=T[i]; if(!manageable(i)||!S.up[i])return; const r=upPaid(i)/2; delete S.up[i]; gain(S.turn,r); log(`${cur().name} membongkar ${lc(UT[t.k].up)} di ${t.n} (+${fmt(r)}).`); render(); }
 function posWhy(i,kind){
   const t=T[i],o=S.own[i]; if(t.t!=='prop'||i===IKN)return 'x';
   if((kind==='b'?S.eb:S.el)[i]!=null)return 'x';
   if(S.mort[i])return 'Tebus dulu properti ini.';
   const ns=nearestSPBU(i), near=ns.some(x=>S.own[x]===o), names=ns.map(x=>T[x].n).join(' atau ');
-  if(kind==='b'&&!near&&S.own[KILANG]!==o)return `Pos bensin eceran butuh SPBU terdekat (${names}) atau Kilang Migas Balikpapan.`;
-  if(kind==='l'&&!near&&S.own[SPBE]!==o)return `Pos LPG eceran butuh ${names} atau SPBE Babulu.`;
+  const own=near||(kind==='b'?S.own[KILANG]===o:S.own[SPBE]===o);
+  if(!own){ const d=dealTarget(i,kind); if(d!=null)return `Butuh izin pemilik ${T[d].n} (${P(S.own[d]).name}). Ajukan nego setoran di bawah.`; }
+  if(kind==='b'&&!own)return `Pos bensin eceran butuh SPBU terdekat (${names}) atau Kilang Migas Balikpapan.`;
+  if(kind==='l'&&!own)return `Pos LPG eceran butuh ${names} atau SPBE Babulu.`;
   if(!posFree(o)&&cur().cash<(kind==='b'?BENSIN.c:LPG.c))return 'Uang tunai tidak cukup.';
   return '';
 }
+function dealTarget(i,kind){
+  const o=S.own[i]; if(o==null||T[i].t!=='prop'||i===IKN)return null;
+  const ns=nearestSPBU(i); if(ns.some(x=>S.own[x]===o)||(kind==='b'?S.own[KILANG]:S.own[SPBE])===o)return null;
+  return ns.find(x=>S.own[x]!=null&&S.own[x]!==o&&!P(S.own[x]).out&&!S.mort[x])??null;
+}
+const DEAL_ACTS=['dealAccept','dealReject','dealCounter'], DEAL_PCT=[10,20,30,40,50];
+const dealActor=()=>S.deal.phase==='offer'?S.deal.to:S.deal.from;
+const posCost=(j,kind)=>posFree(j)?0:(kind==='b'?BENSIN.c:LPG.c);
+const posNm=kind=>kind==='b'?'pos bensin eceran':'pos LPG eceran';
+function dealPropose(arg){
+  const pct=Math.floor(arg/1000), kind=(arg%1000)>=100?'l':'b', i=arg%100, key=kind+i;
+  if(!manageable(i)||!DEAL_PCT.includes(pct)||(kind==='b'?S.eb:S.el)[i]!=null||(S.dealTried||[]).includes(key))return;
+  const sp=dealTarget(i,kind); if(sp==null||S.mort[i]||cur().cash<posCost(S.turn,kind))return;
+  (S.dealTried??=[]).push(key);
+  S.deal={i,kind,from:S.turn,to:S.own[sp],s:sp,pct,phase:'offer'};
+  log(`${cur().name} menawarkan setoran ${pct}% profit ${posNm(kind)} di ${T[i].n} kepada ${P(S.own[sp]).name}, pemilik ${T[sp].n}.`); render();
+}
+function dealAccept(){
+  const d=S.deal; if(!d)return;
+  const c=posCost(d.from,d.kind);
+  if(P(d.from).cash<c||S.own[d.i]!==d.from||S.own[d.s]!==d.to){ log(`Nego ${posNm(d.kind)} di ${T[d.i].n} batal.`); S.deal=null; return render(); }
+  pay(d.from,-1,c); (d.kind==='b'?S.eb:S.el)[d.i]=c; S.dl[d.kind+d.i]={s:d.s,pct:d.pct};
+  log(`${P(d.from).name} dan ${P(d.to).name} sepakat: ${posNm(d.kind)} dibuka di ${T[d.i].n}, setoran ${d.pct}% profit (${fk(Math.round(ECER_P[d.kind]*d.pct/100))}) setiap ${P(d.from).name} lewat Mulai.`);
+  setMsg(`${posNm(d.kind).replace(/^p/,'P')} di ${T[d.i].n} dibuka dengan setoran ${d.pct}%.`); S.deal=null; render();
+}
+function dealReject(){ const d=S.deal; if(!d)return; log(`${P(dealActor()).name} menolak nego setoran ${d.pct}% untuk ${posNm(d.kind)} di ${T[d.i].n}.`); setMsg(`Nego ${posNm(d.kind)} di ${T[d.i].n} gagal.`); S.deal=null; render(); }
+function dealCounter(pct){ const d=S.deal; if(!d||d.phase!=='offer'||!DEAL_PCT.includes(pct)||pct<=d.pct)return; d.pct=pct; d.phase='counter'; log(`${P(d.to).name} meminta setoran ${pct}%.`); render(); }
+function payDeals(j){
+  const p=P(j); let tot=0;
+  for(const key of Object.keys(S.dl)){
+    const kind=key[0], i=+key.slice(1), d=S.dl[key];
+    if(S.own[i]!==j)continue;
+    if((kind==='b'?S.eb:S.el)[i]==null){ delete S.dl[key]; continue; }
+    const to=S.own[d.s]; if(to==null||to===j||P(to).out||S.mort[i]||posOff(i,kind))continue;
+    const a=Math.round(ECER_P[kind]*d.pct/100); pay(j,to,a); tot+=a;
+    log(`${p.name} menyetor ${fmt(a)} ke ${P(to).name} untuk ${posNm(kind)} di ${T[i].n}.`);
+  }
+  return tot;
+}
+const dropDeal=(i,kind)=>{ if(S.dl)delete S.dl[kind+i]; };
 function buildPos(i,kind){
   if(!manageable(i)||posWhy(i,kind))return;
   const cost=posFree(S.turn)?0:(kind==='b'?BENSIN.c:LPG.c), nm=kind==='b'?'pos bensin eceran':'pos LPG eceran';
@@ -848,7 +909,7 @@ function buildPos(i,kind){
 }
 function sellPos(i,kind){
   const st=kind==='b'?S.eb:S.el; if(!manageable(i)||st[i]==null)return;
-  gain(S.turn,st[i]/2); log(`${cur().name} membongkar ${kind==='b'?'pos bensin':'pos LPG'} eceran di ${T[i].n} (+${fmt(st[i]/2)}).`); delete st[i]; render();
+  gain(S.turn,st[i]/2); log(`${cur().name} membongkar ${kind==='b'?'pos bensin':'pos LPG'} eceran di ${T[i].n} (+${fmt(st[i]/2)}).`); delete st[i]; dropDeal(i,kind); render();
 }
 function bizWhy(i,k,m){
   const t=T[i],o=S.own[i]; if(!BIZ[k].at.includes(i)||S.biz[i]?.[k]||!BIZ[k][m])return 'x';
@@ -889,9 +950,9 @@ function aucWhy(i,o){
   if(t.t==='prop'&&peers(i).some(x=>S.own[x]===o&&S.houses[x]))return 'Jual dulu semua bangunan di set ini sebelum dilelang.';
   return '';
 }
-const aucReady=()=>!!S&&!S.auc&&(S.phase==='roll'||S.phase==='end')&&cur().cash>=0;
+const aucReady=()=>!!S&&!S.auc&&!S.deal&&(S.phase==='roll'||S.phase==='end')&&cur().cash>=0;
 const aucActor=()=>S.auc.phase==='confirm'?S.auc.seller:S.auc.cur;
-const actor=()=>S?.auc?aucActor():S?.turn;
+const actor=()=>S?.auc?aucActor():S?.deal?dealActor():S?.turn;
 const actP=()=>P(actor());
 function aucOrder(from,skip){ const n=S.players.length, o=[]; for(let s=1;s<=n;s++){ const x=(from+s)%n; if(!P(x).out&&x!==skip)o.push(x); } return o; }
 function aucStep(from){
@@ -949,10 +1010,10 @@ function autoRaise(j){
   }
   while(p.cash<0){
     const k=ownedBy(j).find(hasBiz); if(k==null)break;
-    p.cash+=bizVal(k)/2; delete S.eb[k]; delete S.el[k]; delete S.biz[k];
+    p.cash+=bizVal(k)/2; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');
   }
   while(p.cash<0){
-    const u=ownedBy(j).filter(k=>S.up[k]); if(u.length){ delete S.up[u[0]]; p.cash+=T[u[0]].uc/2; continue; }
+    const u=ownedBy(j).filter(k=>S.up[k]); if(u.length){ p.cash+=upPaid(u[0])/2; delete S.up[u[0]]; continue; }
     const c=ownedBy(j).filter(k=>!S.mort[k]&&!(T[k].g&&peers(k).some(x=>S.own[x]===j&&S.houses[x]))).sort((a,b)=>T[a].p-T[b].p);
     if(!c.length)break; S.mort[c[0]]=MORT_PASSES; p.cash+=T[c[0]].p/2;
   }
@@ -973,7 +1034,7 @@ function bankrupt(){
     const cr=P(c); cr.cash+=Math.max(0,p.cash); props.forEach(k=>S.own[k]=c);
     log(`${p.name} bangkrut. Properti dan sisa hartanya diserahkan ke ${cr.name}.`);
   } else {
-    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k];});
+    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');});
     log(`${p.name} bangkrut. Semua propertinya kembali ke bank.`);
   }
   if(S.loans)delete S.loans[me];
@@ -1118,6 +1179,17 @@ function renderTokens(){
 }
 function renderCenter(){ setDie(0,S.dice[0]); setDie(1,S.dice[1]); }
 const B=(label,fn,o={})=>`<button class="btn ${o.cls||''}" type="button" data-act="${fn}" ${o.arg!=null?`data-arg="${o.arg}"`:''} ${o.dis?'disabled':''} ${o.id?`id="${o.id}"`:''}>${label}</button>`;
+function renderDeal(el){
+  const d=S.deal, x=dealActor(), ap=P(x), amt=Math.round(ECER_P[d.kind]*d.pct/100);
+  let h=`<div class="who"><span class="chip" style="--pc:${ap.color}">${init(ap)}</span><span class="nmx">${esc(ap.name)}<span class="sub">${d.phase==='offer'?'Pemilik SPBU memutuskan':'Pengaju memutuskan'}${ap.bot?' · Komputer':''}</span></span><span class="money">${fmt(ap.cash)}</span></div>`;
+  h+=`<div class="auc"><span class="lbl">Nego setoran ilegal · ${esc(T[d.s].n)}</span><p>${esc(P(d.from).name)} ingin membuka ${posNm(d.kind)} di ${esc(T[d.i].n)}. ${d.phase==='counter'?`${esc(P(d.to).name)} meminta`:'Tawaran'} setoran:</p><p class="hi">${d.pct}% · ${fk(amt)}</p><p>Dibayar ke pemilik ${esc(T[d.s].n)} setiap ${esc(P(d.from).name)} lewat Mulai, dari profit pos ${fk(ECER_P[d.kind])}.</p></div>`;
+  let b=B(`Terima ${d.pct}%`,'dealAccept',{cls:'pri'})+B('Tolak','dealReject');
+  if(d.phase==='offer')b+=DEAL_PCT.filter(q=>q>d.pct).map(q=>B(`Minta ${q}%`,'dealCounter',{arg:q})).join('');
+  if(ap.bot)h+=`<p class="think"><i></i>${esc(ap.name)} sedang berpikir…</p>`;
+  else if(!myTurn())h+=`<p class="think"><i></i>Menunggu ${esc(ap.name)} di gadgetnya…</p>`;
+  else h+=`<div class="btns">${b}</div>`;
+  el.innerHTML=h;
+}
 function renderAuction(el){
   const a=S.auc, x=aucActor(), ap=P(x), t=T[a.i];
   let h=`<div class="who"><span class="chip" style="--pc:${ap.color}">${init(ap)}</span><span class="nmx">${esc(ap.name)}<span class="sub">${a.phase==='confirm'?'Pemilik memutuskan':'Giliran menawar'}${ap.bot?' · Komputer':''}</span></span><span class="money">${fmt(ap.cash)}</span></div>`;
@@ -1145,6 +1217,7 @@ function bankHTML(p){
 }
 function renderTurn(){
   if(S.auc&&S.phase!=='over')return renderAuction($('#turn'));
+  if(S.deal&&S.phase!=='over')return renderDeal($('#turn'));
   const p=cur(), el=$('#turn');
   let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:S.net&&p.dev?`<span class="sub">${p.dev===NET.token?'Kamu':'Gadget lain'+(isOnDev(p.dev)?'':' · terputus')}</span>`:''}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
   if(S.phase==='decide'&&S.pending?.type==='card'){
@@ -1167,13 +1240,13 @@ function renderTurn(){
   else if(S.phase==='roll') b=B(S.doubles?'Lempar lagi':'Lempar dadu','doRoll',{cls:'pri',id:'bRoll'});
   else if(S.phase==='busy') b=B('Bergerak…','noop',{dis:true});
   else if(S.phase==='decide'&&S.pending?.type==='buy'){
-    const t=T[S.pending.i], ok=p.cash>=t.p;
-    b=B(`Beli ${fmt(t.p)}`,'doBuy',{cls:'pri',dis:!ok})+B('Lewati','doSkip');
-    if(!ok)h+=`<p class="hint">Uang tunai kurang ${fmt(t.p-p.cash)}. Gadaikan properti dulu jika ingin membeli.</p>`;
+    const t=T[S.pending.i], pr=priceFor(S.pending.i,S.turn), ok=p.cash>=pr;
+    b=B(`Beli ${fmt(pr)}`,'doBuy',{cls:'pri',dis:!ok})+B('Lewati','doSkip');
+    if(!ok)h+=`<p class="hint">Uang tunai kurang ${fmt(pr-p.cash)}. Gadaikan properti dulu jika ingin membeli.</p>`;
   }
   else if(S.phase==='decide'&&S.pending?.type==='card') b=B('Jalankan','doCard',{cls:'pri'});
   else if(S.phase==='decide'&&S.pending?.type==='bridge') b=B('Kembali ke Kota Balikpapan','bridgeGo',{cls:'pri'})+B('Tetap di jembatan','bridgeStay');
-  else if(S.phase==='decide'&&S.pending?.type==='fly') b=AIRS.filter(x=>x!==p.pos).map(x=>B(`Terbang ke ${T[x].n}${S.own[x]!=null&&S.own[x]!==S.turn?' (milik '+esc(P(S.own[x]).name)+')':''}`,'doFly',{arg:x,cls:'pri'})).join('')+B('Tetap di sini','doNoFly');
+  else if(S.phase==='decide'&&S.pending?.type==='fly') b=AIRS.filter(x=>x!==p.pos).map(x=>{ const f=fareOf(p.pos,x,S.turn); return B(`Terbang ke ${T[x].n} (${f?fk(f):'gratis'})`,'doFly',{arg:x,cls:'pri',dis:p.cash<f}); }).join('')+B('Tetap di sini','doNoFly');
   else if(S.phase==='end') b=B('Akhiri giliran','endTurn',{cls:'pri'});
   if(p.bot&&S.phase!=='over'){ b=''; h+=`<p class="think"><i></i>${esc(p.name)} (${LEVELS[p.bot].n}) sedang bermain…</p>`; }
   else if(S.phase!=='over'&&!myTurn()){
@@ -1235,8 +1308,9 @@ function renderDetail(){
     for(let k=1;k<=maxLv(i);k++)rows.push([`${k<maxLv(i)?k+' · ':''}${lvName(i,k)}`,t.r[k],h===k]);
     if(i!==IKN){
       const ob=posOff(i,'b'), ol=posOff(i,'l');
-      rows.push([`<span class="dot" style="background:#E53935"></span>Tambahan pos bensin eceran${ob?' (suplai BBM diputus)':''}`,ob?0:BENSIN.r,S.eb[i]!=null,'+']);
-      rows.push([`<span class="dot" style="background:#7CB342"></span>Tambahan pos LPG eceran${ol?' (suplai LPG diputus)':''}`,ol?0:LPG.r,S.el[i]!=null,'+']);
+      const dlb=S.dl?.['b'+i], dll=S.dl?.['l'+i];
+      rows.push([`<span class="dot" style="background:#E53935"></span>Tambahan pos bensin eceran${ob?' (suplai BBM diputus)':''}${dlb&&S.eb[i]!=null?` · setor ${dlb.pct}% ke pemilik ${esc(T[dlb.s].n)}`:''}`,ob?0:BENSIN.r,S.eb[i]!=null,'+']);
+      rows.push([`<span class="dot" style="background:#7CB342"></span>Tambahan pos LPG eceran${ol?' (suplai LPG diputus)':''}${dll&&S.el[i]!=null?` · setor ${dll.pct}% ke pemilik ${esc(T[dll.s].n)}`:''}`,ol?0:LPG.r,S.el[i]!=null,'+']);
     }
     body+=`<table class="rt">${rows.map(r=>`<tr class="${r[2]?'cur':''}"><td>${r[0]}</td><td>${r[3]||''}${fk(r[1])}</td></tr>`).join('')}</table>`;
     const nc=nearCity(i), ns=nearestSPBU(i), bo=blackout(i);
@@ -1248,12 +1322,13 @@ function renderDetail(){
   } else if(t.t==='util'){
     const u=UT[t.k]; sub=`Utilitas · ${u.l}`;
     const mult=o!=null?utilMult(o):4;
-    body+=`<table class="rt"><tr><td>Tarif</td><td>${fk(u.f)}</td></tr><tr class="${o!=null?'cur':''}"><td>Pengali ${o!=null?'pemilik saat ini':'jika punya 1 utilitas'}</td><td>×${mult}</td></tr><tr><td>Contoh dadu 7${S.up[i]?', dengan '+u.up.toLowerCase():''}</td><td>${fk(7*u.f*mult*(S.up[i]?2:1))}</td></tr></table>`;
-    if(t.k==='air')body+=`<p class="dt-note">Pemilik 2 bandara atau lebih yang berhenti di bandara mana pun boleh terbang gratis ke bandara lain.</p>`;
+    body+=`<table class="rt"><tr class="${o!=null&&!S.up[i]?'cur':''}"><td>Profit per lewat Mulai</td><td>${fk(UTP[t.k])}</td></tr><tr class="${S.up[i]?'cur':''}"><td>Dengan ${lc(u.up)}</td><td>${fk(UTP[t.k]*2)}</td></tr></table>`;
+    if(t.k==='air')body+=`<p class="dt-note">Siapa pun yang berhenti di bandara boleh membeli tiket ${fmt(FARE)} untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki atau sedang digadai masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</p>`;
+    if(COAL_PLANTS.includes(i)||GAS_PLANTS.includes(i))body+=`<p class="dt-note">Harga beli dan biaya ${lc(u.up)} didiskon 50% bagi pemain yang sudah punya tambang ${COAL_PLANTS.includes(i)?'batu bara':'migas'}.${S&&plantDisc(i,S.turn)?` <b>${esc(cur().name)} mendapat diskon ini.</b>`:''}</p>`;
     if(t.k==='port')body+=`<p class="dt-note">Pemilik pelabuhan yang berhenti di Jembatan Pulau Balang boleh memilih tetap di jembatan, tidak harus kembali ke Kota Balikpapan.</p>`;
     if(SPBU.includes(i)){
       const cb=S.cutB[i], cl=S.cutL[i];
-      body+=`<p class="dt-note">Pemilik Kilang Migas Balikpapan bisa memutus suplai BBM, dan pemilik SPBE Babulu bisa memutus suplai LPG, ke SPBU ini: tiap pemutusan membuat sewanya setengah, dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa.${cb!=null?` <b>Suplai BBM diputus</b> oleh ${esc(P(cb).name)}.`:''}${cl!=null?` <b>Suplai LPG diputus</b> oleh ${esc(P(cl).name)}.`:''}</p>`;
+      body+=`<p class="dt-note">Pemilik Kilang Migas Balikpapan bisa memutus suplai BBM, dan pemilik SPBE Babulu bisa memutus suplai LPG, ke SPBU ini: tiap pemutusan membuat profitnya setengah, dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa.${cb!=null?` <b>Suplai BBM diputus</b> oleh ${esc(P(cb).name)}.`:''}${cl!=null?` <b>Suplai LPG diputus</b> oleh ${esc(P(cl).name)}.`:''}</p>`;
     }
     if(i===KILANG)body+=`<p class="dt-note">Pemiliknya bisa membangun pos bensin eceran di properti mana pun, dan sekali per putaran boleh memutus suplai BBM ke satu SPBU milik lawan.</p>`;
     if(i===SPBE)body+=`<p class="dt-note">Pemiliknya bisa membangun pos LPG eceran di properti mana pun, dan sekali per putaran boleh memutus suplai LPG ke satu SPBU milik lawan.</p>`;
@@ -1261,7 +1336,7 @@ function renderDetail(){
       const bl=S.blk[i];
       body+=`<p class="dt-note">Wilayah layanan (${AREA[i].length} properti): ${AREA[i].map(x=>T[x].n).join(', ')}. Pemiliknya boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah ini jadi setengah sampai giliran si pemilik berikutnya.${bl?` <b>Sedang padam</b> oleh ${esc(P(bl.by).name)}.`:''}</p>`;
     }
-    body+=`<p class="dt-note">Sewa = angka dadu × tarif × pengali. Pengali ×4 untuk 1 utilitas dan naik 2 untuk setiap utilitas tambahan milik orang yang sama, paling tinggi ×20. ${u.up} (${fmt(t.uc)}) melipatgandakan sewa petak ini. Harga ${fmt(t.p)} · nilai gadai ${fmt(t.p/2)}.</p>`;
+    body+=`<p class="dt-note">Utilitas tidak memungut sewa: pemain lain yang berhenti di sini singgah gratis. Pemiliknya menerima profit setiap lewat Mulai${SPBU.includes(i)?' (setengah tiap kali suplainya diputus)':''}. ${u.up} (${fmt(t.uc)}) melipatgandakan profit. Harga ${fmt(t.p)} · nilai gadai ${fmt(t.p/2)}.</p>`;
   }
   else if(t.t==='wangsit'){ sw='var(--warn)'; sub=`Kartu · ${t.loc}`; body=`<p class="dt-note">Ambil satu kartu Cari Wangsit. Isinya hadiah, denda, perintah pindah petak, atau perintah masuk penjara.</p>`; }
   else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti kembali ke Kota Balikpapan tanpa melewati Mulai, jadi tidak ada profit usaha. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam boleh memilih tetap di jembatan. Setibanya di Balikpapan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
@@ -1286,14 +1361,20 @@ function renderDetail(){
       for(const [kd,nm,st,cst] of [['b','pos bensin eceran',S.eb,BENSIN.c],['l','pos LPG eceran',S.el,LPG.c]]){
         if(i===IKN)break;
         if(st[i]!=null){ a.push(B(`Bongkar ${nm} (+${fk(st[i]/2)})`,kd==='b'?'sellB':'sellL',{arg:i})); continue; }
-        const w=posWhy(i,kd); a.push(B(`Bangun ${nm} (${posFree(S.turn)?'gratis':fk(cst)})`,kd==='b'?'buildB':'buildL',{arg:i,dis:!!w}));
+        const w=posWhy(i,kd), dt=dealTarget(i,kd);
+        if(dt!=null&&!S.mort[i]){
+          const tried=(S.dealTried||[]).includes(kd+i), c=posCost(S.turn,kd);
+          acts+=`<p class="dt-note"><b>Nego ${nm}</b> dengan ${esc(P(S.own[dt]).name)}, pemilik ${esc(T[dt].n)}: tawarkan setoran dari profit ${fk(ECER_P[kd])} per lewat Mulai. Biaya buka ${c?fk(c):'gratis'}.${tried?' Sudah dicoba di giliran ini.':''}</p><div class="btns">${DEAL_PCT.map(q=>B(`${q}%`,'dealPropose',{arg:q*1000+(kd==='l'?100:0)+i,cls:'sm',dis:tried||cash<c})).join('')}</div>`;
+          continue;
+        }
+        a.push(B(`Bangun ${nm} (${posFree(S.turn)?'gratis':fk(cst)})`,kd==='b'?'buildB':'buildL',{arg:i,dis:!!w}));
         if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`;
       }
     }
     if(PLANTS.includes(i)&&!S.mort[i]&&!S.blk[i])a.push(B('Sabotase pemadaman','sabotage',{arg:i}));
     if(t.t==='util'&&!S.mort[i]){
-      if(!S.up[i])a.push(B(`${UT[t.k].up} (${fk(t.uc)})`,'upgrade',{arg:i,dis:cash<t.uc}));
-      else a.push(B(`Bongkar ${UT[t.k].up.toLowerCase()} (+${fk(t.uc/2)})`,'downgrade',{arg:i}));
+      if(!S.up[i]){ const c=upCost(i,S.turn); a.push(B(`${UT[t.k].up} (${fk(c)}${c<t.uc?', diskon':''})`,'upgrade',{arg:i,dis:cash<c})); }
+      else a.push(B(`Bongkar ${lc(UT[t.k].up)} (+${fk(upPaid(i)/2)})`,'downgrade',{arg:i}));
     }
     for(const k of bizAt(i)){
       const m=S.biz[i]?.[k];
@@ -1351,7 +1432,7 @@ const rivals=j=>S.players.map((q,k)=>k).filter(k=>k!==j&&!P(k).out);
 const ownsRestOf=(i,j)=>!!T[i].g&&GROUPS[T[i].g].filter(x=>x!==i).every(x=>S.own[x]===j);
 const blocksRival=(i,j)=>!!T[i].g&&rivals(j).some(k=>GROUPS[T[i].g].filter(x=>x!==i).every(x=>S.own[x]===k));
 const isFullSet=i=>!!T[i].g&&S.own[i]!=null&&GROUPS[T[i].g].every(x=>S.own[x]===S.own[i]);
-function rentGuess(i,d=7){ const t=T[i],o=S.own[i]; if(o==null||S.mort[i]||P(o).out)return 0; return t.t==='prop'?rentOf(i):utilRent(i,d); }
+function rentGuess(i,d=7){ const t=T[i],o=S.own[i]; if(o==null||S.mort[i]||P(o).out)return 0; return t.t==='prop'?rentOf(i):0; }
 function threat(j){ let m=0; for(const k in S.own){ if(S.own[k]!==j)m=Math.max(m,rentGuess(+k)); } return m; }
 const MT={base:700,k:.6,cap:6000,buy:.5};
 function reserveFor(j){ const L=P(j).bot; return L==='pendatang'?3500:L==='warlok'?2000+threat(j)*.3:Math.min(MT.cap,MT.base+threat(j)*MT.k); }
@@ -1360,7 +1441,7 @@ function junk(j){ return ownedBy(j).filter(k=>!S.mort[k]&&!hasBiz(k)&&!S.up[k]&&
 function raiseBy(need,keep=[]){ const p=cur(); for(const k of junk(S.turn)){ if(p.cash>=need)break; if(!keep.includes(k))mortgage(k); } return p.cash>=need; }
 
 function botBuy(){
-  const p=cur(),j=S.turn,i=S.pending.i,t=T[i],L=p.bot,after=p.cash-t.p,res=reserveFor(j);
+  const p=cur(),j=S.turn,i=S.pending.i,t=T[i],L=p.bot,pr=priceFor(i,j),after=p.cash-pr,res=reserveFor(j);
   const key=ownsRestOf(i,j)||blocksRival(i,j)||t.g===9||(L!=='pendatang'&&IKN_SAT.includes(i)&&S.own[IKN]===j);
   let want;
   if(L==='pendatang') want=after>=res&&Math.random()<.6;
@@ -1368,9 +1449,9 @@ function botBuy(){
   else{
     const started=!!t.g&&GROUPS[t.g].some(x=>S.own[x]===j);
     want=after>=res*MT.buy||(key&&after>=0)||(started&&after>=res*.25)||(t.t==='util'&&after>=res*.4);
-    if(!want&&key&&raiseBy(t.p+200,t.g?GROUPS[t.g]:[]))want=true;
+    if(!want&&key&&raiseBy(pr+200,t.g?GROUPS[t.g]:[]))want=true;
   }
-  if(want&&cur().cash>=t.p)doBuy(); else doSkip();
+  if(want&&cur().cash>=pr)doBuy(); else doSkip();
 }
 function botManage(){
   const p=cur(),j=S.turn,L=p.bot; if(p.cash<0)return;
@@ -1425,7 +1506,7 @@ function botManage(){
   botLoans(); botBiz();
   if(L!=='pendatang') for(const i of ownedBy(j)){
     const t=T[i]; if(t.t!=='util'||S.up[i]||S.mort[i])continue;
-    if(p.cash-t.uc>=res*(L==='mafia'?1.4:2.5)+1000)upgrade(i);
+    if(p.cash-upCost(i,j)>=res*(L==='mafia'?1.4:2.5)+1000)upgrade(i);
   }
 }
 function botBiz(){
@@ -1472,6 +1553,21 @@ function botOffer(){
   }
   return false;
 }
+function botDeal(){
+  const d=S.deal, x=dealActor(), L=P(x).bot;
+  if(d.phase==='offer'){ const want=L==='pendatang'?10:L==='warlok'?20:40; return d.pct>=want?dealAccept():dealCounter(L==='mafia'?50:30); }
+  const max=L==='pendatang'?20:L==='warlok'?30:40; return d.pct<=max?dealAccept():dealReject();
+}
+function botProposeDeal(){
+  const p=cur(),j=S.turn,L=p.bot; if(L==='pendatang')return false;
+  const res=reserveFor(j);
+  for(const i of ownedBy(j)) for(const kd of ['b','l']){
+    if(T[i].t!=='prop'||i===IKN||S.mort[i]||(kd==='b'?S.eb:S.el)[i]!=null||(S.dealTried||[]).includes(kd+i))continue;
+    if(dealTarget(i,kd)==null||p.cash-posCost(j,kd)<res*(L==='mafia'?.8:1.4))continue;
+    dealPropose((L==='mafia'?10:20)*1000+(kd==='l'?100:0)+i); return true;
+  }
+  return false;
+}
 function botFine(){
   const p=cur(),L=p.bot; if(p.cash<JAIL_FINE||L==='pendatang')return false;
   const open=T.filter((t,i)=>t.p&&S.own[i]==null).length;
@@ -1485,19 +1581,20 @@ function botBridge(){
   return L==='mafia'?danger(BPP,j)+rentGuess(BPP)<danger(BRIDGE,j):false;
 }
 function botFly(){
-  const p=cur(),L=p.bot,j=S.turn,c=AIRS.filter(x=>x!==p.pos);
-  if(L==='pendatang')return Math.random()<.3?c[Math.floor(Math.random()*c.length)]:null;
-  const buyable=c.filter(x=>S.own[x]==null&&p.cash>=T[x].p+reserveFor(j)*.5);
+  const p=cur(),L=p.bot,j=S.turn,res=reserveFor(j), f=x=>fareOf(p.pos,x,j), c=AIRS.filter(x=>x!==p.pos&&f(x)<=p.cash);
+  if(!c.length)return null;
+  if(L==='pendatang')return Math.random()<.2&&p.cash-f(c[0])>4000?c[0]:null;
+  const buyable=c.filter(x=>S.own[x]==null&&p.cash-f(x)>=priceFor(x,j)+res*.5);
   if(buyable.length)return buyable[0];
-  const safe=c.filter(x=>S.own[x]===j||S.mort[x]);
-  if(L==='warlok')return safe[0]??null;
+  if(L==='warlok')return c.find(x=>f(x)===0)??null;
   let best=null,score=danger(p.pos,j);
-  for(const x of safe){ const d=danger(x,j); if(d<score-20){ best=x; score=d; } }
+  for(const x of c){ const d=danger(x,j)+f(x); if(d<score-50){ best=x; score=d; } }
   return best;
 }
 function botStep(){
   if(!isBot()||S.phase==='busy'||S.phase==='over')return;
   if(S.auc)return botAuction();
+  if(S.deal)return botDeal();
   const p=cur();
   if(p.cash<0&&(S.phase==='roll'||S.phase==='end')){
     if(botRescueLoan())return;
@@ -1517,6 +1614,7 @@ function botStep(){
   }
   if(S.phase==='roll'){
     if(!S.botManaged){ S.botManaged=true; botManage(); if(botOffer())return; }
+    if(botProposeDeal())return;
     if(p.jail&&botFine())return payFine();
     return doRoll();
   }
@@ -1619,6 +1717,7 @@ function hostData(c,d){
     if(!tok||!f||!S?.net||S.phase==='over'||UI_ONLY.includes(a)||HOST_ONLY.includes(a))return;
     if(actP().bot||actP().dev!==tok)return;
     if(S.auc&&!AUC_ACTS.includes(a))return;
+    if(S.deal&&!DEAL_ACTS.includes(a))return;
     const arg=d.arg==null?undefined:Number(d.arg);
     f(arg);
   }
@@ -1801,7 +1900,7 @@ function setArm(id,fn){
   clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
 }
 
-const ACTS={bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
   showDetail(i){ detail=i; renderDetail(); updateTiles(); }};
 document.addEventListener('click',e=>{
@@ -1813,6 +1912,7 @@ document.addEventListener('click',e=>{
   if(act==='takeover')return NET.role==='host'?f():undefined;
   if(S&&S.phase!=='over'&&!myTurn())return;
   if(S?.auc&&!AUC_ACTS.includes(act))return;
+  if(S?.deal&&!DEAL_ACTS.includes(act))return;
   if(NET.role==='guest')return send(NET.conn,{t:'act',a:act,arg});
   f(arg);
 });
@@ -1847,7 +1947,7 @@ document.addEventListener('keydown',e=>{
 let PENDING=null;
 function fixState(x){
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
-  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.flyOff??=false;
+  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.phase==='busy')x.phase=x.pending?'decide':'end';
   delete x.eb?.[IKN]; delete x.el?.[IKN]; if((x.houses?.[IKN]||0)>4)x.houses[IKN]=4;
   return x;
