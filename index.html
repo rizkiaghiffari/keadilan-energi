@@ -241,6 +241,33 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .nb span{color:var(--muted);font-size:13px}
 .ndot{width:9px;height:9px;border-radius:50%;background:#2E9E5B;flex:none}
 .ndot.bad{background:var(--danger)}
+.dlg{position:relative}
+.qbtn{appearance:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--sign);background:var(--surface);color:var(--sign);font:900 18px/1 var(--font-display);cursor:pointer;display:grid;place-items:center;flex:none;padding:0}
+.qbtn:hover{background:var(--sign);color:var(--on-sign)}
+.qbtn:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+.qbtn.on{background:var(--sign);color:var(--on-sign)}
+.qtop{position:absolute;top:16px;right:16px}
+#setupT{padding-right:44px}
+.intro{margin:0 0 6px}
+.rules.short{margin-bottom:8px}
+.rdlg{max-width:640px}
+.rdlg h3{margin:16px 0 6px;font:800 13px/1 var(--font-display);text-transform:uppercase;letter-spacing:.12em;color:var(--sign)}
+#rulesOv{z-index:60}
+#dpop{z-index:45;align-items:center}
+.dp{max-width:520px;max-height:min(88dvh,820px);overflow:auto;padding:18px}
+.dp:not(.help) .dbody .dt-note{display:none}
+.dt-tools{margin-left:auto;display:flex;gap:6px;align-items:center;flex:none}
+.dt-sum{margin:10px 0 0;font-size:14px}
+.calc{display:flex;flex-direction:column;gap:6px;padding-block:12px}
+.calh{display:flex;align-items:center;gap:10px}
+.calh b{font:900 20px/1 var(--font-display)}
+.calh span{color:var(--muted);font-size:13px}
+.calc .news{margin:0;font-size:13.5px;line-height:1.4}
+.zones{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.zones b{color:var(--ink);font-family:var(--font-mono);font-weight:600}
+.zones .up{color:#1E8A4C}.zones .dn{color:var(--danger)}
+.tile .pr.up{color:#1E8A4C}.tile .pr.dn{color:var(--danger)}
+.ttl .cal{font:800 clamp(7px,1.5cqw,14px)/1 var(--font-mono);color:#fff;background:rgba(0,0,0,.28);border-radius:99px;padding:.5cqw 1.2cqw;margin-top:.4cqw;letter-spacing:.06em;text-transform:uppercase}
 .who .nmx .sub{display:block;font:600 12px/1.3 var(--font-body);color:var(--muted)}
 .think{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
 .think i{width:8px;height:8px;border-radius:50%;background:var(--sign);animation:blink 1s ease-in-out infinite}
@@ -269,9 +296,9 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 <div class="app">
   <div class="board"><div class="stage" id="stage"></div></div>
   <aside class="side">
+    <section class="card calc" id="cal" hidden></section>
     <section class="card netbar" id="netbar" hidden></section>
     <section class="card turn" id="turn" aria-live="polite"></section>
-    <section class="card" id="detail" hidden></section>
     <section class="card"><h2>Pemain</h2><div class="plist" id="players"></div></section>
     <section class="card"><h2>Catatan permainan</h2><ul class="log" id="log"></ul></section>
     <div class="foot">
@@ -283,6 +310,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 
 <div class="ov" id="setup" hidden>
   <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="setupT">
+    <button class="qbtn qtop" type="button" data-act="openRules" aria-label="Aturan permainan" title="Aturan permainan">?</button>
     <h2 id="setupT">Apakah Anda siap bersaing di “Tri-City” Superhub Ekonomi?</h2>
     <p class="lead">Permainan ini mensimulasikan bagaimana kontestasi akses terhadap energi mempengaruhi arah dan pola pembangunan perkotaan.</p>
     <p class="lbl2">Mode</p>
@@ -313,31 +341,69 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     </div>
     <p class="lbl2" id="namesLbl">Nama pemain</p>
     <div class="names" id="names"></div>
-    <p class="lbl2">Aturan singkat</p>
-    <ul class="rules">
-      <li>Modal awal IDR 15.000k. Tidak ada gaji tetap: setiap melewati Mulai, kamu menerima profit dari usaha yang aktif. Tanpa usaha aktif, tidak ada pemasukan.</li>
-      <li>Usaha resmi (kebun sawit, tambang batu bara, tambang migas, pertamini, pangkalan LPG) serta kos-kosan, penginapan, dan hotel menghasilkan profit. Usaha ilegal (kebun sawit dan tambang batu bara dengan bakar hutan, pos bensin dan LPG eceran) lebih murah dan lebih untung, tetapi bisa terkena razia Cari Wangsit: masuk penjara dan usahanya disita negara.</li>
-      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak.</li>
-      <li>Kredit bank tersedia dengan bunga 1–10% per lewat Mulai. Makin besar asetmu dibanding pinjaman, makin kecil bunganya.</li>
-      <li>Kota Balikpapan, Ibu Kota Nusantara, dan Kota Samarinda adalah satu set properti termahal, masing-masing IDR 4.000k.</li>
-      <li>Wilayah lain makin mahal makin dekat ke salah satu kota, dan makin murah makin jauh.</li>
-      <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel.</li>
-      <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Pos eceran tidak bisa dibangun di IKN.</li>
-      <li>Pos bensin eceran bisa dibangun di properti milikmu jika kamu memiliki SPBU terdekat dari properti itu, atau di properti mana pun jika kamu memiliki Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat, atau SPBE Babulu untuk properti mana pun. Pembangunan keduanya baru gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
-      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa melewati Mulai. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
-      <li>Siapa pun yang berhenti di bandara boleh membeli tiket IDR 400k untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</li>
-      <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanan pembangkit itu jadi setengah sampai giliran si pemilik berikutnya.</li>
-      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa sampai giliran si pemutus berikutnya.</li>
-      <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, dan kartu masuk penjara.</li>
-      <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai tanpa menerima profit.</li>
-      <li>Bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, dan kilang adalah utilitas. Utilitas tidak memungut sewa: berhenti di utilitas milik pemain lain gratis. Pemiliknya menerima profit setiap lewat Mulai, dan peningkatan utilitas melipatgandakan profit itu.</li>
-      <li>Jika SPBU terdekat milik pemain lain, kamu tetap bisa membuka pos bensin atau LPG eceran lewat nego setoran ilegal ke pemilik SPBU itu: 10–50% profit pos eceran, dibayar setiap kamu lewat Mulai. SPBE Babulu dan Kilang Migas Balikpapan tidak menerima nego semacam itu.</li>
-      <li>Harga beli dan biaya peningkatan PLTU didiskon 50% jika kamu sudah punya tambang batu bara; PLTGU didiskon 50% jika kamu sudah punya tambang migas. PLTS IKN tidak mendapat diskon.</li>
-      <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
-      <li>Dobel boleh lempar lagi, paling banyak tiga kali lemparan berturut-turut.</li>
+    <p class="lbl2">Cara bertahan</p>
+    <p class="intro">Dalam permainan ini, untuk bertahan kamu harus:</p>
+    <ul class="rules short">
+      <li>bersaing bisnis dengan membuka usaha formal maupun informal,</li>
+      <li>bernegosiasi dengan lawanmu untuk ekspansi usaha,</li>
+      <li>menguasai rantai pasok berbagai jenis energi,</li>
+      <li>dan meraup profit bulanan sebesar-besarnya.</li>
     </ul>
+    <p class="hint">Aturan lengkap ada di tombol <b>?</b>.</p>
     <div class="btns"><button class="btn pri" id="bStart" type="button">Mulai main</button><button class="btn" id="bResume" type="button" hidden>Lanjutkan permainan tersimpan</button><button class="btn" id="bLeave" type="button" hidden>Tutup room</button><button class="btn" id="bCancel" type="button" hidden>Batal</button></div>
   </div>
+</div>
+
+<div class="ov" id="rulesOv" hidden>
+  <div class="dlg rdlg" role="dialog" aria-modal="true" aria-labelledby="rulesT">
+    <h2 id="rulesT">Aturan permainan</h2>
+    <h3>Dasar</h3>
+    <ul class="rules">
+      <li>Modal awal IDR 15.000k. Lempar dua dadu dan jalan searah petak. Dobel boleh lempar lagi, paling banyak tiga kali berturut-turut.</li>
+      <li>Kota Balikpapan, Ibu Kota Nusantara, dan Kota Samarinda adalah satu set properti termahal, masing-masing IDR 4.000k. Wilayah lain makin mahal makin dekat ke salah satu kota.</li>
+      <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel. Membangun butuh satu set warna lengkap dan dibangun merata.</li>
+      <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Usaha dan pos eceran tidak bisa dibuka di IKN.</li>
+      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa melewati Mulai. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
+      <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, kartu masuk penjara, dan razia usaha ilegal.</li>
+      <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai tanpa menerima profit.</li>
+      <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
+    </ul>
+    <h3>Waktu dan harga lahan</h3>
+    <ul class="rules">
+      <li>Permainan dimulai Januari 2019. Setiap kali seorang pemain menyelesaikan satu putaran melewati Mulai, waktu maju satu bulan. Pemain yang tertinggal ikut kalender pemain terdepan.</li>
+      <li>Agustus 2019: Kalimantan Timur diumumkan menjadi lokasi ibu kota baru. Harga lahan perlahan naik, kecuali Balikpapan, Samarinda, dan IKN.</li>
+      <li>Maret 2020–Desember 2021: harga lahan turun, sampai lebih rendah dari harga awal.</li>
+      <li>Januari 2022: lokasi IKN di Nusantara diumumkan. Harga lahan stabil, lalu wilayah sekitar IKN naik: tertinggi di Kecamatan Sepaku (Bumi Harapan, Sukaraja, Pemaluan, Tengin Baru, Semoi, Mentawir), sedikit lebih rendah di Riko dan Maridan, wilayah lain naik sedikit. Kenaikan paling tajam Januari–Agustus 2024 dan berakhir Desember 2024.</li>
+      <li>Januari 2025: pembangunan IKN melambat, harga lahan turun lagi, lalu stabil sampai 2045.</li>
+      <li>Harga lahan menentukan harga beli, nilai gadai, nilai aset, dan harga awal lelang. Sewa dan harga kota tetap.</li>
+    </ul>
+    <h3>Usaha dan profit bulanan</h3>
+    <ul class="rules">
+      <li>Tidak ada gaji tetap. Setiap melewati Mulai (satu bulan), kamu menerima profit dari usaha yang aktif. Tanpa usaha aktif, tidak ada pemasukan.</li>
+      <li>Usaha resmi (kebun sawit, tambang batu bara, tambang migas, pertamini, pangkalan LPG) serta kos-kosan, penginapan, dan hotel menghasilkan profit.</li>
+      <li>Usaha ilegal (kebun sawit dan tambang batu bara dengan bakar hutan, pos bensin dan LPG eceran) lebih murah dan lebih untung, tetapi bisa terkena razia Cari Wangsit: masuk penjara dan usahanya disita negara.</li>
+      <li>Utilitas (bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, kilang) tidak memungut sewa. Pemiliknya menerima profit bulanan, dan peningkatan utilitas melipatgandakan profit itu.</li>
+    </ul>
+    <h3>Energi dan rantai pasok</h3>
+    <ul class="rules">
+      <li>Pos bensin eceran butuh SPBU terdekat milikmu atau Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat milikmu atau SPBE Babulu. Pembangunannya gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
+      <li>Jika SPBU terdekat milik pemain lain, kamu bisa nego setoran ilegal 10–50% profit pos eceran, dibayar setiap bulan ke pemilik SPBU itu. SPBE Babulu dan Kilang Migas Balikpapan tidak menerima nego semacam itu.</li>
+      <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanannya jadi setengah sampai giliran si pemilik berikutnya.</li>
+      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan apa pun sampai giliran si pemutus berikutnya.</li>
+      <li>Harga beli dan biaya peningkatan PLTU didiskon 50% jika kamu sudah punya tambang batu bara; PLTGU didiskon 50% jika kamu sudah punya tambang migas. PLTS IKN tidak mendapat diskon.</li>
+    </ul>
+    <h3>Transportasi, lelang, dan kredit</h3>
+    <ul class="rules">
+      <li>Siapa pun yang berhenti di bandara boleh membeli tiket IDR 400k untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</li>
+      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak.</li>
+      <li>Kredit bank tersedia dengan bunga 1–10% per bulan. Makin besar asetmu dibanding pinjaman, makin kecil bunganya.</li>
+    </ul>
+    <div class="btns"><button class="btn pri" type="button" data-act="closeRules">Tutup</button></div>
+  </div>
+</div>
+
+<div class="ov" id="dpop" hidden>
+  <div class="dlg dp" id="dpanel" role="dialog" aria-modal="true" aria-label="Detail petak"><div id="detail"></div></div>
 </div>
 
 <div class="ov" id="over" hidden>
@@ -435,6 +501,27 @@ T.forEach((t,i)=>{ if(t.g&&t.g!==9){ const d=Math.min(...CITIES.map(c=>Math.min(
 /* Ibu Kota Nusantara: level sendiri, syarat petak satelit dengan pos eceran aktif */
 const IKN=IX('Ibu Kota Nusantara'), IKN_SAT=['Bumi Harapan','Sukaraja','Pemaluan','Riko'].map(IX);
 T[IKN].r=[500,2000,6000,14000,22000];
+T.forEach(t=>{ if(t.g)t.p0=t.p; });
+/* ================= Kalender & harga lahan ================= */
+const MON=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const calStr=m=>`${MON[m%12]} ${2019+Math.floor(m/12)}`;
+const SEPAKU=['Bumi Harapan','Sukaraja','Pemaluan','Tengin Baru','Semoi','Mentawir'].map(IX), NEARIKN=['Riko','Maridan'].map(IX);
+const zoneOf=i=>T[i].g===9?'city':SEPAKU.includes(i)?'sepaku':NEARIKN.includes(i)?'near':'other';
+const ZONE_N={sepaku:'Sepaku',near:'Riko & Maridan',other:'Wilayah lain'};
+const LAND=(()=>{ const Z={sepaku:[1],near:[1],other:[1]};
+  for(let m=1;m<=420;m++) for(const z in Z){ const a=Z[z]; let r=1;
+    if(m>=7&&m<=13)r=1.02;                                      // Agu 2019–Feb 2020: pengumuman ibu kota baru
+    else if(m>=14&&m<=35)r=Math.pow(.85/Math.pow(1.02,7),1/22); // Mar 2020–Des 2021: turun ke bawah harga awal
+    else if(m>=37&&m<=59)r={sepaku:1.03,near:1.015,other:1.005}[z]; // 2022–2023: naik di sekitar IKN
+    else if(m>=60&&m<=67)r={sepaku:1.06,near:1.03,other:1.01}[z];   // Jan–Agu 2024: puncak kenaikan
+    else if(m>=68&&m<=71)r={sepaku:1.02,near:1.01,other:1.003}[z];  // Sep–Des 2024: kenaikan berakhir
+    else if(m>=72&&m<=83)r={sepaku:Math.pow(.7,1/12),near:Math.pow(.85,1/12),other:Math.pow(.95,1/12)}[z]; // 2025: IKN melambat
+    a.push(a[m-1]*r); }
+  return Z; })();
+const landIdx=(i,m)=>{ const z=zoneOf(i); return z==='city'?1:LAND[z][Math.min(Math.max(0,m|0),420)]; };
+const NEWS={0:'Permainan dimulai. Harga lahan masih normal.',7:'Pemerintah mengumumkan Kalimantan Timur menjadi lokasi ibu kota baru. Harga lahan perlahan naik, kecuali di Balikpapan, Samarinda, dan IKN.',14:'Pasar lahan lesu. Harga lahan mulai turun, bahkan sampai di bawah harga awal.',36:'Pemerintah mengumumkan lokasi IKN di Nusantara. Harga lahan kembali stabil, lalu wilayah sekitar IKN mulai naik, tertinggi di Kecamatan Sepaku.',60:'Pembangunan IKN dikebut. Harga lahan di Sepaku melonjak paling tajam.',68:'Kenaikan harga lahan mulai melambat.',72:'Pembangunan IKN melambat. Harga lahan turun kembali.',84:'Harga lahan stabil.'};
+const newsAt=m=>{ let k=0; for(const x of Object.keys(NEWS).map(Number))if(x<=m)k=x; return [k,NEWS[k]]; };
+function applyPrices(){ const m=S?.month||0; T.forEach((t,i)=>{ if(t.g&&t.g!==9&&t.p0)t.p=Math.max(100,Math.round(t.p0*landIdx(i,m)/100)*100); }); }
 T.forEach(t=>{
   if(t.g){ t.t='prop'; t.r=t.r||RP[t.p]; }
   if(t.k){ t.t='util'; t.p=UT[t.k].p; t.uc=t.p/2; }
@@ -555,7 +642,7 @@ const posVal=i=>(S.eb[i]??0)+(S.el[i]??0);
 const hasPos=i=>S.eb[i]!=null||S.el[i]!=null;
 function nearCity(i){ let best=null; for(const c of CITIES){ const d=Math.min((i-c+N)%N,(c-i+N)%N); if(!best||d<best.d)best={d,c}; } return best; }
 
-let bankOpen=false, S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
+let detailHelp=false, bankOpen=false, S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
 const cur=()=>S.players[S.turn];
 const P=j=>S.players[j];
 const init=p=>esc((p.name.trim().charAt(0)||'?').toUpperCase());
@@ -609,8 +696,9 @@ function newGame(names,bots=[]){
   S={v:5,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
     turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
-    msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
-  log(`Permainan baru: ${names.join(', ')}. Modal awal masing-masing ${fmt(START)}.`);
+    month:0,msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
+  S.players.forEach(q=>q.laps=0); applyPrices();
+  log(`Permainan baru dimulai ${calStr(0)}: ${names.join(', ')}. Modal awal masing-masing ${fmt(START)}.`);
   detail=null; overClosed=false;
 }
 const utilMult=o=>Math.min(20,2+2*UTILS.filter(j=>S.own[j]===o).length);
@@ -631,7 +719,14 @@ function tickMortgages(j){
   }
 }
 function passMulai(j){
-  const p=P(j), pr=profitOf(j);
+  const p=P(j);
+  p.laps=(p.laps||0)+1;
+  if(p.laps>(S.month||0)){
+    S.month=p.laps; applyPrices();
+    log(`Waktu berjalan: ${calStr(S.month)}.`);
+    if(NEWS[S.month])log(`Berita ${calStr(S.month)}: ${NEWS[S.month]}`);
+  }
+  const pr=profitOf(j);
   if(pr>0){ gain(j,pr); log(`${p.name} melintasi Mulai dan menerima profit usaha ${fmt(pr)}.`); }
   else log(`${p.name} melintasi Mulai tanpa usaha aktif, tidak ada pemasukan.`);
   payDeals(j);
@@ -934,7 +1029,7 @@ function takeLoan(a){
   const j=S.turn; a=Math.round(a);
   if(!S||S.auc||S.phase==='busy'||S.phase==='over'||!(a>0)||a>loanCap(j))return;
   const r=loanRate(j,a); (S.loans[j]??=[]).push({a,r}); gain(j,a);
-  log(`${cur().name} mengambil kredit bank ${fmt(a)} dengan bunga ${r}% per lewat Mulai.`); render();
+  log(`${cur().name} mengambil kredit bank ${fmt(a)} dengan bunga ${r}% per bulan.`); render();
 }
 function repayLoan(k){
   const j=S.turn, l=loansOf(j)[k];
@@ -1101,12 +1196,12 @@ function buildBoard(){
       el.style.width=GEO.D+'cqw'; el.style.height=(g.w-.32)+'cqw'; el.style.setProperty('--rot',g.rot+'deg');
       el.innerHTML=tileInner(t);
     }
-    el.addEventListener('click',()=>{ detail=detail===i?null:i; renderDetail(); updateTiles(); });
+    el.addEventListener('click',()=>{ detail=i; detailHelp=false; renderDetail(); updateTiles(); });
     st.appendChild(el);
   });
   const at=(el,[x,y])=>{ el.style.left=x+'%'; el.style.top=(y/H*100)+'%'; st.appendChild(el); return el; };
   const mk=(tag,cls,html)=>{ const e=document.createElement(tag); e.className=cls; e.innerHTML=html; return e; };
-  at(mk('div','ttl','<span class="eb">Apakah Anda siap bersaing di</span><h1><span class="tc">“Tri-City”</span><span class="sh">Superhub Ekonomi?</span></h1>'),GEO.ttl);
+  at(mk('div','ttl','<span class="eb">Apakah Anda siap bersaing di</span><h1><span class="tc">“Tri-City”</span><span class="sh">Superhub Ekonomi?</span></h1><span class="cal" id="calB">Januari 2019</span>'),GEO.ttl);
   const dk=at(mk('button','slot deck',`<span class="sl">Cari Wangsit</span><span class="dia"><b>?</b></span><span class="ss">${CARDS.length} kartu</span>`),GEO.deck);
   dk.type='button'; dk.id='deckSlot'; dk.dataset.act='showDetail'; dk.dataset.arg='-2'; dk.setAttribute('aria-label','Tumpukan kartu Cari Wangsit');
   const jl=at(mk('button','slot jail',`<span class="sl">Penjara</span><span class="ss">Denda ${fk(JAIL_FINE)}</span>`),GEO.jail);
@@ -1132,6 +1227,7 @@ function updateTiles(){
       if(o!=null)el.style.setProperty('--oc',P(o).color); else el.style.removeProperty('--oc');
       el.classList.toggle('mort',!!S.mort[i]);
       el.classList.toggle('blk',(t.t==='prop'&&blackout(i)!=null)||cutCount(i)>0);
+      if(t.t==='prop'&&t.g!==9){ const pe=el.querySelector('.pr'); if(pe){ pe.textContent=fk(t.p); pe.classList.toggle('up',t.p>t.p0); pe.classList.toggle('dn',t.p<t.p0); } }
       const band=el.querySelector('.band,.cb');
       if(t.t==='prop'){
         const h=S.houses[i]||0;
@@ -1208,7 +1304,7 @@ function bankHTML(p){
   const j=S.turn, ls=loansOf(j), cap=loanCap(j);
   let h=`<div class="bank"><div class="btns">${B(bankOpen?'Tutup kredit bank':`Kredit bank${ls.length?` · utang ${fk(debtOf(j))}`:''}`,'toggleBank',{cls:'sm'})}</div>`;
   if(!bankOpen)return h+'</div>';
-  h+=`<p>Profit per lewat Mulai ${fmt(profitOf(j))}${ls.length?` · bunga ${fmt(interestOf(j))} per lewat Mulai`:''}. Plafon pinjaman ${fmt(cap)} (aset bersih dikurangi utang).</p>`;
+  h+=`<p>Profit bulanan ${fmt(profitOf(j))}${ls.length?` · bunga ${fmt(interestOf(j))} per bulan`:''}. Plafon pinjaman ${fmt(cap)} (aset bersih dikurangi utang).</p>`;
   const opts=[...new Set([1000,2000,5000,10000,cap].filter(x=>x>0&&x<=cap))].sort((x,y)=>x-y);
   if(opts.length)h+=`<div class="btns">${opts.map(x=>B(`Pinjam ${fk(x)} · ${loanRate(j,x)}%`,'takeLoan',{arg:x,cls:'sm'})).join('')}</div>`;
   else h+=`<p>Bank belum bisa memberi pinjaman: aset bersihmu tidak cukup.</p>`;
@@ -1277,30 +1373,40 @@ function renderPlayers(){
       return `<button class="pc ${u?'u':''} ${S.mort[k]?'m':''}" type="button" data-act="showDetail" data-arg="${k}" style="${u?'':`--g:${GRP[t.g].c}`}" title="${esc(t.n)}" aria-label="${esc(t.n)}">${u?icon(UT[t.k].ic):''}</button>`;}).join('');
     return `<div class="pl ${j===S.turn&&S.phase!=='over'?'on':''} ${p.out?'out':''}">
       <span class="chip" style="--pc:${p.color}">${init(p)}</span>
-      <div style="min-width:0"><div class="pn">${esc(p.name)}${S.net&&p.dev===NET.token?' · kamu':''}${p.out?' · bangkrut':S.net&&p.dev&&!p.bot&&!isOnDev(p.dev)?' · terputus':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div>${p.out?'':`<div class="pnw">Profit per Mulai ${fk(profitOf(j))}${debtOf(j)?` · kredit ${fk(debtOf(j))}`:''}</div>`}</div>
+      <div style="min-width:0"><div class="pn">${esc(p.name)}${S.net&&p.dev===NET.token?' · kamu':''}${p.out?' · bangkrut':S.net&&p.dev&&!p.bot&&!isOnDev(p.dev)?' · terputus':''}</div>${p.bot?`<div class="pnw">Komputer · ${LEVELS[p.bot].n}</div>`:''}<div class="pnw">Aset ${fmt(p.out?0:netWorth(j))} · di ${esc(p.jail?'Penjara':T[p.pos].t==='wangsit'?'Cari Wangsit':T[p.pos].n)}</div>${p.out?'':`<div class="pnw">Profit/bulan ${fk(profitOf(j))}${debtOf(j)?` · kredit ${fk(debtOf(j))}`:''}</div>`}</div>
       <span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span>
       ${props?`<div class="props">${props}</div>`:''}
     </div>`;
   }).join('');
 }
+function renderCal(){
+  const el=$('#cal'); if(!el)return;
+  const m=S.month||0, [k,n]=newsAt(m), pct=z=>{ const v=Math.round((LAND[z][Math.min(m,420)]-1)*100); return `<b class="${v>0?'up':v<0?'dn':''}">${v>0?'+':''}${v}%</b>`; };
+  el.innerHTML=`<div class="calh"><b>${calStr(m)}</b><span>bulan ke-${m+1}</span><button class="qbtn" style="margin-left:auto" type="button" data-act="openRules" aria-label="Aturan permainan" title="Aturan permainan">?</button></div>
+    <p class="news"><b>${calStr(k)}:</b> ${esc(n)}</p>
+    <div class="zones"><span>Harga lahan dibanding awal:</span>${Object.keys(ZONE_N).map(z=>`<span>${ZONE_N[z]} ${pct(z)}</span>`).join('')}</div>`;
+  el.hidden=false;
+  const cb=$('#calB'); if(cb)cb.textContent=calStr(m);
+}
 function renderLog(){
   $('#log').innerHTML=S.log.slice(0,60).map(l=>`<li><span class="r">R${l.r}</span>${esc(l.t)}</li>`).join('');
 }
 function renderDetail(){
-  const el=$('#detail');
-  if(detail==null||!S){ el.hidden=true; return; }
+  const el=$('#detail'), pop=$('#dpop');
+  if(detail==null||!S){ pop.hidden=true; return; }
+  $('#dpanel').classList.toggle('help',detailHelp);
+  const close=`<div class="dt-tools"><button class="qbtn${detailHelp?' on':''}" type="button" data-act="toggleHelp" aria-label="Aturan petak ini" title="Aturan petak ini">?</button><button class="btn sm" type="button" data-act="closeDetail">Tutup</button></div>`;
   if(detail<0){
-    const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
     const inJ=S.players.filter(p=>p.jail&&!p.out).map(p=>esc(p.name));
     const [ttl,sub,sw,body]=detail===-1
       ?['Penjara','Di luar jalur permainan','#1A1E1C',`<p class="dt-note">Pemain masuk penjara lewat kartu Cari Wangsit. Untuk keluar, lempar dadu dobel (paling banyak 3 percobaan, satu per giliran) atau bayar denda ${fmt(JAIL_FINE)} sebelum melempar. Jika percobaan ketiga gagal, denda dibayar otomatis. Setelah bebas, langkah dihitung dari Mulai tanpa menerima profit.</p><p class="dt-note">Selama di penjara, pemain tetap menerima sewa dari propertinya.</p><p class="dt-note">${inJ.length?'Sedang di penjara: <b>'+inJ.join(', ')+'</b>.':'Penjara sedang kosong.'}</p>`]
       :['Cari Wangsit','Tumpukan kartu','var(--warn)',`<p class="dt-note">${CARDS.length} kartu berisi hadiah, denda, perintah pindah petak, ${CARDS.filter(c=>c.a==='jail').length} kartu masuk penjara, dan ${CARDS.filter(c=>c.a==='raid').length} kartu razia usaha ilegal (penjara dan sita bila kedapatan). Kartu diambil saat berhenti di petak Cari Wangsit.</p>`];
-    el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${ttl}</h3><div class="dt-sub">${sub}</div></div>${close}</div>${body}`;
-    el.hidden=false; return;
+    const stat=detail===-1?(inJ.length?`Sedang di penjara: <b>${inJ.join(', ')}</b>.`:'Penjara sedang kosong.'):`${CARDS.length} kartu di tumpukan.`;
+    el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${ttl}</h3><div class="dt-sub">${sub}</div></div>${close}</div><p class="dt-sum">${stat}</p><div class="dbody">${body}</div>${detailHelp?'':'<p class="hint dt-sum">Tekan ? untuk membaca aturan petak ini.</p>'}`;
+    pop.hidden=false; return;
   }
   const i=detail,t=T[i],o=S.own[i],mine=manageable(i)&&myTurn();
   let sw='var(--uband)',sub='',body='';
-  const close=`<button class="btn sm dt-x" type="button" data-act="closeDetail">Tutup</button>`;
   if(t.t==='prop'){
     const g=GRP[t.g]; sw=g.c; const h=S.houses[i]||0, full=GROUPS[t.g].every(j=>S.own[j]===o&&o!=null);
     sub=t.g===9?'Kota · set Tiga Kota, properti termahal':`Properti · set ${GROUPS[t.g].length} petak: ${GROUPS[t.g].map(j=>T[j].n).join(', ')}`;
@@ -1322,7 +1428,7 @@ function renderDetail(){
   } else if(t.t==='util'){
     const u=UT[t.k]; sub=`Utilitas · ${u.l}`;
     const mult=o!=null?utilMult(o):4;
-    body+=`<table class="rt"><tr class="${o!=null&&!S.up[i]?'cur':''}"><td>Profit per lewat Mulai</td><td>${fk(UTP[t.k])}</td></tr><tr class="${S.up[i]?'cur':''}"><td>Dengan ${lc(u.up)}</td><td>${fk(UTP[t.k]*2)}</td></tr></table>`;
+    body+=`<table class="rt"><tr class="${o!=null&&!S.up[i]?'cur':''}"><td>Profit bulanan</td><td>${fk(UTP[t.k])}</td></tr><tr class="${S.up[i]?'cur':''}"><td>Dengan ${lc(u.up)}</td><td>${fk(UTP[t.k]*2)}</td></tr></table>`;
     if(t.k==='air')body+=`<p class="dt-note">Siapa pun yang berhenti di bandara boleh membeli tiket ${fmt(FARE)} untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki atau sedang digadai masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</p>`;
     if(COAL_PLANTS.includes(i)||GAS_PLANTS.includes(i))body+=`<p class="dt-note">Harga beli dan biaya ${lc(u.up)} didiskon 50% bagi pemain yang sudah punya tambang ${COAL_PLANTS.includes(i)?'batu bara':'migas'}.${S&&plantDisc(i,S.turn)?` <b>${esc(cur().name)} mendapat diskon ini.</b>`:''}</p>`;
     if(t.k==='port')body+=`<p class="dt-note">Pemilik pelabuhan yang berhenti di Jembatan Pulau Balang boleh memilih tetap di jembatan, tidak harus kembali ke Kota Balikpapan.</p>`;
@@ -1346,10 +1452,10 @@ function renderDetail(){
     const list=[...BIZ_ORDER.filter(k=>b[k]).map(k=>`${BIZ[k].n}${b[k]==='i'?' (ilegal)':' (resmi)'} +${fk(BIZ[k][b[k]].p)}`),
       ...(S.eb[i]!=null?[`Pos bensin eceran (ilegal) +${fk(posOff(i,'b')?0:ECER_P.b)}`]:[]),...(S.el[i]!=null?[`Pos LPG eceran (ilegal) +${fk(posOff(i,'l')?0:ECER_P.l)}`]:[]),
       ...((S.houses[i]||0)>=3&&i!==IKN?[`${lvName(i,S.houses[i])} +${fk(BLD_P[S.houses[i]])}`]:[])];
-    body+=`<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
+    body+=`<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; ilegal dengan bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
   }
   let own='';
-  if(t.p) own=`<p class="dt-note">${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
+  if(t.p) own=`<p class="dt-sum">${t.t==='prop'&&t.g!==9?`Harga lahan ${fmt(t.p)}${t.p!==t.p0?` (awal ${fk(t.p0)})`:''} · `:`Harga ${fmt(t.p)} · `}${o!=null?`Profit petak ${fk((tileProfit(i).lg+tileProfit(i).il))}/bulan · `:''}${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
   let acts='';
   if(mine){
     const a=[], cash=cur().cash;
@@ -1364,7 +1470,7 @@ function renderDetail(){
         const w=posWhy(i,kd), dt=dealTarget(i,kd);
         if(dt!=null&&!S.mort[i]){
           const tried=(S.dealTried||[]).includes(kd+i), c=posCost(S.turn,kd);
-          acts+=`<p class="dt-note"><b>Nego ${nm}</b> dengan ${esc(P(S.own[dt]).name)}, pemilik ${esc(T[dt].n)}: tawarkan setoran dari profit ${fk(ECER_P[kd])} per lewat Mulai. Biaya buka ${c?fk(c):'gratis'}.${tried?' Sudah dicoba di giliran ini.':''}</p><div class="btns">${DEAL_PCT.map(q=>B(`${q}%`,'dealPropose',{arg:q*1000+(kd==='l'?100:0)+i,cls:'sm',dis:tried||cash<c})).join('')}</div>`;
+          acts+=`<p class="dt-note"><b>Nego ${nm}</b> dengan ${esc(P(S.own[dt]).name)}, pemilik ${esc(T[dt].n)}: tawarkan setoran dari profit ${fk(ECER_P[kd])} per bulan. Biaya buka ${c?fk(c):'gratis'}.${tried?' Sudah dicoba di giliran ini.':''}</p><div class="btns">${DEAL_PCT.map(q=>B(`${q}%`,'dealPropose',{arg:q*1000+(kd==='l'?100:0)+i,cls:'sm',dis:tried||cash<c})).join('')}</div>`;
           continue;
         }
         a.push(B(`Bangun ${nm} (${posFree(S.turn)?'gratis':fk(cst)})`,kd==='b'?'buildB':'buildL',{arg:i,dis:!!w}));
@@ -1380,7 +1486,7 @@ function renderDetail(){
       const m=S.biz[i]?.[k];
       if(m){ a.push(B(`Tutup ${lc(BIZ[k].n)} (+${fk(BIZ[k][m].c/2)})`,'bizSell',{arg:i*100+BIZ_ORDER.indexOf(k)})); continue; }
       for(const md of ['r','i']){ if(!BIZ[k][md])continue; const w=bizWhy(i,k,md);
-        a.push(B(`${md==='r'?'Buka':'Bakar hutan:'} ${lc(BIZ[k].n)}${md==='r'&&BIZ[k].i?' resmi':''} (${fk(BIZ[k][md].c)})`,'bizBuild',{arg:i*100+BIZ_ORDER.indexOf(k)*2+(md==='i'?1:0),dis:!!w})); }
+        a.push(B(md==='r'?`Buka ${lc(BIZ[k].n)}${BIZ[k].i?' resmi':''} (${fk(BIZ[k][md].c)})`:`Buka ${lc(BIZ[k].n)} ilegal dengan bakar hutan (${fk(BIZ[k][md].c)})`,'bizBuild',{arg:i*100+BIZ_ORDER.indexOf(k)*2+(md==='i'?1:0),dis:!!w})); }
     }
     { const w=aucWhy(i,S.turn); a.push(B('Lelang petak ini','startAuction',{arg:i,dis:!!w||!aucReady()})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
     if(S.mort[i])a.push(B(`Tebus (${fk(unmortCost(i))})`,'unmortgage',{arg:i,dis:cash<unmortCost(i)}));
@@ -1394,8 +1500,9 @@ function renderDetail(){
     else if(S.offerUsed)acts+=`<p class="hint">Kamu sudah mengajukan penawaran di giliran ini.</p>`;
     else acts+=`<div class="btns dt-acts">${offs.map(x=>B(`Tawar ${fk(x)}`,'makeOffer',{arg:x*100+i,dis:x>c||!aucReady()})).join('')}</div>`;
   }
-  el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${esc(t.n)}</h3><div class="dt-sub">${esc(sub)}</div></div>${close}</div>${body}${own}${acts}`;
-  el.hidden=false;
+  const help=detailHelp?'':'<p class="hint dt-sum">Tekan ? untuk membaca aturan dan rincian petak ini.</p>';
+  el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${esc(t.n)}</h3><div class="dt-sub">${esc(sub)}</div></div>${close}</div>${own}${acts}<div class="dbody">${body}</div>${help}`;
+  pop.hidden=false;
 }
 function renderOver(){
   const ov=$('#over');
@@ -1408,8 +1515,11 @@ function renderOver(){
   $('#rank').innerHTML=order.map(j=>{const p=P(j);return `<li><span class="chip" style="--pc:${p.color}">${init(p)}</span><b>${esc(p.name)}</b>${p.out?' <span class="pnw">bangkrut</span>':''}<span class="money">${fmt(p.out?0:netWorth(j))}</span></li>`;}).join('');
   ov.hidden=false;
 }
+let lastBlk='';
 function render(){
   if(!S)return;
+  applyPrices(); renderCal();
+  { const k=S.auc?'a'+S.auc.i+'.'+S.auc.seller:S.deal?'d'+S.deal.i+S.deal.kind:''; if(k&&k!==lastBlk&&detail!=null)detail=null; lastBlk=k; }
   updateTiles(); renderTokens(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
   $('#bFinish').disabled=S.phase==='over'||S.phase==='busy'||NET.role==='guest';
   if(arm!=='#bNew')$('#bNew').textContent=NET.role==='guest'?'Keluar room':'Permainan baru';
@@ -1780,7 +1890,7 @@ function guestData(c,d){
   NET.seen=Date.now();
   if(d.t==='ping')return;
   if(d.t==='lobby'){ NET.lobby=Array.isArray(d.list)?d.list:[]; if(!S||S.phase==='over')NET.msg='Terhubung. Menunggu host memulai permainan.'; syncOnline(); renderNet(); return; }
-  if(d.t==='state'&&d.S){ NET.on=Array.isArray(d.on)?d.on:[]; NET.msg=''; NET.err=false; S=d.S; $('#setup').hidden=true; render(); return; }
+  if(d.t==='state'&&d.S){ NET.on=Array.isArray(d.on)?d.on:[]; NET.msg=''; NET.err=false; S=d.S; applyPrices(); $('#setup').hidden=true; render(); return; }
   if(d.t==='dice'){ guestDice(); return; }
   if(d.t==='reject'){ const m=String(d.why||'Ditolak oleh host.'); resetNet(); netMsg(m,true); return; }
   if(d.t==='bye'){ resetNet(); S=null; openSetup(); netMsg('Host menutup room.',true); }
@@ -1865,7 +1975,7 @@ function onlinePrimary(){
     PENDING=null; syncResume(); return joinRoom(code,name);
   }
 }
-const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank'], HOST_ONLY=['takeover','openSetup'];
+const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank','toggleHelp','openRules','closeRules'], HOST_ONLY=['takeover','openSetup'];
 const BASE_TITLE=document.title;
 
 /* ================= Persistence & setup ================= */
@@ -1902,7 +2012,9 @@ function setArm(id,fn){
 
 const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
-  showDetail(i){ detail=i; renderDetail(); updateTiles(); }};
+  showDetail(i){ detail=i; detailHelp=false; renderDetail(); updateTiles(); },
+  toggleHelp(){ detailHelp=!detailHelp; renderDetail(); },
+  openRules(){ $('#rulesOv').hidden=false; }, closeRules(){ $('#rulesOv').hidden=true; }};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b||b.disabled)return;
   const act=b.dataset.act, f=ACTS[act]; if(!f)return;
@@ -1940,14 +2052,17 @@ $('#bNew').addEventListener('click',()=>{
 $('#bFinish').addEventListener('click',()=>{ if(NET.role!=='guest'&&S&&S.phase!=='over'&&S.phase!=='busy')setArm('#bFinish',finishGame); });
 $('#bAgain').addEventListener('click',openSetup);
 $('#bLook').addEventListener('click',()=>{ overClosed=true; render(); });
+$('#dpop').addEventListener('click',e=>{ if(e.target.id==='dpop'){ detail=null; renderDetail(); updateTiles(); } });
+$('#rulesOv').addEventListener('click',e=>{ if(e.target.id==='rulesOv')$('#rulesOv').hidden=true; });
 document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!$('#rulesOv').hidden){ $('#rulesOv').hidden=true; return; }
   if(e.key==='Escape'&&detail!=null){ detail=null; renderDetail(); updateTiles(); }
 });
 
 let PENDING=null;
 function fixState(x){
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
-  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
+  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.month??=0; x.players?.forEach(q=>{ q.laps??=0; }); x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.phase==='busy')x.phase=x.pending?'decide':'end';
   delete x.eb?.[IKN]; delete x.el?.[IKN]; if((x.houses?.[IKN]||0)>4)x.houses[IKN]=4;
   return x;
