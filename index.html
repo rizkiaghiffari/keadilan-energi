@@ -68,7 +68,7 @@ button{font:inherit}
 .band.go .ic,.band.br .ic{color:#fff}
 .dia{width:1.5cqw;height:1.5cqw;min-width:7px;min-height:7px;transform:rotate(45deg);border:.2cqw solid var(--warn-ink);display:grid;place-items:center}
 .dia b{transform:rotate(-45deg);font:900 clamp(5px,1cqw,10px)/1 var(--font-display);color:var(--warn-ink)}
-.pip{width:.65cqw;height:.65cqw;min-width:3px;min-height:3px;background:#fff;border:1px solid rgba(0,0,0,.55);border-radius:1px}
+.pip{width:.95cqw;height:.85cqw;min-width:4px;min-height:4px;background:#fff;clip-path:polygon(50% 0,100% 48%,86% 48%,86% 100%,14% 100%,14% 48%,0 48%);filter:drop-shadow(0 0 1px rgba(0,0,0,.8))}
 .htl{font:900 clamp(5px,1cqw,10px)/1 var(--font-display);background:#B3261E;color:#fff;border:1px solid #fff;border-radius:2px;padding:.25cqw .3cqw}
 .upd{width:.8cqw;height:.8cqw;min-width:4px;min-height:4px;border-radius:50%;background:var(--sign);box-shadow:0 0 0 1px var(--uband)}
 .tile.mort .body{opacity:.4}
@@ -91,7 +91,7 @@ button{font:inherit}
 .corner .c2{font:900 clamp(7px,2.05cqw,20px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.01em}
 .corner .c3{font:500 clamp(5px,1.15cqw,12px)/1 var(--font-mono);opacity:.9;margin-top:.2cqw;font-variant-numeric:tabular-nums}
 .corner{border:.9cqw solid var(--oc,var(--sign))}
-.corner .cb{display:flex;gap:.3cqw;min-height:.8cqw;align-items:center}
+.corner .cb{display:flex;gap:.3cqw;min-height:.8cqw;align-items:center;justify-content:center}
 .corner.mort>span{opacity:.4}
 .corner.mort::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 .8cqw,rgba(0,0,0,.28) .8cqw 1.3cqw)}
 
@@ -134,10 +134,7 @@ button{font:inherit}
 @keyframes flyup{50%{scale:1.9;box-shadow:0 1.6cqw 2cqw rgba(0,0,0,.35)}}.plg{background:#7CB342}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
 .dice{position:absolute;transform:translate(-50%,-50%);display:flex;gap:1.2cqw;z-index:1}
-.die{width:5.4cqw;height:5.4cqw;min-width:22px;min-height:22px;background:#fff;border-radius:.9cqw;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:.75cqw;box-shadow:0 .4cqw 0 rgba(0,0,0,.28)}
-.die i{display:block;border-radius:50%;margin:12%}
-.die i.on{background:#14201B}
-.dice.rolling .die{animation:shake .12s linear infinite}
+.die-old{box-shadow:0 .4cqw 0 rgba(0,0,0,.28)}
 @keyframes shake{50%{transform:rotate(9deg) translateY(-.4cqw)}}
 
 .tok{position:absolute;width:2.5cqw;height:2.5cqw;min-width:12px;min-height:12px;border-radius:50%;background:var(--pc);border:2px solid #fff;z-index:5;pointer-events:none;
@@ -268,6 +265,72 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .zones .up{color:#1E8A4C}.zones .dn{color:var(--danger)}
 .tile .pr.up{color:#1E8A4C}.tile .pr.dn{color:var(--danger)}
 .ttl .cal{font:800 clamp(7px,1.5cqw,14px)/1 var(--font-mono);color:#fff;background:rgba(0,0,0,.28);border-radius:99px;padding:.5cqw 1.2cqw;margin-top:.4cqw;letter-spacing:.06em;text-transform:uppercase}
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--board);color:#fff;box-shadow:0 2px 10px -4px rgba(0,0,0,.45)}
+.hud-in{max-width:1340px;margin:0 auto;padding-inline:16px;padding-block:8px;display:flex;align-items:center;gap:10px 22px;min-height:52px}
+.hcal{display:flex;align-items:center;gap:8px;min-width:0}
+.hm{font:900 18px/1 var(--font-display);white-space:nowrap}
+.hm .sh,.hera .sh,.hs .sh{display:none}
+.hud-in>*{flex-shrink:0}.hcal{flex-shrink:1;overflow:hidden}
+.hera{font:800 11px/1 var(--font-body);text-transform:uppercase;letter-spacing:.08em;background:var(--warn);color:var(--warn-ink);border-radius:99px;padding:5px 8px;white-space:nowrap}
+.hera.covid{background:#E5484D;color:#fff}
+.hp{display:flex;align-items:center;gap:8px;margin-left:auto;min-width:0}
+.hp .chip{width:26px;height:26px;font-size:12px;box-shadow:none}
+.hp .hn{font:800 15px/1.1 var(--font-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:16ch}
+.hp .ht{font-size:11px;opacity:.8;display:block;font-weight:600}
+.hs{display:flex;flex-direction:column;gap:2px;align-items:flex-end}
+.hs .hl{font:700 10px/1 var(--font-body);text-transform:uppercase;letter-spacing:.12em;opacity:.75}
+.hs b{font:600 16px/1 var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hs b.neg{color:#FF8A80}
+.hud .qbtn{border-color:#fff;color:#fff;background:transparent}
+.hud .qbtn:hover{background:#fff;color:var(--board)}
+@media (max-width:640px){
+  .hud-in{gap:8px 12px;padding-block:6px;min-height:44px}
+  .hm{font-size:15px}.hm .lg,.hera .lg{display:none}.hm .sh,.hera .sh,.hs .sh{display:inline}.hs .lg{display:none}
+  .hera{font-size:9px;padding:4px 6px}
+  .hp .hn,.hp .ht,.hs .hl{display:none}
+  .hs b{font-size:13px}
+  .hud .qbtn{width:30px;height:30px;font-size:16px}
+}
+@media (max-width:340px){ .hera{display:none} }
+.edge{font-family:'Overpass',system-ui,sans-serif;font-weight:700;fill:#DCEBE2}
+.edge .ehi{fill:var(--road)}
+.dp.popin{animation:popin .34s cubic-bezier(.2,.9,.3,1.12)}
+@keyframes popin{from{opacity:0;transform:perspective(900px) rotateX(16deg) translateY(28px) scale(.9)}to{opacity:1;transform:none}}
+#dpop:not([hidden]){animation:fadein .2s ease-out}
+@keyframes fadein{from{background:rgba(5,15,11,0)}}
+#fx{position:absolute;inset:0;pointer-events:none;z-index:4}
+.fire{position:absolute;width:6cqw;height:6cqw;transform:translate(-50%,-50%)}
+.fire .fl{position:absolute;bottom:30%;width:1.1cqw;height:1.6cqw;min-width:4px;min-height:6px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#FFE27A 0 25%,#FF8A1F 45%,#E0301E 75%,transparent 76%);animation:flick .5s ease-in-out infinite alternate;filter:drop-shadow(0 0 .4cqw rgba(255,120,30,.9))}
+.fire .fl:nth-child(1){left:22%}.fire .fl:nth-child(2){left:44%;animation-delay:.18s;transform:scale(1.25)}.fire .fl:nth-child(3){left:64%;animation-delay:.33s}
+@keyframes flick{from{transform:scaleY(.8) translateY(.1cqw);opacity:.85}to{transform:scaleY(1.2) translateY(-.15cqw);opacity:1}}
+.fire .sm{position:absolute;left:45%;bottom:45%;width:1.8cqw;height:1.8cqw;min-width:6px;min-height:6px;border-radius:50%;background:rgba(90,90,90,.55);animation:smoke 2.4s ease-out infinite;opacity:0}
+.fire .sm:nth-child(5){animation-delay:.8s;left:30%}.fire .sm:nth-child(6){animation-delay:1.6s;left:58%}
+@keyframes smoke{0%{transform:translate(0,0) scale(.5);opacity:0}15%{opacity:.75}100%{transform:translate(1.5cqw,-7cqw) scale(2.4);opacity:0}}
+.scene{width:13cqw;height:7.4cqw;min-height:18px;display:block;overflow:visible;margin-block:-.4cqw}
+.scene .tw{animation:tw 2.2s ease-in-out infinite}
+.scene .tw:nth-of-type(3n){animation-delay:.7s}.scene .tw:nth-of-type(3n+1){animation-delay:1.4s}
+@keyframes tw{50%{opacity:.25}}
+.scene .glow{animation:glow 1.6s ease-in-out infinite}
+@keyframes glow{50%{opacity:.35;transform:scale(.85)}}
+.scene .flag{transform-box:fill-box;transform-origin:left center;animation:flag 1.2s ease-in-out infinite alternate}
+@keyframes flag{from{transform:skewY(-6deg) scaleX(.92)}to{transform:skewY(6deg) scaleX(1.04)}}
+.scene .wave{animation:wv 3s linear infinite}
+@keyframes wv{to{transform:translateX(-6px)}}
+.scene .shine{animation:shine 2.6s ease-in-out infinite}
+@keyframes shine{50%{opacity:.55}}
+.dice{perspective:34cqw}
+.die{width:5.4cqw;height:5.4cqw;min-width:22px;min-height:22px;position:relative;transform-style:preserve-3d;--h:max(2.7cqw,11px)}
+.die::after{content:'';position:absolute;left:8%;right:8%;bottom:-24%;height:22%;border-radius:50%;background:radial-gradient(rgba(0,0,0,.4),transparent 70%);transform:translateZ(calc(var(--h)*-1))}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.85,.3,1.15)}
+.face{position:absolute;inset:0;background:linear-gradient(145deg,#FFFFFF,#E8ECE9);border-radius:18%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:13%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1),inset -.25cqw -.3cqw .5cqw rgba(0,0,0,.12)}
+.face i{display:block;border-radius:50%;margin:11%}
+.face i.on{background:radial-gradient(circle at 35% 35%,#4A5A53,#0B1310 70%)}
+.f1{transform:translateZ(var(--h))}.f6{transform:rotateY(180deg) translateZ(var(--h))}
+.f2{transform:rotateY(90deg) translateZ(var(--h))}.f5{transform:rotateY(-90deg) translateZ(var(--h))}
+.f3{transform:rotateX(90deg) translateZ(var(--h))}.f4{transform:rotateX(-90deg) translateZ(var(--h))}
+.dice.rolling .cube{animation:tumble .55s linear infinite}
+@keyframes tumble{from{transform:rotateX(0) rotateY(0) rotateZ(0)}to{transform:rotateX(720deg) rotateY(360deg) rotateZ(180deg)}}
+@media (prefers-reduced-motion: reduce){.fire .fl,.fire .sm,.scene *,.dp.popin,.dice.rolling .cube{animation:none!important}.fire .sm{opacity:.5}}
 .who .nmx .sub{display:block;font:600 12px/1.3 var(--font-body);color:var(--muted)}
 .think{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
 .think i{width:8px;height:8px;border-radius:50%;background:var(--sign);animation:blink 1s ease-in-out infinite}
@@ -293,10 +356,18 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 }
 </style>
 
+<header class="hud" id="hud" hidden>
+  <div class="hud-in">
+    <div class="hcal"><b class="hm"><span class="lg" id="hMonth"></span><span class="sh" id="hMonthS"></span></b><span class="hera" id="hEra" hidden></span></div>
+    <div class="hp" id="hPlayer"></div>
+    <div class="hs"><span class="hl">Saldo</span><b id="hCash"></b></div>
+    <div class="hs"><span class="hl">Profit</span><b id="hProf"></b></div>
+    <button class="qbtn hq" type="button" data-act="openRules" aria-label="Aturan permainan" title="Aturan permainan">?</button>
+  </div>
+</header>
 <div class="app">
   <div class="board"><div class="stage" id="stage"></div></div>
   <aside class="side">
-    <section class="card calc" id="cal" hidden></section>
     <section class="card netbar" id="netbar" hidden></section>
     <section class="card turn" id="turn" aria-live="polite"></section>
     <section class="card"><h2>Pemain</h2><div class="plist" id="players"></div></section>
@@ -361,9 +432,9 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <ul class="rules">
       <li>Modal awal IDR 15.000k. Lempar dua dadu dan jalan searah petak. Dobel boleh lempar lagi, paling banyak tiga kali berturut-turut.</li>
       <li>Kota Balikpapan, Ibu Kota Nusantara, dan Kota Samarinda adalah satu set properti termahal, masing-masing IDR 4.000k. Wilayah lain makin mahal makin dekat ke salah satu kota.</li>
-      <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel. Membangun butuh satu set warna lengkap dan dibangun merata.</li>
-      <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Usaha dan pos eceran tidak bisa dibuka di IKN.</li>
-      <li>Berhenti di Jembatan Pulau Balang: kembali ke Kota Balikpapan tanpa melewati Mulai. Pemilik pelabuhan boleh memilih tetap di jembatan.</li>
+      <li>Level bangunan: renovasi rumah tinggal, rumah kontrakan, kos-kosan, penginapan, lalu hotel. Membangun hanya butuh satu set warna lengkap dan dibangun merata, tidak perlu pos eceran.</li>
+      <li>Ibu Kota Nusantara punya level sendiri: titik nol IKN, plaza seremoni, kompleks kemenko, lalu istana kepresidenan. Untuk membangunnya, pemilik IKN harus memiliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif. Usaha dan pos eceran tidak bisa dibuka di IKN. Sebelum Januari 2022 harga IKN baru IDR 2.000k dan belum bisa dibangun; proyek IKN dimulai Januari 2022 dan harganya naik menjadi IDR 4.000k.</li>
+      <li>Berhenti di Jembatan Pulau Balang: pilih menyeberang ke Kota Balikpapan atau ke Ibu Kota Nusantara, tanpa melewati Mulai. Pemilik pelabuhan juga boleh memilih tetap di jembatan.</li>
       <li>Kartu Cari Wangsit berisi hadiah, denda, perintah pindah petak, kartu masuk penjara, dan razia usaha ilegal.</li>
       <li>Keluar penjara dengan dadu dobel (paling banyak 3 percobaan) atau bayar denda IDR 500k. Setelah keluar, langkah dihitung dari Mulai tanpa menerima profit.</li>
       <li>Properti yang digadaikan harus ditebus sebelum pemiliknya 2 kali melewati Mulai. Jika tidak, bank menyitanya dan petak itu bisa dibeli pemain lain.</li>
@@ -372,8 +443,9 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <ul class="rules">
       <li>Permainan dimulai Januari 2019. Setiap kali seorang pemain menyelesaikan satu putaran melewati Mulai, waktu maju satu bulan. Pemain yang tertinggal ikut kalender pemain terdepan.</li>
       <li>Agustus 2019: Kalimantan Timur diumumkan menjadi lokasi ibu kota baru. Harga lahan perlahan naik, kecuali Balikpapan, Samarinda, dan IKN.</li>
-      <li>Maret 2020–Desember 2021: harga lahan turun, sampai lebih rendah dari harga awal.</li>
+      <li>Maret 2020–Desember 2021: pandemi Covid-19. Harga lahan turun, sampai lebih rendah dari harga awal.</li>
       <li>Januari 2022: lokasi IKN di Nusantara diumumkan. Harga lahan stabil, lalu wilayah sekitar IKN naik: tertinggi di Kecamatan Sepaku (Bumi Harapan, Sukaraja, Pemaluan, Tengin Baru, Semoi, Mentawir), sedikit lebih rendah di Riko dan Maridan, wilayah lain naik sedikit. Kenaikan paling tajam Januari–Agustus 2024 dan berakhir Desember 2024.</li>
+      <li>2023–2024: LPG langka di Sepaku. Setiap bulan, pemilik properti di Sepaku yang belum punya pos LPG eceran atau pangkalan LPG harus membeli kayu bakar. Biayanya naik terus dan paling mahal pada Agustus 2024, lalu turun sampai Desember 2024.</li>
       <li>Januari 2025: pembangunan IKN melambat, harga lahan turun lagi, lalu stabil sampai 2045.</li>
       <li>Harga lahan menentukan harga beli, nilai gadai, nilai aset, dan harga awal lelang. Sewa dan harga kota tetap.</li>
     </ul>
@@ -519,9 +591,14 @@ const LAND=(()=>{ const Z={sepaku:[1],near:[1],other:[1]};
     a.push(a[m-1]*r); }
   return Z; })();
 const landIdx=(i,m)=>{ const z=zoneOf(i); return z==='city'?1:LAND[z][Math.min(Math.max(0,m|0),420)]; };
-const NEWS={0:'Permainan dimulai. Harga lahan masih normal.',7:'Pemerintah mengumumkan Kalimantan Timur menjadi lokasi ibu kota baru. Harga lahan perlahan naik, kecuali di Balikpapan, Samarinda, dan IKN.',14:'Pasar lahan lesu. Harga lahan mulai turun, bahkan sampai di bawah harga awal.',36:'Pemerintah mengumumkan lokasi IKN di Nusantara. Harga lahan kembali stabil, lalu wilayah sekitar IKN mulai naik, tertinggi di Kecamatan Sepaku.',60:'Pembangunan IKN dikebut. Harga lahan di Sepaku melonjak paling tajam.',68:'Kenaikan harga lahan mulai melambat.',72:'Pembangunan IKN melambat. Harga lahan turun kembali.',84:'Harga lahan stabil.'};
+const NEWS_S={0:'Harga lahan masih normal.',7:'Kaltim diumumkan jadi ibu kota baru, harga lahan naik perlahan.',14:'Pandemi Covid-19: pasar lahan lesu, harga terus turun.',36:'Proyek IKN dimulai: harga stabil, Sepaku mulai naik.',48:'LPG langka di Sepaku: properti tanpa LPG beli kayu bakar.',60:'Pembangunan IKN dikebut: harga lahan Sepaku melonjak.',67:'Puncak krisis LPG: kayu bakar paling mahal.',68:'Kenaikan harga lahan mulai melambat.',72:'Pembangunan IKN melambat, harga lahan turun.',84:'Harga lahan stabil.'};
+const NEWS={0:'Permainan dimulai. Harga lahan masih normal.',7:'Pemerintah mengumumkan Kalimantan Timur menjadi lokasi ibu kota baru. Harga lahan perlahan naik, kecuali di Balikpapan, Samarinda, dan IKN.',14:'Pandemi Covid-19 melanda. Pasar lahan lesu, harga lahan mulai turun sampai di bawah harga awal.',36:'Pemerintah mengumumkan lokasi IKN di Nusantara dan proyek IKN dimulai. Harga Ibu Kota Nusantara naik menjadi IDR 4.000k dan IKN mulai bisa dibangun. Harga lahan kembali stabil, lalu wilayah sekitar IKN mulai naik, tertinggi di Kecamatan Sepaku.',48:'LPG langka di Sepaku. Pemilik properti di Sepaku yang belum punya pos LPG eceran atau pangkalan LPG harus membeli kayu bakar setiap bulan.',60:'Pembangunan IKN dikebut. Harga lahan di Sepaku melonjak paling tajam.',67:'Puncak kelangkaan LPG di Sepaku: harga kayu bakar paling mahal.',68:'Kenaikan harga lahan mulai melambat.',72:'Pembangunan IKN melambat. Harga lahan turun kembali. Pasokan LPG di Sepaku pulih.',84:'Harga lahan stabil.'};
 const newsAt=m=>{ let k=0; for(const x of Object.keys(NEWS).map(Number))if(x<=m)k=x; return [k,NEWS[k]]; };
-function applyPrices(){ const m=S?.month||0; T.forEach((t,i)=>{ if(t.g&&t.g!==9&&t.p0)t.p=Math.max(100,Math.round(t.p0*landIdx(i,m)/100)*100); }); }
+function applyPrices(){ const m=S?.month||0; T.forEach((t,i)=>{ if(t.g&&t.g!==9&&t.p0)t.p=Math.max(100,Math.round(t.p0*landIdx(i,m)/100)*100); }); T[IKN].p=m<IKN_START?2000:4000; }
+const IKN_START=36;
+const eraOf=m=>m>=14&&m<=35?['covid','Pandemi Covid-19','Covid']:m>=48&&m<=71?['lpg','Krisis LPG Sepaku','LPG']:null;
+function woodCost(m){ if(m<48||m>71)return 0; if(m<=67)return Math.round((50+(m-48)*250/19)/10)*10; return 300-(m-67)*50; }
+const needsWood=i=>SEPAKU.includes(i)&&S.own[i]!=null&&!S.mort[i]&&S.el[i]==null&&!S.biz[i]?.plg;
 T.forEach(t=>{
   if(t.g){ t.t='prop'; t.r=t.r||RP[t.p]; }
   if(t.k){ t.t='util'; t.p=UT[t.k].p; t.uc=t.p/2; }
@@ -642,7 +719,7 @@ const posVal=i=>(S.eb[i]??0)+(S.el[i]??0);
 const hasPos=i=>S.eb[i]!=null||S.el[i]!=null;
 function nearCity(i){ let best=null; for(const c of CITIES){ const d=Math.min((i-c+N)%N,(c-i+N)%N); if(!best||d<best.d)best={d,c}; } return best; }
 
-let detailHelp=false, bankOpen=false, S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
+let popLast=null, detailHelp=false, bankOpen=false, S=null, detail=null, overClosed=false, arm=null, armTimer=null, setupCount=4, setupMode='local', cpuCount=1, cpuLevel='warlok';
 const cur=()=>S.players[S.turn];
 const P=j=>S.players[j];
 const init=p=>esc((p.name.trim().charAt(0)||'?').toUpperCase());
@@ -694,7 +771,7 @@ function maxRaise(j){
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
   S={v:5,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
-    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
+    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},burn:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     month:0,msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
   S.players.forEach(q=>q.laps=0); applyPrices();
@@ -726,10 +803,12 @@ function passMulai(j){
     log(`Waktu berjalan: ${calStr(S.month)}.`);
     if(NEWS[S.month])log(`Berita ${calStr(S.month)}: ${NEWS[S.month]}`);
   }
+  for(const k in (S.burn||{})) if(S.burn[k]===j) delete S.burn[k];
   const pr=profitOf(j);
   if(pr>0){ gain(j,pr); log(`${p.name} melintasi Mulai dan menerima profit usaha ${fmt(pr)}.`); }
   else log(`${p.name} melintasi Mulai tanpa usaha aktif, tidak ada pemasukan.`);
   payDeals(j);
+  { const w=woodCost(S.month||0), n=ownedBy(j).filter(needsWood); if(w&&n.length){ pay(j,-1,w*n.length); log(`${p.name} membeli kayu bakar ${fmt(w*n.length)} untuk ${n.length} properti di Sepaku tanpa pasokan LPG (${fk(w)} per properti).`); } }
   const it=interestOf(j); if(it){ pay(j,-1,it); log(`${p.name} membayar bunga kredit bank ${fmt(it)}.`); }
   tickMortgages(j);
 }
@@ -745,7 +824,7 @@ async function stepTo(target){
 async function animDice(d){
   if(NET.role==='host')broadcast({t:'dice'});
   const box=$('#dice');
-  if(!RM&&box){ box.classList.add('rolling'); for(let k=0;k<9;k++){ setDie(0,rnd6()); setDie(1,rnd6()); await sleep(55); } box.classList.remove('rolling'); }
+  if(!RM&&box){ box.classList.add('rolling'); await sleep(560); box.classList.remove('rolling'); }
   setDie(0,d[0]); setDie(1,d[1]);
 }
 async function doRoll(){
@@ -792,12 +871,9 @@ function land(){
     S.pending={type:'card',id,i}; S.phase='decide';
     setMsg(`${p.name} mencari wangsit di ${t.loc}. Buka kartunya.`); render(); return;
   } else if(t.t==='bridge'){
-    if(PORTS.some(x=>S.own[x]===me)){
-      S.pending={type:'bridge'}; S.phase='decide';
-      setMsg(`${p.name} berhenti di Jembatan Pulau Balang. Sebagai pemilik pelabuhan, kamu boleh memilih kembali ke Kota Balikpapan atau tetap di jembatan.`); render(); return;
-    }
-    log(`${p.name} berhenti di Jembatan Pulau Balang dan kembali ke Kota Balikpapan.`);
-    p.pos=BPP; renderTokens(); return land();
+    const stay=PORTS.some(x=>S.own[x]===me);
+    S.pending={type:'bridge',stay}; S.phase='decide';
+    setMsg(`${p.name} berhenti di Jembatan Pulau Balang. Pilih menyeberang ke Kota Balikpapan atau Ibu Kota Nusantara${stay?', atau tetap di jembatan karena kamu memiliki pelabuhan':''}.`); render(); return;
   } else if(t.t==='go') setMsg(`${p.name} berhenti tepat di Mulai.`);
   settle();
 }
@@ -808,10 +884,10 @@ function payFine(){
   log(`${p.name} membayar denda ${fmt(JAIL_FINE)} dan keluar dari penjara.`);
   setMsg(`${p.name} bebas. Lempar dadu, langkah dihitung dari Mulai.`); render();
 }
-function doBridge(go){
-  if(S.pending?.type!=='bridge')return;
+function doBridge(c){
+  if(S.pending?.type!=='bridge'||![0,1,2].includes(c)||(c===0&&!S.pending.stay))return;
   const p=cur(); S.pending=null;
-  if(go){ log(`${p.name} memilih kembali ke Kota Balikpapan dari Jembatan Pulau Balang.`); p.pos=BPP; renderTokens(); return land(); }
+  if(c){ const d=c===1?BPP:IKN; log(`${p.name} menyeberang dari Jembatan Pulau Balang ke ${T[d].n}.`); p.pos=d; renderTokens(); return land(); }
   log(`${p.name} memilih tetap di Jembatan Pulau Balang.`); setMsg(`${p.name} tetap di Jembatan Pulau Balang.`); settle();
 }
 const ownAirs=j=>AIRS.filter(x=>S.own[x]===j);
@@ -927,6 +1003,7 @@ function whyNoBuild(i){
   const h=S.houses[i]||0;
   if(i===IKN){
     if(h>=maxLv(i))return 'Istana kepresidenan sudah berdiri.';
+    if((S.month||0)<IKN_START)return 'Proyek IKN baru dimulai Januari 2022. Sebelum itu IKN belum bisa dibangun.';
     if(S.mort[i])return 'Tebus dulu Ibu Kota Nusantara.';
     if(!iknReady(S.own[i]))return 'Untuk membangun di IKN, miliki Bumi Harapan, Sukaraja, Pemaluan, atau Riko yang punya pos bensin dan pos LPG eceran aktif.';
   } else {
@@ -1015,7 +1092,7 @@ function bizWhy(i,k,m){
 function bizBuild(arg){
   const i=Math.floor(arg/100), c=arg%100, k=BIZ_ORDER[c>>1], m=c&1?'i':'r';
   if(!k||!manageable(i)||bizWhy(i,k,m))return;
-  pay(S.turn,-1,BIZ[k][m].c); (S.biz[i]??={})[k]=m;
+  pay(S.turn,-1,BIZ[k][m].c); (S.biz[i]??={})[k]=m; if(m==='i')(S.burn??={})[i]=S.turn;
   log(`${cur().name} membuka ${lc(BIZ[k].n)}${m==='i'?' dengan cara membakar hutan':' secara resmi'} di ${T[i].n} (${fmt(BIZ[k][m].c)}).`); render();
 }
 function bizSell(arg){
@@ -1163,16 +1240,22 @@ function tileInner(t){
   }
   return `<span class="own"></span><span class="body">${body}</span>${band}`;
 }
-function bridgeLink(){
-  const g=GEO.g[BRIDGE],[bx,by]=GEO.V.B,off=GEO.D/2+1.5,al=Math.sqrt((GEO.R+.7)**2-off**2);
-  const x1=g.x+g.nx*off,y1=g.y+g.ny*off,x2=bx+g.ux*al+g.nx*off,y2=by+g.uy*al+g.ny*off;
-  const ah=1.6,ax=-g.ux,ay=-g.uy,px=-ay,py=ax; // arrow points toward Balikpapan
+function bridgeLink(){ return bridgeArrow('B',-1,'Jembatan P. Balang → Balikpapan')+bridgeArrow('I',1,'Jembatan P. Balang → IKN'); }
+function bridgeArrow(vk,sg,label){
+  const g=GEO.g[BRIDGE],[bx,by]=GEO.V[vk],off=GEO.D/2+1.5,al=Math.sqrt((GEO.R+.7)**2-off**2);
+  const x1=g.x+g.nx*off,y1=g.y+g.ny*off,x2=bx-sg*g.ux*al+g.nx*off,y2=by-sg*g.uy*al+g.ny*off;
+  const ah=1.6,ax=sg*g.ux,ay=sg*g.uy,px=-ay,py=ax;
   const tip=[x2,y2],l=[x2-ax*ah+px*ah*.55,y2-ay*ah+py*ah*.55],r=[x2-ax*ah-px*ah*.55,y2-ay*ah-py*ah*.55];
-  const mx=(x1+x2)/2+g.nx*1.5,my=(y1+y2)/2+g.ny*1.5,ang=Math.atan2(ay,ax)*180/Math.PI;
+  const mx=(x1+x2)/2+g.nx*1.5,my=(y1+y2)/2+g.ny*1.5; let ang=Math.atan2(ay,ax)*180/Math.PI; if(ang>90)ang-=180; if(ang<-90)ang+=180;
   return `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${(x2-ax*ah*.6).toFixed(2)}" y2="${(y2-ay*ah*.6).toFixed(2)}" stroke="var(--road)" stroke-width=".55" stroke-dasharray="1.8 1.2" stroke-linecap="round"/>
     <circle cx="${x1.toFixed(2)}" cy="${y1.toFixed(2)}" r=".75" fill="var(--road)"/>
     <polygon points="${[tip,l,r].map(q=>q.map(v=>v.toFixed(2)).join(',')).join(' ')}" fill="var(--road)"/>
-    <text x="${mx.toFixed(2)}" y="${my.toFixed(2)}" transform="rotate(${ang.toFixed(1)} ${mx.toFixed(2)} ${my.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" font-family="Overpass, system-ui, sans-serif" font-weight="700" font-size="1.25" fill="#D9E8DF">Jembatan Pulau Balang → kembali ke Kota Balikpapan</text>`;
+    <text x="${mx.toFixed(2)}" y="${my.toFixed(2)}" transform="rotate(${ang.toFixed(1)} ${mx.toFixed(2)} ${my.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" font-family="Overpass, system-ui, sans-serif" font-weight="700" font-size="1.25" fill="#D9E8DF">${label}</text>`;
+}
+function edgeText(a,b,id){
+  const [ax,ay]=GEO.V[a],[bx,by]=GEO.V[b],mx=(ax+bx)/2,my=(ay+by)/2, d=Math.hypot(GEO.cx-mx,GEO.cy-my), nx=(GEO.cx-mx)/d, ny=(GEO.cy-my)/d;
+  const off=GEO.D/2+2.3, x=mx+nx*off, y=my+ny*off; let ang=Math.atan2(by-ay,bx-ax)*180/Math.PI; if(ang>90)ang-=180; if(ang<-90)ang+=180;
+  return `<text id="${id}" class="edge" x="${x.toFixed(2)}" y="${y.toFixed(2)}" transform="rotate(${ang.toFixed(1)} ${x.toFixed(2)} ${y.toFixed(2)})" text-anchor="middle" dominant-baseline="middle" font-size="1.25"></text>`;
 }
 function buildBoard(){
   const st=$('#stage'), H=GEO.H;
@@ -1184,6 +1267,8 @@ function buildBoard(){
     <polygon points="${tri(fo)}" fill="var(--board)" stroke="var(--board)" stroke-width="3" stroke-linejoin="round"/>
     <polygon points="${tri(fi2)}" fill="var(--board-2)" stroke="var(--board-2)" stroke-width="1" stroke-linejoin="round"/>
     ${bridgeLink()}
+    ${edgeText('I','S','edgeNews')}
+    ${edgeText('S','B','edgeLand')}
   </svg>`;
   T.forEach((t,i)=>{
     const g=GEO.g[i]; const el=document.createElement('button');
@@ -1191,6 +1276,7 @@ function buildBoard(){
     if(g.corner){
       el.className='corner'; el.style.width=(GEO.R*2)+'cqw';
       el.innerHTML=`<span class="c1">${esc(t.c1)}</span><span class="c2">${esc(t.c2)}</span><span class="cb"></span><span class="c3">${fk(t.p)}</span>`;
+      el.dataset.city=i===IKN?'ikn':i===BPP?'bpp':'smd';
     } else {
       el.className=`tile k-${t.t} ${g.band==='start'?'bs':'be'}`;
       el.style.width=GEO.D+'cqw'; el.style.height=(g.w-.32)+'cqw'; el.style.setProperty('--rot',g.rot+'deg');
@@ -1201,19 +1287,52 @@ function buildBoard(){
   });
   const at=(el,[x,y])=>{ el.style.left=x+'%'; el.style.top=(y/H*100)+'%'; st.appendChild(el); return el; };
   const mk=(tag,cls,html)=>{ const e=document.createElement(tag); e.className=cls; e.innerHTML=html; return e; };
-  at(mk('div','ttl','<span class="eb">Apakah Anda siap bersaing di</span><h1><span class="tc">“Tri-City”</span><span class="sh">Superhub Ekonomi?</span></h1><span class="cal" id="calB">Januari 2019</span>'),GEO.ttl);
+  at(mk('div','ttl','<span class="eb">Apakah Anda siap bersaing di</span><h1><span class="tc">“Tri-City”</span><span class="sh">Superhub Ekonomi?</span></h1>'),GEO.ttl);
   const dk=at(mk('button','slot deck',`<span class="sl">Cari Wangsit</span><span class="dia"><b>?</b></span><span class="ss">${CARDS.length} kartu</span>`),GEO.deck);
   dk.type='button'; dk.id='deckSlot'; dk.dataset.act='showDetail'; dk.dataset.arg='-2'; dk.setAttribute('aria-label','Tumpukan kartu Cari Wangsit');
   const jl=at(mk('button','slot jail',`<span class="sl">Penjara</span><span class="ss">Denda ${fk(JAIL_FINE)}</span>`),GEO.jail);
   jl.type='button'; jl.id='jailSlot'; jl.dataset.act='showDetail'; jl.dataset.arg='-1'; jl.setAttribute('aria-label','Penjara');
   const dc=at(mk('div','dice','<span class="die" id="d0"></span><span class="die" id="d1"></span>'),GEO.dice); dc.id='dice';
-  for(const k of [0,1]) $('#d'+k).innerHTML='<i></i>'.repeat(9);
+  for(const k of [0,1]) $('#d'+k).innerHTML=`<span class="cube">${[1,2,3,4,5,6].map(f=>`<span class="face f${f}">${[0,1,2,3,4,5,6,7,8].map(x=>`<i${FACES[f].includes(x)?' class="on"':''}></i>`).join('')}</span>`).join('')}</span>`;
+  const fx=document.createElement('div'); fx.id='fx'; st.appendChild(fx);
   const tl=document.createElement('div'); tl.id='toks'; st.appendChild(tl);
 }
 const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
-function setDie(k,v){ const d=$('#d'+k); [...d.children].forEach((pip,ix)=>pip.classList.toggle('on',FACES[v].includes(ix))); d.setAttribute('aria-label','Dadu '+v); }
+const DROT={1:[0,0],6:[0,180],2:[0,-90],5:[0,90],3:[-90,0],4:[90,0]};
+function setDie(k,v){ const d=$('#d'+k); if(!d)return; const c=d.querySelector('.cube'), [rx,ry]=DROT[v]||[0,0]; if(c)c.style.transform=`rotateX(-24deg) rotateY(${k?-28:28}deg) rotateX(${rx}deg) rotateY(${ry}deg)`; d.setAttribute('aria-label','Dadu '+v); }
 
 /* ================= Rendering ================= */
+/* ilustrasi animasi bangunan di kota sudut, viewBox 40×24 */
+function cityScene(i,h){
+  if(!h)return '';
+  const W='#FFFFFF', G='#F6C945', win=(x,y,w,hh,n,m,c='#FFE9A8')=>{ let r=''; for(let a=0;a<n;a++)for(let b=0;b<m;b++)r+=`<rect class="tw" x="${x+a*w}" y="${y+b*hh}" width="${w*.55}" height="${hh*.5}" fill="${c}"/>`; return r; };
+  const house=(x,s=1)=>`<path d="M${x} ${22} v-${5*s} l${3.5*s} -${3*s} l${3.5*s} ${3*s} v${5*s} z" fill="${W}"/><rect x="${x+2.6*s}" y="${22-2.6*s}" width="${1.8*s}" height="${2.6*s}" fill="#0F3226"/>`;
+  const base=`<rect x="0" y="22" width="40" height="1.4" rx=".7" fill="rgba(255,255,255,.35)"/>`;
+  if(i===IKN){
+    const pole=`<ellipse cx="20" cy="21.4" rx="${h>=2?9:7}" ry="1.8" fill="none" stroke="${G}" stroke-width=".9"/><ellipse cx="20" cy="21.4" rx="${h>=2?5.5:4}" ry="1.1" fill="none" stroke="${W}" stroke-width=".5"/><rect x="19.4" y="${h>=4?4:7}" width="1.2" height="${h>=4?17:14}" fill="${W}"/><circle class="glow" cx="20" cy="${h>=4?3.5:6.5}" r="1.3" fill="${G}" style="transform-origin:20px ${h>=4?3.5:6.5}px"/>`;
+    const flag=h>=2?`<rect x="27" y="9" width=".6" height="12" fill="${W}"/><g class="flag"><rect x="27.6" y="9" width="5" height="1.6" fill="#E5484D"/><rect x="27.6" y="10.6" width="5" height="1.6" fill="${W}"/></g>`:'';
+    const kemenko=h>=3?`<g>${[3,8,32,36].map(x=>`<rect x="${x-1}" y="13" width="4" height="9" fill="${W}" opacity=".92"/>${win(x-.6,14,1.2,1.8,3,4,'#0F3226')}`).join('')}</g>`:'';
+    const garuda=h>=4?`<g class="shine">${[-62,-48,-34,-20,20,34,48,62].map((a,k)=>`<path d="M20 12 L${(20+Math.sin(a*Math.PI/180)*13).toFixed(1)} ${(12-Math.cos(a*Math.PI/180)*9).toFixed(1)} L${(20+Math.sin((a+(a<0?6:-6))*Math.PI/180)*11).toFixed(1)} ${(12-Math.cos((a+(a<0?6:-6))*Math.PI/180)*7).toFixed(1)}Z" fill="${G}" opacity="${(.65+(k%2)*.3).toFixed(2)}"/>`).join('')}<path d="M14 21 L20 12 L26 21Z" fill="${G}"/></g>`:'';
+    return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}${kemenko}${garuda}${pole}${flag}</svg>`;
+  }
+  const bpp=i===BPP;
+  if(h===1)return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}${house(16.5,1.1)}</svg>`;
+  if(h===2)return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}${house(8)}${house(16.5)}${house(25)}</svg>`;
+  if(h===3)return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}<rect x="13" y="9" width="14" height="13" fill="${W}"/>${win(14.2,10.2,3.2,3,4,3,'#0F3226')}<rect x="18.6" y="18" width="2.8" height="4" fill="${G}"/></svg>`;
+  if(h===4)return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}<rect x="12" y="4" width="16" height="18" fill="${W}"/>${win(13.2,5.4,3,2.6,5,6)}<rect x="15" y="1.6" width="10" height="2.2" rx=".4" fill="${G}"/></svg>`;
+  // hotel mewah: Balikpapan menara kaca tepi laut, Samarinda menara di tepi Mahakam dengan kubah dan menara masjid
+  const tower=`<path d="M15 22 V5 L20 1 L25 5 V22Z" fill="${W}"/><path d="M20 1 V22" stroke="#C8D8D0" stroke-width=".4"/>${win(16,6,2.1,2.1,4,7)}<circle class="glow" cx="20" cy="2.6" r=".9" fill="${G}" style="transform-origin:20px 2.6px"/>`;
+  const side=`<rect x="26" y="10" width="7" height="12" fill="${W}" opacity=".9"/>${win(26.8,11,2.1,2.2,3,5)}`;
+  const extra=bpp?`<g class="wave"><path d="M-2 22.8 q2 -1 4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0" fill="none" stroke="#7FD3FF" stroke-width=".8"/></g><rect x="7" y="13" width="6" height="9" fill="${W}" opacity=".85"/>${win(7.6,14,2,2.2,3,4)}`
+    :`<path d="M5 22 v-5 a4 4 0 0 1 8 0 v5z" fill="${G}"/><rect x="3.4" y="9" width="1.1" height="13" fill="${W}"/><rect x="13.4" y="9" width="1.1" height="13" fill="${W}"/><circle cx="9" cy="12.6" r=".6" fill="${W}"/><g class="wave"><path d="M-2 23 q2 -.8 4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0 t4 0" fill="none" stroke="#C9A36A" stroke-width=".8"/></g>`;
+  return `<svg class="scene" viewBox="0 0 40 24" aria-hidden="true">${base}${extra}${tower}${side}</svg>`;
+}
+function renderFx(){
+  const fx=$('#fx'); if(!fx||!S)return;
+  const want=Object.keys(S.burn||{}).map(Number).filter(i=>GEO.g[i]);
+  const key=want.join(','); if(fx.dataset.k===key)return; fx.dataset.k=key;
+  fx.innerHTML=want.map(i=>{ const g=GEO.g[i]; return `<span class="fire" style="left:${g.x}%;top:${(g.y/GEO.H*100)}%"><i class="fl"></i><i class="fl"></i><i class="fl"></i><i class="sm"></i><i class="sm"></i><i class="sm"></i></span>`; }).join('');
+}
 function bizBadge(i){ const b=S.biz?.[i]; const n=b?Object.keys(b).length:0; return n?`<span class="bz${Object.values(b).includes('i')?' il':''}">${n}</span>`:''; }
 function updateTiles(){
   document.querySelectorAll('#stage [data-i]').forEach(el=>{
@@ -1229,7 +1348,11 @@ function updateTiles(){
       el.classList.toggle('blk',(t.t==='prop'&&blackout(i)!=null)||cutCount(i)>0);
       if(t.t==='prop'&&t.g!==9){ const pe=el.querySelector('.pr'); if(pe){ pe.textContent=fk(t.p); pe.classList.toggle('up',t.p>t.p0); pe.classList.toggle('dn',t.p<t.p0); } }
       const band=el.querySelector('.band,.cb');
-      if(t.t==='prop'){
+      if(t.g===9){ const c3=el.querySelector('.c3'); if(c3)c3.textContent=fk(t.p); }
+      if(t.t==='prop'&&t.g===9){
+        const h=S.houses[i]||0, k=`${h}`;
+        if(band.dataset.k!==k){ band.dataset.k=k; band.innerHTML=cityScene(i,h)||(h?'':''); }
+      } else if(t.t==='prop'){
         const h=S.houses[i]||0;
         band.innerHTML=(h&&h===maxLv(i)?`<span class="htl">${i===IKN?'Istana':'H'}</span>`:'<span class="pip"></span>'.repeat(h))+(S.eb[i]!=null?`<span class="pb${posOff(i,'b')?' off':''}"></span>`:'')+(S.el[i]!=null?`<span class="plg${posOff(i,'l')?' off':''}"></span>`:'');
         band.innerHTML+=bizBadge(i);
@@ -1315,7 +1438,7 @@ function renderTurn(){
   if(S.auc&&S.phase!=='over')return renderAuction($('#turn'));
   if(S.deal&&S.phase!=='over')return renderDeal($('#turn'));
   const p=cur(), el=$('#turn');
-  let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:S.net&&p.dev?`<span class="sub">${p.dev===NET.token?'Kamu':'Gadget lain'+(isOnDev(p.dev)?'':' · terputus')}</span>`:''}</span><span class="money ${p.cash<0?'neg':''}">${fmt(p.cash)}</span></div>`;
+  let h=`<div class="who"><span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="nmx">${esc(p.name)}${p.bot?`<span class="sub">Komputer · ${LEVELS[p.bot].n}</span>`:S.net&&p.dev?`<span class="sub">${p.dev===NET.token?'Kamu':'Gadget lain'+(isOnDev(p.dev)?'':' · terputus')}</span>`:''}</span></div>`;
   if(S.phase==='decide'&&S.pending?.type==='card'){
     const t=T[S.pending.i];
     h+=`<div class="wcard"><span class="bigdia"><b>?</b></span><div><div class="lbl">Cari Wangsit · ${esc(t.loc)}</div><p>${esc(cardText(CARDS[S.pending.id],S.turn))}</p></div></div>`;
@@ -1341,7 +1464,7 @@ function renderTurn(){
     if(!ok)h+=`<p class="hint">Uang tunai kurang ${fmt(pr-p.cash)}. Gadaikan properti dulu jika ingin membeli.</p>`;
   }
   else if(S.phase==='decide'&&S.pending?.type==='card') b=B('Jalankan','doCard',{cls:'pri'});
-  else if(S.phase==='decide'&&S.pending?.type==='bridge') b=B('Kembali ke Kota Balikpapan','bridgeGo',{cls:'pri'})+B('Tetap di jembatan','bridgeStay');
+  else if(S.phase==='decide'&&S.pending?.type==='bridge') b=B('Ke Kota Balikpapan','bridgeGo',{cls:'pri'})+B('Ke Ibu Kota Nusantara','bridgeIkn',{cls:'pri'})+(S.pending.stay?B('Tetap di jembatan','bridgeStay'):'');
   else if(S.phase==='decide'&&S.pending?.type==='fly') b=AIRS.filter(x=>x!==p.pos).map(x=>{ const f=fareOf(p.pos,x,S.turn); return B(`Terbang ke ${T[x].n} (${f?fk(f):'gratis'})`,'doFly',{arg:x,cls:'pri',dis:p.cash<f}); }).join('')+B('Tetap di sini','doNoFly');
   else if(S.phase==='end') b=B('Akhiri giliran','endTurn',{cls:'pri'});
   if(p.bot&&S.phase!=='over'){ b=''; h+=`<p class="think"><i></i>${esc(p.name)} (${LEVELS[p.bot].n}) sedang bermain…</p>`; }
@@ -1379,21 +1502,31 @@ function renderPlayers(){
     </div>`;
   }).join('');
 }
-function renderCal(){
-  const el=$('#cal'); if(!el)return;
-  const m=S.month||0, [k,n]=newsAt(m), pct=z=>{ const v=Math.round((LAND[z][Math.min(m,420)]-1)*100); return `<b class="${v>0?'up':v<0?'dn':''}">${v>0?'+':''}${v}%</b>`; };
-  el.innerHTML=`<div class="calh"><b>${calStr(m)}</b><span>bulan ke-${m+1}</span><button class="qbtn" style="margin-left:auto" type="button" data-act="openRules" aria-label="Aturan permainan" title="Aturan permainan">?</button></div>
-    <p class="news"><b>${calStr(k)}:</b> ${esc(n)}</p>
-    <div class="zones"><span>Harga lahan dibanding awal:</span>${Object.keys(ZONE_N).map(z=>`<span>${ZONE_N[z]} ${pct(z)}</span>`).join('')}</div>`;
-  el.hidden=false;
-  const cb=$('#calB'); if(cb)cb.textContent=calStr(m);
+function hudIdx(){
+  if(S.net){ const k=S.players.findIndex(q=>q.dev===NET.token); if(k>=0)return k; }
+  const hum=S.players.map((q,j)=>j).filter(j=>!P(j).bot); return hum.length===1?hum[0]:S.turn;
+}
+function renderHud(){
+  const hud=$('#hud'); if(!hud)return;
+  const m=S.month||0, j=hudIdx(), p=P(j), era=eraOf(m), pr=profitOf(j);
+  $('#hMonth').textContent=calStr(m); $('#hMonthS').textContent=`${MON[m%12].slice(0,3)} ${2019+Math.floor(m/12)}`;
+  const he=$('#hEra'); he.hidden=!era; if(era){ he.innerHTML=`<span class="lg">${era[1]}</span><span class="sh">${era[2]}</span>`; he.className='hera '+era[0]; }
+  $('#hPlayer').innerHTML=`<span class="chip" style="--pc:${p.color}">${init(p)}</span><span class="hn">${esc(p.name)}<span class="ht">${j===S.turn&&S.phase!=='over'?'sedang giliran':'giliran '+esc(cur().name)}</span></span>`;
+  const hc=$('#hCash'); hc.innerHTML=`<span class="lg">${fmt(p.cash)}</span><span class="sh">${p.cash<0?'−':''}${fk(Math.abs(p.cash))}</span>`; hc.classList.toggle('neg',p.cash<0);
+  $('#hProf').textContent=`${pr>=0?'+':''}${fk(pr)}/bln`;
+  hud.hidden=false;
+  const [k]=newsAt(m), w=woodCost(m), pct=z=>{ const v=Math.round((LAND[z][Math.min(m,420)]-1)*100); return `${v>0?'+':v<0?'−':''}${Math.abs(v)}%`; };
+  const en=$('#edgeNews'), el=$('#edgeLand');
+  if(en)en.innerHTML=`<tspan class="ehi">${esc(calStr(m))}</tspan> · ${esc(NEWS_S[k]||'')}${w?` · kayu bakar ${fk(w)}/bulan`:''}`;
+  if(el)el.innerHTML=`<tspan class="ehi">Harga lahan vs awal</tspan> · Sepaku ${pct('sepaku')} · Riko & Maridan ${pct('near')} · Wilayah lain ${pct('other')} · IKN ${fk(T[IKN].p)}`;
 }
 function renderLog(){
   $('#log').innerHTML=S.log.slice(0,60).map(l=>`<li><span class="r">R${l.r}</span>${esc(l.t)}</li>`).join('');
 }
 function renderDetail(){
   const el=$('#detail'), pop=$('#dpop');
-  if(detail==null||!S){ pop.hidden=true; return; }
+  if(detail==null||!S){ pop.hidden=true; popLast=null; return; }
+  if(pop.hidden||popLast!==detail){ popLast=detail; requestAnimationFrame(()=>{ const d=$('#dpanel'); if(RM||!d)return; d.classList.remove('popin'); void d.offsetWidth; d.classList.add('popin'); }); }
   $('#dpanel').classList.toggle('help',detailHelp);
   const close=`<div class="dt-tools"><button class="qbtn${detailHelp?' on':''}" type="button" data-act="toggleHelp" aria-label="Aturan petak ini" title="Aturan petak ini">?</button><button class="btn sm" type="button" data-act="closeDetail">Tutup</button></div>`;
   if(detail<0){
@@ -1445,7 +1578,7 @@ function renderDetail(){
     body+=`<p class="dt-note">Utilitas tidak memungut sewa: pemain lain yang berhenti di sini singgah gratis. Pemiliknya menerima profit setiap lewat Mulai${SPBU.includes(i)?' (setengah tiap kali suplainya diputus)':''}. ${u.up} (${fmt(t.uc)}) melipatgandakan profit. Harga ${fmt(t.p)} · nilai gadai ${fmt(t.p/2)}.</p>`;
   }
   else if(t.t==='wangsit'){ sw='var(--warn)'; sub=`Kartu · ${t.loc}`; body=`<p class="dt-note">Ambil satu kartu Cari Wangsit. Isinya hadiah, denda, perintah pindah petak, atau perintah masuk penjara.</p>`; }
-  else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti kembali ke Kota Balikpapan tanpa melewati Mulai, jadi tidak ada profit usaha. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam boleh memilih tetap di jembatan. Setibanya di Balikpapan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
+  else if(t.t==='bridge'){ sw='var(--brown)'; sub='Bukan properti'; body=`<p class="dt-note">Berhenti di sini berarti menyeberang ke Kota Balikpapan atau Ibu Kota Nusantara tanpa melewati Mulai, jadi tidak ada profit usaha. Pemilik Pelabuhan Kariangau atau Pelabuhan Penajam juga boleh memilih tetap di jembatan. Setibanya di kota tujuan, berlaku aturan biasa: beli jika belum ada pemiliknya, atau bayar sewa ke pemiliknya.</p>`; }
   else if(t.t==='go'){ sw='var(--sign)'; sub='Titik awal'; body=`<p class="dt-note">Tidak ada gaji tetap. Setiap melewati atau berhenti di Mulai, pemain menerima total profit dari usaha aktifnya, lalu membayar bunga kredit bank jika ada.${S?` Profit ${esc(cur().name)} saat ini ${fmt(profitOf(S.turn))} per lewat Mulai.`:''}</p>`; }
   if(t.p&&bizAt(i).length+(t.t==='prop'&&i!==IKN?2:0)){
     const tp=tileProfit(i), b=S.biz[i]||{};
@@ -1455,7 +1588,8 @@ function renderDetail(){
     body+=`<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; ilegal dengan bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
   }
   let own='';
-  if(t.p) own=`<p class="dt-sum">${t.t==='prop'&&t.g!==9?`Harga lahan ${fmt(t.p)}${t.p!==t.p0?` (awal ${fk(t.p0)})`:''} · `:`Harga ${fmt(t.p)} · `}${o!=null?`Profit petak ${fk((tileProfit(i).lg+tileProfit(i).il))}/bulan · `:''}${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
+  const woodNote=t.p&&S.own[i]!=null&&needsWood(i)&&woodCost(S.month||0)?`<p class="hint warn">LPG langka: pemilik membayar kayu bakar ${fk(woodCost(S.month||0))}/bulan untuk petak ini sampai ada pos LPG eceran atau pangkalan LPG.</p>`:'';
+  if(t.p) own=woodNote+`<p class="dt-sum">${t.t==='prop'&&t.g!==9?`Harga lahan ${fmt(t.p)}${t.p!==t.p0?` (awal ${fk(t.p0)})`:''} · `:`Harga ${fmt(t.p)} · `}${o!=null?`Profit petak ${fk((tileProfit(i).lg+tileProfit(i).il))}/bulan · `:''}${o!=null?`Pemilik: <b>${esc(P(o).name)}</b>${S.mort[i]?` · sedang digadai, disita bank ${S.mort[i]===1?'saat berikutnya':'setelah '+S.mort[i]+' kali'} pemiliknya melewati Mulai jika belum ditebus`:''}`:'Belum ada pemilik.'}</p>`;
   let acts='';
   if(mine){
     const a=[], cash=cur().cash;
@@ -1463,7 +1597,7 @@ function renderDetail(){
       const why=whyNoBuild(i), h=S.houses[i]||0;
       if(h<maxLv(i))a.push(B(`Bangun ${lc(lvName(i,h+1))} (${fk(GRP[t.g].h)})`,'build',{arg:i,dis:!!why}));
       if(h)a.push(B(`Turunkan (+${fk(GRP[t.g].h/2)})`,'sellHouse',{arg:i,dis:!canSell(i)}));
-      if(why&&why!=='x'&&h<maxLv(i))acts+=`<p class="hint">${why}</p>`;
+      if(why&&why!=='x'&&h<maxLv(i))acts+=`<p class="hint"><b>Bangun:</b> ${why}</p>`;
       for(const [kd,nm,st,cst] of [['b','pos bensin eceran',S.eb,BENSIN.c],['l','pos LPG eceran',S.el,LPG.c]]){
         if(i===IKN)break;
         if(st[i]!=null){ a.push(B(`Bongkar ${nm} (+${fk(st[i]/2)})`,kd==='b'?'sellB':'sellL',{arg:i})); continue; }
@@ -1474,7 +1608,7 @@ function renderDetail(){
           continue;
         }
         a.push(B(`Bangun ${nm} (${posFree(S.turn)?'gratis':fk(cst)})`,kd==='b'?'buildB':'buildL',{arg:i,dis:!!w}));
-        if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`;
+        if(w&&w!=='x')acts+=`<p class="hint"><b>${nm.charAt(0).toUpperCase()+nm.slice(1)}:</b> ${w}</p>`;
       }
     }
     if(PLANTS.includes(i)&&!S.mort[i]&&!S.blk[i])a.push(B('Sabotase pemadaman','sabotage',{arg:i}));
@@ -1518,9 +1652,9 @@ function renderOver(){
 let lastBlk='';
 function render(){
   if(!S)return;
-  applyPrices(); renderCal();
+  applyPrices(); renderHud();
   { const k=S.auc?'a'+S.auc.i+'.'+S.auc.seller:S.deal?'d'+S.deal.i+S.deal.kind:''; if(k&&k!==lastBlk&&detail!=null)detail=null; lastBlk=k; }
-  updateTiles(); renderTokens(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
+  updateTiles(); renderTokens(); renderFx(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
   $('#bFinish').disabled=S.phase==='over'||S.phase==='busy'||NET.role==='guest';
   if(arm!=='#bNew')$('#bNew').textContent=NET.role==='guest'?'Keluar room':'Permainan baru';
   renderNet();
@@ -1684,11 +1818,12 @@ function botFine(){
   return L==='warlok'?p.cash>=4000&&open>6:open>8&&p.cash-JAIL_FINE>=reserveFor(S.turn)*.5;
 }
 function botBridge(){
-  const L=cur().bot,j=S.turn,o=S.own[BPP];
-  if(L==='pendatang')return Math.random()<.5;
-  if(o==null)return cur().cash>=T[BPP].p+reserveFor(j)*.5;
-  if(o===j||S.mort[BPP])return true;
-  return L==='mafia'?danger(BPP,j)+rentGuess(BPP)<danger(BRIDGE,j):false;
+  const p=cur(),L=p.bot,j=S.turn,opts=[1,2].concat(S.pending.stay?[0]:[]);
+  if(L==='pendatang')return opts[Math.floor(Math.random()*opts.length)];
+  const score=c=>{ const x=c===1?BPP:c===2?IKN:BRIDGE, o=S.own[x]; let v=-danger(x,j);
+    if(c&&o!=null&&o!==j&&!S.mort[x])v-=rentGuess(x);
+    if(c&&o==null&&p.cash>=priceFor(x,j)+reserveFor(j)*.5)v+=L==='mafia'?900:450; return v; };
+  return opts.sort((a,b)=>score(b)-score(a))[0];
 }
 function botFly(){
   const p=cur(),L=p.bot,j=S.turn,res=reserveFor(j), f=x=>fareOf(p.pos,x,j), c=AIRS.filter(x=>x!==p.pos&&f(x)<=p.cash);
@@ -1897,7 +2032,7 @@ function guestData(c,d){
 }
 async function guestDice(){
   const box=$('#dice'); if(RM||!box)return;
-  box.classList.add('rolling'); for(let k=0;k<9;k++){ setDie(0,rnd6()); setDie(1,rnd6()); await sleep(55); } box.classList.remove('rolling');
+  box.classList.add('rolling'); await sleep(560); box.classList.remove('rolling');
   if(S)setDie(0,S.dice[0]),setDie(1,S.dice[1]);
 }
 
@@ -2010,7 +2145,7 @@ function setArm(id,fn){
   clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
 }
 
-const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(true),bridgeStay:()=>doBridge(false),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(1),bridgeIkn:()=>doBridge(2),bridgeStay:()=>doBridge(0),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
   showDetail(i){ detail=i; detailHelp=false; renderDetail(); updateTiles(); },
   toggleHelp(){ detailHelp=!detailHelp; renderDetail(); },
@@ -2062,7 +2197,7 @@ document.addEventListener('keydown',e=>{
 let PENDING=null;
 function fixState(x){
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
-  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.month??=0; x.players?.forEach(q=>{ q.laps??=0; }); x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
+  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.burn??={}; x.month??=0; x.players?.forEach(q=>{ q.laps??=0; }); x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.phase==='busy')x.phase=x.pending?'decide':'end';
   delete x.eb?.[IKN]; delete x.el?.[IKN]; if((x.houses?.[IKN]||0)>4)x.houses[IKN]=4;
   return x;
