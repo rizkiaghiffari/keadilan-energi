@@ -314,6 +314,24 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 #dpop:not([hidden]){animation:fadein .2s ease-out}
 @keyframes fadein{from{background:rgba(5,15,11,0)}}
 #fx{position:absolute;inset:0;pointer-events:none;z-index:4}
+/* utilitas: ikon bundar + nama jenis */
+.tile.k-util{width:9.6cqw;height:7.6cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.3cqw;border-radius:0}
+.tile.k-util .band{order:0;flex:none;width:5.4cqw;height:5.4cqw;min-width:20px;min-height:20px;border-radius:50%;background:var(--tile);color:var(--ink);border:.55cqw solid var(--oc,#B9C4BD);box-shadow:0 .3cqw .7cqw rgba(0,0,0,.45);position:relative;display:grid;place-items:center;transition:transform .15s}
+.tile.k-util .band .ic{width:2.9cqw;height:2.9cqw;min-width:10px;min-height:10px;stroke-width:2.2}
+.tile.k-util .band .upd{position:absolute;left:-.3cqw;top:-.3cqw;width:1.3cqw;height:1.3cqw}
+.tile.k-util .band .bz{position:absolute;right:-.9cqw;top:-.5cqw}
+.tile.k-util .ul{order:1;font:800 clamp(6px,1.22cqw,12px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;background:rgba(8,26,18,.82);color:#fff;padding:.3cqw .6cqw .2cqw;border-radius:99px;white-space:nowrap}
+.tile.k-util:hover .band{transform:scale(1.08)}
+.tile.k-util:hover .body{background:none}
+.tile.k-util.here,.tile.k-util.sel,.tile.k-util:focus-visible{outline:none;box-shadow:none}
+.tile.k-util.here .band{box-shadow:0 0 0 .45cqw var(--hl),0 .3cqw .7cqw rgba(0,0,0,.45)}
+.tile.k-util.sel .band,.tile.k-util:focus-visible .band{box-shadow:0 0 0 .45cqw var(--warn),0 .3cqw .7cqw rgba(0,0,0,.45)}
+.tile.k-util.mort::after,.tile.k-util.blk::before{display:none}
+.tile.k-util.mort .band{opacity:.5;border-style:dashed}
+.tile.k-util.blk .band{filter:brightness(.45)}
+.tile.k-util.pol{animation:none;box-shadow:none}
+.tile.k-util.pol .band{animation:polhl .46s steps(1) infinite}
+@container (max-width:470px){ .tile.k-util .ul{font-size:1.6cqw;padding:.25cqw .45cqw} }
 /* ---------- Lapor polisi ---------- */
 .hud .hpol svg{width:20px;height:20px}
 .hud .hpol .ray{animation:sirR 1s steps(1) infinite}
@@ -574,6 +592,7 @@ const RP={800:[40,200,600,1800,3200,4500],1200:[80,400,1000,3000,4500,6000],1600
 const T=[
 {n:'Bandara SAMS Sepinggan',s:'Bandara|Sepinggan',d:'Bandara|Sepinggan',ab:'BPN',k:'air'},
 {n:'Mulai',t:'go',s:'Mulai',ab:'MULAI'},
+{n:'Kilang Migas Balikpapan',s:'Kilang|Migas Bpp',d:'Kilang Migas|Balikpapan',ab:'KLG',k:'refinery'},
 {n:'Kota Balikpapan',c1:'Kota',c2:'Balikpapan',ab:'BPP',g:9,p:4000},
 {n:'PLTU Teluk Balikpapan',s:'PLTU|Teluk Bpp',d:'PLTU Teluk|Balikpapan',ab:'PLTU',k:'power'},
 {n:'Pelabuhan Kariangau',s:'Pel.|Kariangau',d:'Pelabuhan|Kariangau',ab:'KRG',k:'port'},
@@ -614,9 +633,10 @@ const T=[
 {n:'SPBU Muara Jawa',s:'SPBU|M. Jawa',d:'SPBU|Muara Jawa',ab:'SPBU',k:'fuel'},
 {n:'Teluk Dalam',s:'Teluk|Dalam',ab:'TLD',g:8,p:1200},
 {n:'PLTGU Senipah',s:'PLTGU|Senipah',ab:'PLTGU',k:'power'},
-{n:'Kuala Samboja',s:'Kuala|Samboja',ab:'KSB',g:8,p:2000},
-{n:'Kilang Migas Balikpapan',s:'Kilang|Migas Bpp',d:'Kilang Migas|Balikpapan',ab:'KLG',k:'refinery'}
+{n:'Kuala Samboja',s:'Kuala|Samboja',ab:'KSB',g:8,p:2000}
 ];
+/* urutan petak versi 6 (44 petak, kilang di ujung) */
+const OLD6=['Bandara SAMS Sepinggan','Mulai','Kota Balikpapan','PLTU Teluk Balikpapan','Pelabuhan Kariangau','W:Teluk Balikpapan','Pelabuhan Penajam','Penajam','Petung','SPBE Babulu','SPBU Sotek','Maridan','Jembatan Pulau Balang','Bandara VVIP IKN','Riko','Pemaluan','SPBU Simpang HTI','PLTS IKN','Ibu Kota Nusantara','Bumi Harapan','SPBU Bukit Raya','Sukaraja','Semoi','Mentawir','W:Hutan Bukit Bangkirai','Simpang Samboja','SPBU KM 38','Loa Janan','Palaran','W:Jembatan Mahakam IV','PLTU Embalut','Kota Samarinda','Bandara APT Pranoto','W:Jembatan Mahkota 2','Samarinda Seberang','Sanga-Sanga','PLTU Muara Jawa','W:Jembatan Dondang','Muara Jawa/Handil','SPBU Muara Jawa','Teluk Dalam','PLTGU Senipah','Kuala Samboja','Kilang Migas Balikpapan'];
 /* urutan petak versi 5 (48 petak), untuk memindahkan permainan tersimpan */
 const OLD5=['Bandara SAMS Sepinggan','Mulai','Kota Balikpapan','PLTU Teluk Balikpapan','Pelabuhan Kariangau','W:Teluk Balikpapan','Pelabuhan Penajam','Penajam','Petung','SPBE Babulu','Sotek','Maridan','Jembatan Pulau Balang','Bandara VVIP IKN','Riko','PLTS IKN','Pemaluan','SPBU Simpang HTI','Ibu Kota Nusantara','Bumi Harapan','SPBU Bukit Raya','Sukaraja','Tengin Baru','Semoi','Mentawir','W:Hutan Bukit Bangkirai','Simpang Samboja','SPBU KM 38','Batuah','Loa Janan Ulu','Loa Janan Ilir','Palaran','W:Jembatan Mahakam IV','PLTU Embalut','Kota Samarinda','Bandara APT Pranoto','W:Jembatan Mahkota 2','Samarinda Seberang','Sanga-Sanga','PLTU Muara Jawa','W:Jembatan Dondang','Muara Jawa/Handil','SPBU Muara Jawa','Teluk Dalam','PLTGU Senipah','Kuala Samboja','Samboja','Kilang Migas Balikpapan'];
 const N=T.length, IX=n=>{ const i=T.findIndex(t=>t.n===n); if(i<0)throw new Error('Petak tidak ada: '+n); return i; };
@@ -744,16 +764,16 @@ const GEO=(()=>{
   const TW=11.6, TH=6.8, R=8.4, H=112;
   /* posisi relatif di peta (utara di atas), satuan = % lebar papan */
   const P={
-    'Bandara SAMS Sepinggan':[80,97],'Mulai':[71,104.5],'Kota Balikpapan':[56,101],'PLTU Teluk Balikpapan':[52,89],'Pelabuhan Kariangau':[50,81],
-    'W:Teluk Balikpapan':[40,89],'Pelabuhan Penajam':[28,95.5],'Penajam':[22.5,104],'Petung':[10,106],'SPBE Babulu':[7,97.5],'SPBU Sotek':[9,89.5],'Maridan':[20,82],
+    'Bandara SAMS Sepinggan':[82,95],'Mulai':[78,103],'Kilang Migas Balikpapan':[66.5,104],'Kota Balikpapan':[53,101],'PLTU Teluk Balikpapan':[51,88.2],'Pelabuhan Kariangau':[49.5,80.2],
+    'W:Teluk Balikpapan':[40,89],'Pelabuhan Penajam':[28,95.5],'Penajam':[22.5,104],'Petung':[10,106],'SPBE Babulu':[7,97.5],'SPBU Sotek':[9,89.5],'Maridan':[20,84.4],
     'Jembatan Pulau Balang':[37.5,75],'Bandara VVIP IKN':[25.5,71],'Riko':[13,75],'Pemaluan':[6,67],'SPBU Simpang HTI':[6,59.6],'PLTS IKN':[6,52],
     'Ibu Kota Nusantara':[14,40],'Bumi Harapan':[29,43],'SPBU Bukit Raya':[23,52],'Sukaraja':[20,60],'Semoi':[33,59.5],'Mentawir':[41,67],
-    'W:Hutan Bukit Bangkirai':[53,72],'Simpang Samboja':[57,62],'SPBU KM 38':[52,52],'Loa Janan':[28,31],'Palaran':[43,32],
-    'W:Jembatan Mahakam IV':[43,21],'PLTU Embalut':[37,8.5],'Kota Samarinda':[56,10.5],'Bandara APT Pranoto':[74,7],'W:Jembatan Mahkota 2':[80,20],'Samarinda Seberang':[66,31],'Sanga-Sanga':[84,34],
-    'PLTU Muara Jawa':[87,41.5],'W:Jembatan Dondang':[83,49],'Muara Jawa/Handil':[86.5,56.5],'SPBU Muara Jawa':[83,64],'Teluk Dalam':[85.5,71.5],'PLTGU Senipah':[82.5,79],'Kuala Samboja':[80.5,86.1],'Kilang Migas Balikpapan':[68.5,91.5]
+    'W:Hutan Bukit Bangkirai':[47,58.6],'Simpang Samboja':[50,50],'SPBU KM 38':[56.5,42],'Loa Janan':[43,40.4],'Palaran':[43,31.6],
+    'W:Jembatan Mahakam IV':[43,21],'PLTU Embalut':[37,8.5],'Kota Samarinda':[56,10.5],'Bandara APT Pranoto':[74,7],'W:Jembatan Mahkota 2':[70,19.6],'Samarinda Seberang':[64.5,30.6],'Sanga-Sanga':[76.8,34.4],
+    'PLTU Muara Jawa':[87.5,40.2],'W:Jembatan Dondang':[85.6,48],'Muara Jawa/Handil':[86.5,57],'SPBU Muara Jawa':[83,64.6],'Teluk Dalam':[85.5,72],'PLTGU Senipah':[82.5,79.4],'Kuala Samboja':[80.5,86.6]
   };
   const g=T.map(t=>{ const p=P[t.t==='wangsit'?'W:'+t.loc:t.n]; if(!p)throw new Error('Posisi peta tidak ada: '+t.n); return {x:p[0],y:p[1],corner:t.g===9}; });
-  return {TW,TH,R,H,g,ttl:[15,11],deck:[69,44],jail:[70.5,56],dice:[70,68.5]};
+  return {TW,TH,R,H,g,ttl:[15,11],deck:[69,48],jail:[68,61],dice:[66,74]};
 })();
 
 /* ================= Helpers ================= */
@@ -834,7 +854,7 @@ function maxRaise(j){
 
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
-  S={v:6,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
+  S={v:7,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
     turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},burn:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     month:STEPM[0],step:0,repUsed:false,police:null,msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
@@ -1402,11 +1422,12 @@ function nmHTML(t){
   const ln=x=>x.split('|').map(esc).join('<br>');
   return `<span class="nm"><span class="full">${ln(t.d||t.s)}</span><span class="ab">${ln(t.s)}</span></span>`;
 }
+const utype=t=>t.k==='air'?'Bandara':t.k==='port'?'Pelabuhan':t.k==='refinery'?'Kilang':t.n.split(' ')[0];
 function tileInner(t){
   let band='',body=nmHTML(t);
   switch(t.t){
     case 'prop': band=`<span class="band" style="--g:${GRP[t.g].c};--gt:${GRP[t.g].t}"></span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
-    case 'util': band=`<span class="band u">${icon(UT[t.k].ic)}</span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
+    case 'util': return `<span class="band u">${icon(UT[t.k].ic)}</span><span class="ul">${esc(utype(t))}</span>`;
     case 'wangsit': band=`<span class="band w"><span class="dia"><b>?</b></span></span>`; break;
     case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">profit</span>`; break;
     case 'bridge': band=`<span class="band br">${icon('bridge')}</span>`; body+=`<span class="pr">→ Bpp / IKN</span>`; break;
@@ -1423,14 +1444,14 @@ function smooth(pts){ // kurva Catmull-Rom melalui titik
   return d;
 }
 const MAP={
-  sea:[[93.5,-2],[93.5,14],[92.5,21],[95.5,26],[96.2,33],[95.4,40],[94,47],[94.4,56],[93.6,66],[92.8,76],[91.5,86],[90,94],[88,101],[83,106.5],[74,109.5],[64,110.5],[56,111],[51,114]],
+  sea:[[93.5,-2],[93.5,14],[92.5,21],[95.5,26],[96.2,33],[95.4,40],[94,47],[94.4,56],[93.6,66],[92.8,76],[91.5,86],[90,94],[89.6,101],[86.4,107.4],[74,109.5],[64,110.5],[56,111],[51,114]],
   bayE:[[51,114],[48.5,105],[46.6,97],[45.8,90],[44.4,83],[43.2,78],[41.8,73.5],[40,71]],
   bayW:[[38.6,71.3],[35.2,74],[33.6,79],[33.4,85],[33.8,91],[33.2,98],[31.6,104],[30,109],[26.5,114]],
   river:[[-2,5],[7,10.5],[15,16.5],[24,20],[34,21.5],[44,22],[54,23.2],[63,23],[72,21.6],[81,22.4],[88,25],[94,27]],
   delta:[[[86,24.2],[90,22],[95,21.4]],[[88,25.6],[91,29.6],[95.6,32.6]],[[84.6,23.6],[88.4,29],[90.6,34.6],[94.8,38]]],
-  dondang:[[78,54],[80,50.4],[83,48.4],[89,47.4],[94.4,47]],
+  dondang:[[73.6,55.4],[78,52.4],[82,49.6],[86,48.6],[90,48],[94.4,47.6]],
   sepaku:[[2,44],[10,53],[17,62],[25,67],[32,68],[39,71]],
-  forest:[53,72.4,9.6,6]
+  forest:[49,58.6,8.6,5.4]
 };
 function treesSVG(){
   const [cx,cy,rx,ry]=MAP.forest; let h='', s=7;
@@ -1450,7 +1471,7 @@ function mapSVG(){
   const sea=smooth(MAP.sea)+` L104 ${H+2} L104 -2 Z`;
   const bay=smooth(MAP.bayE)+' L'+MAP.bayW.map(p=>p.join(' ')).join(' L')+' Z';
   const bayD=smooth([...MAP.bayE,...MAP.bayW]);
-  const bridges=[['Jembatan Pulau Balang',[[32.4,75.4],[44.6,76.6]]],['W:Jembatan Mahakam IV',[[43,18.6],[43,26]]],['W:Jembatan Mahkota 2',[[80,18.6],[80.4,25.6]]],['W:Jembatan Dondang',[[83,45.4],[83,52.4]]]];
+  const bridges=[['Jembatan Pulau Balang',[[32.4,75.4],[44.6,76.6]]],['W:Jembatan Mahakam IV',[[43,18.6],[43,26]]],['W:Jembatan Mahkota 2',[[70,17.8],[70.2,25.4]]],['W:Jembatan Dondang',[[85.6,44.4],[85.6,51.6]]]];
   const br=bridges.map(([n,[a,b]])=>`<path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width="2.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#56606A" stroke-width="1.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width=".25" stroke-dasharray="1 .7"/>`).join('');
   const [bx,by]=c(BRIDGE), [px,py]=c(BPP), [ix,iy]=c(IKN), R=GEO.R;
   const arrow=(d,tx,ty,ang)=>`<path d="${d}" fill="none" stroke="var(--road)" stroke-width=".55" stroke-dasharray="1.6 1.1" stroke-linecap="round"/><polygon points="0,0 -2,-1.1 -2,1.1" transform="translate(${tx} ${ty}) rotate(${ang})" fill="var(--road)"/>`;
@@ -1479,12 +1500,12 @@ function mapSVG(){
     <path d="${ferryL}" fill="none" stroke="#FFFFFF" stroke-width=".55" stroke-dasharray="1.4 1" stroke-linecap="round"/>
     <g transform="translate(45.6 85.2) rotate(-35)"><path d="M-1.8 0 h3.6 l-.8 1 h-2z" fill="#fff"/><rect x="-.7" y="-1.1" width="1.4" height="1.1" fill="#fff"/></g>
     ${br}
-    ${arrow(`M44.8 76.6 C 59 77.6, 62.6 86, 60.6 92.4`,60.4,93.2,102)}
+    ${arrow(`M43.8 75.2 C 53 74.6, 58.6 77.4, 58.6 84 L 58.6 93.2`,58.6,94.4,90)}
+    ${arrow(`M33.6 71.2 C 32.4 68, 31 65.3, 27 65.3 L 17 65.2 C 13.6 65.2, 13 63.6, 13 60 L 13 50.6`,13,49.2,-90)}
     ${lbl(97.4,64,'SELAT MAKASSAR','sea',90,1.9)}
     ${lbl(40.6,103.4,'Teluk Balikpapan','sea',-82,1.5)}
     ${lbl(26,19,'Sungai Mahakam','sea',12,1.3)}
-    ${lbl(91,50.6,'S. Dondang','sea',0,1)}
-    ${lbl(64.6,77.6,'Hutan Bukit Bangkirai','land',0,1.3)}
+    ${lbl(54.6,66.3,'Hutan Bukit Bangkirai','land',0,1.2)}
     ${lbl(16.2,64.6,'S. Sepaku','sea',48,1)}
   </svg>`;
 }
@@ -1501,7 +1522,7 @@ function buildBoard(){
       el.dataset.city=i===IKN?'ikn':i===BPP?'bpp':'smd';
     } else {
       el.className=`tile k-${t.t}`;
-      el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw';
+      if(t.t!=='util'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
       el.innerHTML=tileInner(t);
     }
     el.addEventListener('click',()=>{ detail=i; detailHelp=false; renderDetail(); updateTiles(); });
@@ -2370,7 +2391,7 @@ const BASE_TITLE=document.title;
 
 /* ================= Persistence & setup ================= */
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
-function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&(s.v===5||s.v===6)&&Array.isArray(s.players))return s; }catch(e){} return null; }
+function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v>=5&&s.v<=7&&Array.isArray(s.players))return s; }catch(e){} return null; }
 function syncNames(){
   const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value), cpu=setupMode==='cpu'||setupMode==='online', n=cpu?1:setupCount;
   box.innerHTML=Array.from({length:n},(_,i)=>`<label><span class="chip" style="--pc:${PCOL[i]}">${i+1}</span><input id="name${i}" maxlength="16" value="${esc(prev[i]??DEFAULT_NAMES[i])}" aria-label="${cpu?'Nama kamu':'Nama pemain '+(i+1)}"></label>`).join('');
@@ -2459,13 +2480,13 @@ document.addEventListener('keydown',e=>{
 });
 
 let PENDING=null;
-/* permainan tersimpan versi 5 (48 petak) dipindah ke susunan 44 petak */
-function migrate5(x){
+/* permainan tersimpan versi lama dipindah ke susunan petak terbaru */
+function migrate5(x,OLD=OLD5){
   const key=i=>T[i].t==='wangsit'?'W:'+T[i].loc:T[i].n;
   const NI={}; T.forEach((t,i)=>{ NI[key(i)]=i; });
   const alias={'Loa Janan Ulu':'Loa Janan','Loa Janan Ilir':'Loa Janan'};
-  const map=OLD5.map(n=>NI[alias[n]||n]??null);
-  const near=o=>{ for(let k=0;k<OLD5.length;k++){ const m=map[(o+k)%OLD5.length]; if(m!=null)return m; } return 0; };
+  const map=OLD.map(n=>NI[alias[n]||n]??null);
+  const near=o=>{ for(let k=0;k<OLD.length;k++){ const m=map[(o+k)%OLD.length]; if(m!=null)return m; } return 0; };
   const src={}; map.forEach((m,o)=>{ if(m==null)return; if(src[m]==null||(x.own?.[src[m]]==null&&x.own?.[o]!=null))src[m]=o; });
   const rk=o=>{ const r={}; for(const k in (o||{})){ const m=map[+k]; if(m!=null&&src[m]===+k)r[m]=o[k]; } return r; };
   for(const f of ['own','houses','mort','up','eb','el','biz','burn','blk','cutB','cutL'])x[f]=rk(x[f]);
@@ -2473,10 +2494,10 @@ function migrate5(x){
   x.players.forEach(p=>{ p.pos=near(p.pos||0); });
   x.pending=null; x.auc=null; x.deal=null; x.police=null; x.here=null; x.mod=null;
   if(x.phase==='decide'||x.phase==='busy')x.phase='end';
-  x.v=6; return x;
+  x.v=7; return x;
 }
 function fixState(x){
-  if(x.v===5)migrate5(x);
+  if(x.v===5)migrate5(x); else if(x.v===6)migrate5(x,OLD6);
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
   x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.burn??={}; x.players?.forEach(q=>{ q.laps??=0; }); if(x.step==null){ x.step=x.month||0; x.month=monthAt(x.step); } x.repUsed??=false; x.police??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.police?.ph==='drive'){ S=x; finishPolice(); }
@@ -2494,7 +2515,7 @@ function resumeSaved(){
 }
 function boot(data){
   buildBoard();
-  if(data?.S?.v===5||data?.S?.v===6){ S=fixState(data.S); detail=data.detail??null; render(); return; }
+  if(data?.S?.v>=5&&data?.S?.v<=7){ S=fixState(data.S); detail=data.detail??null; render(); return; }
   const saved=loadSaved(), ns=loadNet(); let room=null;
   try{ room=new URLSearchParams(location.search).get('room'); }catch(e){}
   S=null; setDie(0,3); setDie(1,4);
