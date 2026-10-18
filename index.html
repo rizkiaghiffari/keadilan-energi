@@ -304,6 +304,12 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
   .hp .hn,.hp .ht,.hs .hl{display:none}
   .hs b{font-size:13px}
   .hud .qbtn{width:30px;height:30px;font-size:16px}
+  .hud .hpol svg{width:17px;height:17px}
+  .hud-in{gap:6px 8px}
+}
+@media (max-width:420px){
+  .hud-in .hp{display:none}
+  .hud .qbtn{width:28px;height:28px;font-size:15px}
 }
 @media (max-width:340px){ .hera{display:none} }
 .ml{font-family:'Overpass',system-ui,sans-serif;font-weight:800;letter-spacing:.08em}
@@ -314,24 +320,27 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 #dpop:not([hidden]){animation:fadein .2s ease-out}
 @keyframes fadein{from{background:rgba(5,15,11,0)}}
 #fx{position:absolute;inset:0;pointer-events:none;z-index:4}
-/* utilitas: ikon bundar + nama jenis */
-.tile.k-util{width:9.6cqw;height:7.6cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.3cqw;border-radius:0}
-.tile.k-util .band{order:0;flex:none;width:5.4cqw;height:5.4cqw;min-width:20px;min-height:20px;border-radius:50%;background:var(--tile);color:var(--ink);border:.55cqw solid var(--oc,#B9C4BD);box-shadow:0 .3cqw .7cqw rgba(0,0,0,.45);position:relative;display:grid;place-items:center;transition:transform .15s}
-.tile.k-util .band .ic{width:2.9cqw;height:2.9cqw;min-width:10px;min-height:10px;stroke-width:2.2}
-.tile.k-util .band .upd{position:absolute;left:-.3cqw;top:-.3cqw;width:1.3cqw;height:1.3cqw}
-.tile.k-util .band .bz{position:absolute;right:-.9cqw;top:-.5cqw}
-.tile.k-util .ul{order:1;font:800 clamp(6px,1.22cqw,12px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;background:rgba(8,26,18,.82);color:#fff;padding:.3cqw .6cqw .2cqw;border-radius:99px;white-space:nowrap}
-.tile.k-util:hover .band{transform:scale(1.08)}
-.tile.k-util:hover .body{background:none}
-.tile.k-util.here,.tile.k-util.sel,.tile.k-util:focus-visible{outline:none;box-shadow:none}
-.tile.k-util.here .band{box-shadow:0 0 0 .45cqw var(--hl),0 .3cqw .7cqw rgba(0,0,0,.45)}
-.tile.k-util.sel .band,.tile.k-util:focus-visible .band{box-shadow:0 0 0 .45cqw var(--warn),0 .3cqw .7cqw rgba(0,0,0,.45)}
-.tile.k-util.mort::after,.tile.k-util.blk::before{display:none}
-.tile.k-util.mort .band{opacity:.5;border-style:dashed}
-.tile.k-util.blk .band{filter:brightness(.45)}
-.tile.k-util.pol{animation:none;box-shadow:none}
-.tile.k-util.pol .band{animation:polhl .46s steps(1) infinite}
-@container (max-width:470px){ .tile.k-util .ul{font-size:1.6cqw;padding:.25cqw .45cqw} }
+/* utilitas & cari wangsit: ikon bundar + nama jenis */
+:is(.tile.k-util,.tile.k-wangsit){width:9.6cqw;height:7.6cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.3cqw;border-radius:0}
+:is(.tile.k-util,.tile.k-wangsit) .band{order:0;flex:none;width:5.4cqw;height:5.4cqw;min-width:20px;min-height:20px;border-radius:50%;background:var(--tile);color:var(--ink);border:.55cqw solid var(--oc,#B9C4BD);box-shadow:0 .3cqw .7cqw rgba(0,0,0,.45);position:relative;display:grid;place-items:center;transition:transform .15s}
+:is(.tile.k-util,.tile.k-wangsit) .band .ic{width:2.9cqw;height:2.9cqw;min-width:10px;min-height:10px;stroke-width:2.2}
+:is(.tile.k-util,.tile.k-wangsit) .band .upd{position:absolute;left:-.3cqw;top:-.3cqw;width:1.3cqw;height:1.3cqw}
+:is(.tile.k-util,.tile.k-wangsit) .band .bz{position:absolute;right:-.9cqw;top:-.5cqw}
+:is(.tile.k-util,.tile.k-wangsit) .ul{order:1;font:800 clamp(6px,1.22cqw,12px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;background:rgba(8,26,18,.82);color:#fff;padding:.3cqw .6cqw .2cqw;border-radius:99px;white-space:nowrap}
+:is(.tile.k-util,.tile.k-wangsit):hover .band{transform:scale(1.08)}
+:is(.tile.k-util,.tile.k-wangsit):hover .body{background:none}
+:is(.tile.k-util,.tile.k-wangsit).here,:is(.tile.k-util,.tile.k-wangsit).sel,:is(.tile.k-util,.tile.k-wangsit):focus-visible{outline:none;box-shadow:none}
+:is(.tile.k-util,.tile.k-wangsit).here .band{box-shadow:0 0 0 .45cqw var(--hl),0 .3cqw .7cqw rgba(0,0,0,.45)}
+:is(.tile.k-util,.tile.k-wangsit).sel .band,:is(.tile.k-util,.tile.k-wangsit):focus-visible .band{box-shadow:0 0 0 .45cqw var(--warn),0 .3cqw .7cqw rgba(0,0,0,.45)}
+:is(.tile.k-util,.tile.k-wangsit).mort::after,:is(.tile.k-util,.tile.k-wangsit).blk::before{display:none}
+:is(.tile.k-util,.tile.k-wangsit).mort .band{opacity:.5;border-style:dashed}
+:is(.tile.k-util,.tile.k-wangsit).blk .band{filter:brightness(.45)}
+:is(.tile.k-util,.tile.k-wangsit).pol{animation:none;box-shadow:none}
+:is(.tile.k-util,.tile.k-wangsit).pol .band{animation:polhl .46s steps(1) infinite}
+@container (max-width:470px){ :is(.tile.k-util,.tile.k-wangsit) .ul{font-size:1.6cqw;padding:.25cqw .45cqw} }
+.tile.k-wangsit .band.w{background:var(--warn);border-color:#FFF6CC}
+.tile.k-wangsit .band .dia{width:2.3cqw;height:2.3cqw;min-width:9px;min-height:9px;border-width:.32cqw}
+.tile.k-wangsit .band .dia b{font-size:clamp(6px,1.5cqw,14px)}
 /* ---------- Lapor polisi ---------- */
 .hud .hpol svg{width:20px;height:20px}
 .hud .hpol .ray{animation:sirR 1s steps(1) infinite}
@@ -361,6 +370,16 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .rep-seg .btn.on{background:var(--sign);color:var(--on-sign);border-color:var(--sign)}
 .pol-box{border-color:#2F6FED;background:color-mix(in oklab,var(--surface),#2F6FED 9%)}
 .pol-box .lbl{color:#2F6FED}
+.hdlg{max-height:calc(100dvh - 32px);overflow:auto}
+.hud-ic{width:30px;height:30px;border-radius:50%;flex:none;background:var(--sign) center/18px no-repeat}
+.hud-ic.auc{background-color:#7B4A26;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13.5 4.5l6 6M11 7l6 6M10.4 7.6l5.9 5.9-2.4 2.4-5.9-5.9zM11.3 12.7L4.5 19.5M3 21h9'/%3E%3C/svg%3E")}
+.hud-ic.sab{background-color:#B3261E;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2L5 13.5h6L10 22l8-11.5h-6z'/%3E%3Cpath d='M3.5 3.5l17 17'/%3E%3C/svg%3E")}
+.hdlg .lbl2{margin:14px 0 6px}
+.hrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--hair)}
+.hrow .hn2{flex:1;min-width:0;display:flex;flex-direction:column;font-size:14px;line-height:1.2}
+.hrow .hn2 span{font-size:12px;color:var(--muted)}
+.hrow .btns{flex:none;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.hown{margin:10px 0 2px;font:800 13px/1.2 var(--font-display)}
 @media (prefers-reduced-motion: reduce){#polcar *,.rep-ic,.tile.pol,.corner.pol,.hud .hpol .ray{animation:none!important}}
 .fire{position:absolute;width:6cqw;height:6cqw;transform:translate(-50%,-50%)}
 .fire .fl{position:absolute;bottom:30%;width:1.1cqw;height:1.6cqw;min-width:4px;min-height:6px;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#FFE27A 0 25%,#FF8A1F 45%,#E0301E 75%,transparent 76%);animation:flick .5s ease-in-out infinite alternate;filter:drop-shadow(0 0 .4cqw rgba(255,120,30,.9))}
@@ -427,6 +446,8 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <div class="hs"><span class="hl">Saldo</span><b id="hCash"></b></div>
     <div class="hs"><span class="hl">Profit</span><b id="hProf"></b></div>
     <button class="qbtn hpol" type="button" id="hPol" data-act="openReport" aria-label="Lapor polisi" title="Lapor polisi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17v-5a5 5 0 0 1 10 0v5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="17" width="16" height="3.4" rx="1" fill="currentColor"/><path class="ray" d="M12 2.5v2.2M4.6 5.6l1.6 1.6M19.4 5.6l-1.6 1.6M2 11h2.2M19.8 11H22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12.6" r="1.6" fill="currentColor"/></svg></button>
+    <button class="qbtn hpol" type="button" id="hAuc" data-act="openAuc" aria-label="Lelang dan tawar petak" title="Lelang dan tawar petak"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5l6 6M11 7l6 6M10.4 7.6l5.9 5.9-2.4 2.4-5.9-5.9z"/><path d="M11.3 12.7L4.5 19.5"/><path d="M3 21h9"/></g></svg></button>
+    <button class="qbtn hpol" type="button" id="hSab" data-act="openSab" aria-label="Sabotase energi" title="Sabotase energi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L5 13.5h6L10 22l8-11.5h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.5 3.5l17 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
     <button class="qbtn hq" type="button" data-act="openRules" aria-label="Aturan permainan" title="Aturan permainan">?</button>
   </div>
 </header>
@@ -496,6 +517,12 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <div id="repBody"></div>
   </div>
 </div>
+<div class="ov hudact" id="hudOv" hidden>
+  <div class="dlg repdlg hdlg" role="dialog" aria-modal="true" aria-labelledby="hudT">
+    <div class="rep-head"><span class="hud-ic" id="hudIc" aria-hidden="true"></span><h2 id="hudT"></h2><button class="btn sm" type="button" data-act="closeHud">Tutup</button></div>
+    <div id="hudBody"></div>
+  </div>
+</div>
 <div class="ov" id="rulesOv" hidden>
   <div class="dlg rdlg" role="dialog" aria-modal="true" aria-labelledby="rulesT">
     <h2 id="rulesT">Aturan permainan</h2>
@@ -539,13 +566,14 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
       <li>Pos bensin eceran butuh SPBU terdekat milikmu atau Kilang Migas Balikpapan. Pos LPG eceran butuh SPBU terdekat milikmu atau SPBE Babulu. Pembangunannya gratis jika kamu memiliki SPBE Babulu sekaligus Kilang Migas Balikpapan.</li>
       <li>Jika SPBU terdekat milik pemain lain, kamu bisa nego setoran ilegal 10–50% profit pos eceran, dibayar setiap bulan ke pemilik SPBU itu. SPBE Babulu dan Kilang Migas Balikpapan tidak menerima nego semacam itu.</li>
       <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanannya jadi setengah sampai giliran si pemilik berikutnya.</li>
+      <li>Semua sabotase (pemadaman listrik, putus suplai BBM, putus suplai LPG) ada di ikon petir bercoret di bagian atas layar. Pilihannya sesuai utilitas energi yang kamu miliki.</li>
       <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan apa pun sampai giliran si pemutus berikutnya.</li>
       <li>Harga beli dan biaya peningkatan PLTU didiskon 50% jika kamu sudah punya tambang batu bara; PLTGU didiskon 50% jika kamu sudah punya tambang migas. PLTS IKN tidak mendapat diskon.</li>
     </ul>
     <h3>Transportasi, lelang, dan kredit</h3>
     <ul class="rules">
       <li>Siapa pun yang berhenti di bandara boleh membeli tiket IDR 400k untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</li>
-      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak.</li>
+      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak. Semua pilihan lelang dan penawaran ada di ikon palu di bagian atas layar.</li>
       <li>Kredit bank tersedia dengan bunga 1–10% per bulan. Makin besar asetmu dibanding pinjaman, makin kecil bunganya.</li>
     </ul>
     <div class="btns"><button class="btn pri" type="button" data-act="closeRules">Tutup</button></div>
@@ -1428,7 +1456,7 @@ function tileInner(t){
   switch(t.t){
     case 'prop': band=`<span class="band" style="--g:${GRP[t.g].c};--gt:${GRP[t.g].t}"></span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
     case 'util': return `<span class="band u">${icon(UT[t.k].ic)}</span><span class="ul">${esc(utype(t))}</span>`;
-    case 'wangsit': band=`<span class="band w"><span class="dia"><b>?</b></span></span>`; break;
+    case 'wangsit': return `<span class="band w"><span class="dia"><b>?</b></span></span><span class="ul">Cari Wangsit</span>`;
     case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">profit</span>`; break;
     case 'bridge': band=`<span class="band br">${icon('bridge')}</span>`; body+=`<span class="pr">→ Bpp / IKN</span>`; break;
   }
@@ -1522,7 +1550,7 @@ function buildBoard(){
       el.dataset.city=i===IKN?'ikn':i===BPP?'bpp':'smd';
     } else {
       el.className=`tile k-${t.t}`;
-      if(t.t!=='util'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
+      if(t.t!=='util'&&t.t!=='wangsit'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
       el.innerHTML=tileInner(t);
     }
     el.addEventListener('click',()=>{ detail=i; detailHelp=false; renderDetail(); updateTiles(); });
@@ -1716,20 +1744,64 @@ function renderTurn(){
   }
   if(b)h+=`<div class="btns">${b}</div>`;
   if(myTurn()&&S.phase!=='over'&&S.phase!=='busy')h+=bankHTML(p);
-  const mine=PLANTS.filter(x=>S.own[x]===S.turn&&!S.mort[x]);
-  if(myTurn()&&mine.length&&S.phase!=='over'&&S.phase!=='busy'){
-    h+=`<div class="sab"><p class="lbl2">Sabotase pemadaman listrik</p><div class="btns">${mine.map(x=>{
-      const n=AREA[x].filter(i=>S.own[i]!=null&&S.own[i]!==S.turn).length;
-      return S.blk[x]?B(`${esc(shortN(x))}: padam`,'noop',{cls:'sm',dis:true}):B(`Padamkan ${esc(shortN(x))} (${n} properti lawan)`,'sabotage',{arg:x,cls:'sm'});}).join('')}</div></div>`;
-  }
-  for(const [kd,src,w] of [['b',KILANG,'BBM'],['l',SPBE,'LPG']]){
-    if(!myTurn()||S.phase==='over'||S.phase==='busy'||S.own[src]!==S.turn||S.mort[src])continue;
-    const st=kd==='b'?S.cutB:S.cutL, on=Object.keys(st).map(Number).find(x=>st[x]===S.turn);
-    const tg=SPBU.filter(x=>S.own[x]!=null&&S.own[x]!==S.turn&&!P(S.own[x]).out);
-    if(on==null&&!tg.length)continue;
-    h+=`<div class="sab"><p class="lbl2">Putus suplai ${w} · ${esc(shortN(src))}</p><div class="btns">${on!=null?B(`${w} ke ${esc(shortN(on))}: diputus`,'noop',{cls:'sm',dis:true}):tg.map(x=>B(`Putus ${w} ke ${esc(shortN(x))} (${esc(P(S.own[x]).name)})`,kd==='b'?'cutB':'cutL',{arg:x,cls:'sm'})).join('')}</div></div>`;
-  }
   el.innerHTML=h;
+}
+/* ---------- menu HUD: lelang & sabotase ---------- */
+let hudMode=null;
+function hudWhy(){
+  if(!S||S.phase==='over')return 'Permainan belum berjalan.';
+  if(!myTurn()||S.auc||S.deal||polBusy())return 'Hanya bisa dipakai pada giliranmu sendiri, saat tidak ada lelang, nego, atau pemeriksaan polisi yang berjalan.';
+  return '';
+}
+function aucMenuHTML(){
+  const me=S.turn, why=hudWhy();
+  let h=`<p class="rep-intro">Jual petak milikmu lewat lelang, atau ajukan penawaran untuk petak milik lawan. Penawaran membuka lelang: pemain lain boleh menawar lebih tinggi, lalu pemiliknya memilih menerima atau menolak.</p>`;
+  if(why)return h+`<p class="hint warn">${esc(why)}</p>`;
+  if(!aucReady())h+=`<p class="hint warn">Lelang dan penawaran bisa dilakukan sebelum melempar dadu atau sebelum mengakhiri giliran${cur().cash<0?', dan setelah utang lunas':''}.</p>`;
+  const row=(i,btns,note='')=>`<div class="hrow"><span class="dot" style="background:${T[i].g?GRP[T[i].g].c:'#9AA7A0'}"></span><span class="hn2"><b>${esc(T[i].n)}</b><span>${fk(T[i].p)}${note}</span></span><span class="btns">${btns}</span></div>`;
+  const mine=ownedBy(me);
+  h+=`<p class="lbl2">Lelang petak milikmu</p>`;
+  h+=mine.length?mine.map(i=>{ const w=aucWhy(i,me); return row(i,B('Lelang','startAuction',{arg:i,cls:'sm',dis:!!w||!aucReady()}),w&&w!=='x'?` · ${esc(w)}`:''); }).join(''):`<p class="hint">Kamu belum punya petak.</p>`;
+  h+=`<p class="lbl2">Tawar petak milik lawan${S.offerUsed?' · sudah menawar di giliran ini':''}</p>`;
+  const opp=S.players.map((q,j)=>j).filter(j=>j!==me&&!P(j).out);
+  let any=false;
+  for(const o of opp){ const ts=ownedBy(o); if(!ts.length)continue; any=true;
+    h+=`<p class="hown"><span class="dot" style="background:${P(o).color}"></span>${esc(P(o).name)}</p>`;
+    h+=ts.map(i=>{ const w=aucWhy(i,o); if(w)return row(i,'',` · ${esc(w==='x'?'tidak bisa ditawar':w)}`);
+      const offs=[...new Set([.6,1,1.4].map(f=>Math.max(100,Math.round(T[i].p*f/100)*100)))];
+      return row(i,offs.map(x=>B(`Tawar ${fk(x)}`,'makeOffer',{arg:x*100+i,cls:'sm',dis:x>cur().cash||!aucReady()||S.offerUsed})).join('')); }).join('');
+  }
+  if(!any)h+=`<p class="hint">Lawan belum punya petak.</p>`;
+  return h;
+}
+function sabMenuHTML(){
+  const me=S.turn, why=hudWhy()||(S.phase==='busy'?'Tunggu sampai langkah selesai.':'');
+  let h=`<p class="rep-intro">Sabotase berlaku sampai giliranmu berikutnya. Pilihan yang muncul sesuai utilitas energi yang kamu miliki dan tidak sedang digadai.</p>`;
+  if(why)return h+`<p class="hint warn">${esc(why)}</p>`;
+  let n=0;
+  const mine=PLANTS.filter(x=>S.own[x]===me&&!S.mort[x]);
+  if(mine.length){ n++;
+    h+=`<p class="lbl2">Pemadaman listrik</p><p class="hint">Properti lawan di wilayah layanan pembangkit itu hanya menarik setengah sewa.</p><div class="btns">${mine.map(x=>{
+      const k=AREA[x].filter(i=>S.own[i]!=null&&S.own[i]!==me).length;
+      return S.blk[x]?B(`${esc(T[x].n)}: sedang padam`,'noop',{cls:'sm',dis:true}):B(`Padamkan ${esc(T[x].n)} (${k} properti lawan)`,'sabotage',{arg:x,cls:'sm'});}).join('')}</div>`; }
+  for(const [kd,src,w] of [['b',KILANG,'BBM'],['l',SPBE,'LPG']]){
+    if(S.own[src]!==me||S.mort[src])continue; n++;
+    const st=kd==='b'?S.cutB:S.cutL, on=Object.keys(st).map(Number).find(x=>st[x]===me);
+    const tg=SPBU.filter(x=>S.own[x]!=null&&S.own[x]!==me&&!P(S.own[x]).out);
+    h+=`<p class="lbl2">Putus suplai ${w} · ${esc(T[src].n)}</p><p class="hint">Profit SPBU sasaran jadi setengah, dan pos ${kd==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa. Satu SPBU per giliran.</p>`;
+    h+=on!=null?`<div class="btns">${B(`${w} ke ${esc(T[on].n)}: sedang diputus`,'noop',{cls:'sm',dis:true})}</div>`
+      :tg.length?`<div class="btns">${tg.map(x=>B(`Putus ${w} ke ${esc(T[x].n)} (${esc(P(S.own[x]).name)})`,kd==='b'?'cutB':'cutL',{arg:x,cls:'sm'})).join('')}</div>`
+      :`<p class="hint">Belum ada SPBU milik lawan.</p>`;
+  }
+  if(!n)h+=`<p class="hint warn">Kamu belum memiliki pembangkit listrik, Kilang Migas Balikpapan, atau SPBE Babulu yang aktif, jadi belum ada sabotase yang bisa dilakukan.</p>`;
+  return h;
+}
+function openHud(m){ hudMode=m; renderHudMenu(); $('#hudOv').hidden=false; }
+function renderHudMenu(){
+  if(!hudMode||!S)return;
+  $('#hudT').textContent=hudMode==='auc'?'Lelang & tawar':'Sabotase energi';
+  $('#hudIc').className='hud-ic '+hudMode;
+  $('#hudBody').innerHTML=hudMode==='auc'?aucMenuHTML():sabMenuHTML();
 }
 function renderPlayers(){
   $('#players').innerHTML=S.players.map((p,j)=>{
@@ -1909,7 +1981,7 @@ function render(){
   if(!S)return;
   applyPrices(); renderHud();
   { const k=S.auc?'a'+S.auc.i+'.'+S.auc.seller:S.deal?'d'+S.deal.i+S.deal.kind:S.police?.ph==='bribe'?'p'+S.police.stop:''; if(k&&k!==lastBlk&&detail!=null)detail=null; lastBlk=k; }
-  updateTiles(); renderTokens(); renderFx(); renderPolice(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
+  updateTiles(); renderTokens(); renderFx(); renderPolice(); if(!$('#hudOv').hidden)renderHudMenu(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
   $('#bFinish').disabled=S.phase==='over'||S.phase==='busy'||NET.role==='guest';
   if(arm!=='#bNew')$('#bNew').textContent=NET.role==='guest'?'Keluar room':'Permainan baru';
   renderNet();
@@ -2386,7 +2458,7 @@ function onlinePrimary(){
     PENDING=null; syncResume(); return joinRoom(code,name);
   }
 }
-const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank','toggleHelp','openRules','closeRules','openReport','closeReport'], HOST_ONLY=['takeover','openSetup'];
+const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank','toggleHelp','openRules','closeRules','openReport','closeReport','openAuc','openSab','closeHud'], HOST_ONLY=['takeover','openSetup'];
 const BASE_TITLE=document.title;
 
 /* ================= Persistence & setup ================= */
@@ -2426,7 +2498,7 @@ const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeL
   showDetail(i){ detail=i; detailHelp=false; renderDetail(); updateTiles(); },
   toggleHelp(){ detailHelp=!detailHelp; renderDetail(); },
   openRules(){ $('#rulesOv').hidden=false; }, closeRules(){ $('#rulesOv').hidden=true; },
-  openReport, closeReport(){ $('#repOv').hidden=true; }, report:doReport, polPay, polRefuse};
+  openReport, closeReport(){ $('#repOv').hidden=true; }, openAuc(){ openHud('auc'); }, openSab(){ openHud('sab'); }, closeHud(){ $('#hudOv').hidden=true; hudMode=null; }, report:doReport, polPay, polRefuse};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b||b.disabled)return;
   const act=b.dataset.act, f=ACTS[act]; if(!f)return;
@@ -2439,6 +2511,7 @@ document.addEventListener('click',e=>{
   if(S?.deal&&!DEAL_ACTS.includes(act))return;
   if(polBusy()&&!POL_ACTS.includes(act))return;
   if(act==='report')$('#repOv').hidden=true;
+  if(b.closest('#hudOv'))$('#hudOv').hidden=true;
   if(NET.role==='guest')return send(NET.conn,{t:'act',a:act,arg});
   f(arg);
 });
@@ -2468,6 +2541,7 @@ $('#bAgain').addEventListener('click',openSetup);
 $('#bLook').addEventListener('click',()=>{ overClosed=true; render(); });
 $('#dpop').addEventListener('click',e=>{ if(e.target.id==='dpop'){ detail=null; renderDetail(); updateTiles(); } });
 $('#rulesOv').addEventListener('click',e=>{ if(e.target.id==='rulesOv')$('#rulesOv').hidden=true; });
+$('#hudOv').addEventListener('click',e=>{ if(e.target.id==='hudOv')ACTS.closeHud(); });
 $('#repOv').addEventListener('click',e=>{
   if(e.target.id==='repOv'){ $('#repOv').hidden=true; return; }
   const a=e.target.closest('[data-rj]'), b=e.target.closest('[data-rk]');
@@ -2476,6 +2550,7 @@ $('#repOv').addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&!$('#rulesOv').hidden){ $('#rulesOv').hidden=true; return; }
   if(e.key==='Escape'&&!$('#repOv').hidden){ $('#repOv').hidden=true; return; }
+  if(e.key==='Escape'&&!$('#hudOv').hidden){ ACTS.closeHud(); return; }
   if(e.key==='Escape'&&detail!=null){ detail=null; renderDetail(); updateTiles(); }
 });
 
