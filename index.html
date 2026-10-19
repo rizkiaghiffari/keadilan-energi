@@ -320,6 +320,10 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 #dpop:not([hidden]){animation:fadein .2s ease-out}
 @keyframes fadein{from{background:rgba(5,15,11,0)}}
 #fx{position:absolute;inset:0;pointer-events:none;z-index:4}
+/* properti: kepala petak putih, berwarna pemilik setelah dibeli */
+.tile.k-prop .band{background:var(--oc,#FFFFFF);border-bottom:1px solid rgba(0,0,0,.14)}
+.tile.k-prop .own{display:none}
+.tile.k-prop .band .pip{box-shadow:0 0 0 1px rgba(0,0,0,.35)}
 /* utilitas & cari wangsit: ikon bundar + nama jenis */
 :is(.tile.k-util,.tile.k-wangsit){width:9.6cqw;height:7.6cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.3cqw;border-radius:0}
 :is(.tile.k-util,.tile.k-wangsit) .band{order:0;flex:none;width:5.4cqw;height:5.4cqw;min-width:20px;min-height:20px;border-radius:50%;background:var(--tile);color:var(--ink);border:.55cqw solid var(--oc,#B9C4BD);box-shadow:0 .3cqw .7cqw rgba(0,0,0,.45);position:relative;display:grid;place-items:center;transition:transform .15s}
@@ -339,6 +343,28 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 :is(.tile.k-util,.tile.k-wangsit).pol .band{animation:polhl .46s steps(1) infinite}
 @container (max-width:470px){ :is(.tile.k-util,.tile.k-wangsit) .ul{font-size:1.6cqw;padding:.25cqw .45cqw} }
 .tile.k-wangsit .band.w{background:var(--warn);border-color:#FFF6CC}
+.tile.k-go{width:10.4cqw;height:10.4cqw;background:transparent;box-shadow:none;overflow:visible;border-radius:50%;align-items:center;justify-content:center}
+.tile.k-go .band{order:0;flex:none;width:9.4cqw;height:9.4cqw;min-width:32px;min-height:32px;border-radius:50%;background:var(--sign);color:#fff;border:.6cqw solid #fff;box-shadow:0 .3cqw .8cqw rgba(0,0,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15cqw;transition:transform .15s}
+.tile.k-go .band .ic{width:1.9cqw;height:1.9cqw;min-width:7px;min-height:7px;color:#fff}
+.tile.k-go .gt{font:900 clamp(6px,1.6cqw,16px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em}
+.tile.k-go .gs{font:600 clamp(5px,1.05cqw,10px)/1 var(--font-mono);opacity:.85}
+.tile.k-go:hover .band{transform:scale(1.05)}
+.tile.k-go.here,.tile.k-go.sel,.tile.k-go:focus-visible{outline:none;box-shadow:none}
+.tile.k-go.here .band{box-shadow:0 0 0 .5cqw var(--hl),0 .3cqw .8cqw rgba(0,0,0,.45)}
+.tile.k-go.sel .band,.tile.k-go:focus-visible .band{box-shadow:0 0 0 .5cqw var(--warn),0 .3cqw .8cqw rgba(0,0,0,.45)}
+.tile.k-go.pol{animation:none;box-shadow:none}
+.tile.k-go.pol .band{animation:polhl .46s steps(1) infinite}
+@container (max-width:470px){ .tile.k-go .gs{display:none} .tile.k-go .gt{font-size:1.9cqw} }
+.tile.k-bridge{position:absolute;width:15cqw;height:8.4cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.2cqw;border-radius:0}
+.tile.k-bridge .band{order:0;flex:none;width:14cqw;height:5.2cqw;background:none;border:0;padding:0;display:block;transition:transform .15s}
+.tile.k-bridge .band svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 .25cqw .3cqw rgba(0,0,0,.45))}
+.tile.k-bridge .ul{order:1;font:800 clamp(6px,1.22cqw,12px)/1 var(--font-display);text-transform:uppercase;letter-spacing:.04em;background:rgba(8,26,18,.82);color:#fff;padding:.3cqw .6cqw .2cqw;border-radius:99px;white-space:nowrap}
+.tile.k-bridge:hover .band{transform:scale(1.05)}
+.tile.k-bridge.here,.tile.k-bridge.sel,.tile.k-bridge:focus-visible{outline:none;box-shadow:none}
+.tile.k-bridge.here .band svg{filter:drop-shadow(0 0 .45cqw var(--hl)) drop-shadow(0 0 .2cqw var(--hl))}
+.tile.k-bridge.sel .band svg,.tile.k-bridge:focus-visible .band svg{filter:drop-shadow(0 0 .45cqw var(--warn)) drop-shadow(0 0 .2cqw var(--warn))}
+.tile.k-bridge.pol{animation:none;box-shadow:none}
+@container (max-width:470px){ .tile.k-bridge .ul{font-size:1.6cqw;padding:.25cqw .45cqw} }
 .tile.k-wangsit .band .dia{width:2.3cqw;height:2.3cqw;min-width:9px;min-height:9px;border-width:.32cqw}
 .tile.k-wangsit .band .dia b{font-size:clamp(6px,1.5cqw,14px)}
 /* ---------- Lapor polisi ---------- */
@@ -363,6 +389,16 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .tile.pol,.corner.pol{box-shadow:0 0 0 .5cqw #2F6FED}
 .repdlg{max-width:540px}
 .rep-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.xbtn{appearance:none;width:36px;height:36px;border-radius:50%;border:0;padding:0;flex:none;display:grid;place-items:center;cursor:pointer;background:color-mix(in oklab,var(--surface),var(--ink) 9%);color:var(--ink)}
+.xbtn:hover{background:color-mix(in oklab,var(--surface),var(--ink) 18%)}
+.xbtn:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+.xbtn svg{width:18px;height:18px}
+.rules-head{position:sticky;top:-22px;z-index:2;display:flex;align-items:center;gap:10px;background:var(--surface);margin:-22px -22px 8px;padding:16px 22px 10px;border-radius:12px 12px 0 0}
+.rules-head h2{margin:0;flex:1}
+.ofr{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.ofr input[type=range]{width:130px;accent-color:var(--sign)}
+.ofr small{font:600 11px/1 var(--font-mono);color:var(--muted)}
+.hrow{flex-wrap:wrap}
 .rep-head h2{margin:0;flex:1;font:900 22px/1.1 var(--font-display)}
 .rep-ic{width:30px;height:30px;border-radius:50%;background:conic-gradient(#E5484D 0 50%,#2F6FED 0);flex:none;animation:spin 1.4s linear infinite}
 .rep-intro{margin:0 0 10px}
@@ -371,6 +407,18 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 .pol-box{border-color:#2F6FED;background:color-mix(in oklab,var(--surface),#2F6FED 9%)}
 .pol-box .lbl{color:#2F6FED}
 .hdlg{max-height:calc(100dvh - 32px);overflow:auto}
+.hchat{position:relative}
+.cbadge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:#E5484D;color:#fff;font:800 11px/18px var(--font-display);text-align:center;box-shadow:0 0 0 2px var(--board)}
+.hud-ic.chat{background-color:#2F6FED;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16v11H9l-5 4z'/%3E%3C/svg%3E")}
+.chatdlg{display:flex;flex-direction:column;max-height:calc(100dvh - 32px);min-width:0}
+.chatlist{flex:1;min-height:180px;max-height:55dvh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px 8px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.cmsg{max-width:85%;align-self:flex-start;background:color-mix(in oklab,var(--surface),var(--ink) 7%);border-radius:12px 12px 12px 4px;padding:6px 10px;display:flex;flex-direction:column;gap:2px}
+.cmsg.me{align-self:flex-end;background:color-mix(in oklab,var(--surface),var(--sign) 18%);border-radius:12px 12px 4px 12px}
+.cwho{font:700 11px/1.2 var(--font-body);color:var(--muted)}
+.ctext{font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.chatform{display:flex;gap:8px;margin-top:10px}
+.chatform input{flex:1;min-width:0;width:0;font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--hair);background:var(--tile);color:var(--ink)}
+.chatform input:focus-visible{outline:2px solid var(--sign);outline-offset:1px}
 .hud-ic{width:30px;height:30px;border-radius:50%;flex:none;background:var(--sign) center/18px no-repeat}
 .hud-ic.auc{background-color:#7B4A26;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13.5 4.5l6 6M11 7l6 6M10.4 7.6l5.9 5.9-2.4 2.4-5.9-5.9zM11.3 12.7L4.5 19.5M3 21h9'/%3E%3C/svg%3E")}
 .hud-ic.sab{background-color:#B3261E;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2L5 13.5h6L10 22l8-11.5h-6z'/%3E%3Cpath d='M3.5 3.5l17 17'/%3E%3C/svg%3E")}
@@ -445,6 +493,7 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
     <div class="hp" id="hPlayer"></div>
     <div class="hs"><span class="hl">Saldo</span><b id="hCash"></b></div>
     <div class="hs"><span class="hl">Profit</span><b id="hProf"></b></div>
+    <button class="qbtn hpol hchat" type="button" id="hChat" data-act="openChat" aria-label="Obrolan" title="Obrolan dengan pemain lain" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="cbadge" id="chatBadge" hidden></span></button>
     <button class="qbtn hpol" type="button" id="hPol" data-act="openReport" aria-label="Lapor polisi" title="Lapor polisi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17v-5a5 5 0 0 1 10 0v5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="17" width="16" height="3.4" rx="1" fill="currentColor"/><path class="ray" d="M12 2.5v2.2M4.6 5.6l1.6 1.6M19.4 5.6l-1.6 1.6M2 11h2.2M19.8 11H22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12.6" r="1.6" fill="currentColor"/></svg></button>
     <button class="qbtn hpol" type="button" id="hAuc" data-act="openAuc" aria-label="Lelang dan tawar petak" title="Lelang dan tawar petak"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5l6 6M11 7l6 6M10.4 7.6l5.9 5.9-2.4 2.4-5.9-5.9z"/><path d="M11.3 12.7L4.5 19.5"/><path d="M3 21h9"/></g></svg></button>
     <button class="qbtn hpol" type="button" id="hSab" data-act="openSab" aria-label="Sabotase energi" title="Sabotase energi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L5 13.5h6L10 22l8-11.5h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.5 3.5l17 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
@@ -513,19 +562,26 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 
 <div class="ov" id="repOv" hidden>
   <div class="dlg repdlg" role="dialog" aria-modal="true" aria-labelledby="repT">
-    <div class="rep-head"><span class="rep-ic" aria-hidden="true"></span><h2 id="repT">Lapor polisi</h2><button class="btn sm" type="button" data-act="closeReport">Tutup</button></div>
+    <div class="rep-head"><span class="rep-ic" aria-hidden="true"></span><h2 id="repT">Lapor polisi</h2><button class="xbtn" type="button" data-act="closeReport" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div>
     <div id="repBody"></div>
+  </div>
+</div>
+<div class="ov" id="chatOv" hidden>
+  <div class="dlg repdlg chatdlg" role="dialog" aria-modal="true" aria-labelledby="chatT">
+    <div class="rep-head"><span class="hud-ic chat" aria-hidden="true"></span><h2 id="chatT">Obrolan</h2><button class="xbtn" type="button" data-act="closeChat" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div>
+    <div class="chatlist" id="chatList" aria-live="polite"></div>
+    <form class="chatform" id="chatForm" autocomplete="off"><input id="chatIn" maxlength="200" placeholder="Tulis pesan ke pemain lain…" aria-label="Pesan"><button class="btn pri" type="submit">Kirim</button></form>
   </div>
 </div>
 <div class="ov hudact" id="hudOv" hidden>
   <div class="dlg repdlg hdlg" role="dialog" aria-modal="true" aria-labelledby="hudT">
-    <div class="rep-head"><span class="hud-ic" id="hudIc" aria-hidden="true"></span><h2 id="hudT"></h2><button class="btn sm" type="button" data-act="closeHud">Tutup</button></div>
+    <div class="rep-head"><span class="hud-ic" id="hudIc" aria-hidden="true"></span><h2 id="hudT"></h2><button class="xbtn" type="button" data-act="closeHud" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div>
     <div id="hudBody"></div>
   </div>
 </div>
 <div class="ov" id="rulesOv" hidden>
   <div class="dlg rdlg" role="dialog" aria-modal="true" aria-labelledby="rulesT">
-    <h2 id="rulesT">Aturan permainan</h2>
+    <div class="rules-head"><h2 id="rulesT">Aturan permainan</h2><button class="xbtn" type="button" data-act="closeRules" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div>
     <h3>Dasar</h3>
     <ul class="rules">
       <li>Modal awal IDR 15.000k. Lempar dua dadu dan jalan mengikuti rute di peta: jalan utama, jembatan, dan penyeberangan feri Kariangau–Penajam di Teluk Balikpapan. Dobel boleh lempar lagi, paling banyak tiga kali berturut-turut.</li>
@@ -567,16 +623,15 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
       <li>Jika SPBU terdekat milik pemain lain, kamu bisa nego setoran ilegal 10–50% profit pos eceran, dibayar setiap bulan ke pemilik SPBU itu. SPBE Babulu dan Kilang Migas Balikpapan tidak menerima nego semacam itu.</li>
       <li>Pemilik pembangkit listrik boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah layanannya jadi setengah sampai giliran si pemilik berikutnya.</li>
       <li>Semua sabotase (pemadaman listrik, putus suplai BBM, putus suplai LPG) ada di ikon petir bercoret di bagian atas layar. Pilihannya sesuai utilitas energi yang kamu miliki.</li>
-      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke satu SPBU milik lawan: profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan apa pun sampai giliran si pemutus berikutnya.</li>
+      <li>Pemilik Kilang Migas Balikpapan boleh memutus suplai BBM, dan pemilik SPBE Babulu boleh memutus suplai LPG, ke SPBU milik lawan (satu per satu atau seluruhnya sekaligus): profit SPBU itu jadi setengah dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan apa pun sampai giliran si pemutus berikutnya.</li>
       <li>Harga beli dan biaya peningkatan PLTU didiskon 50% jika kamu sudah punya tambang batu bara; PLTGU didiskon 50% jika kamu sudah punya tambang migas. PLTS IKN tidak mendapat diskon.</li>
     </ul>
     <h3>Transportasi, lelang, dan kredit</h3>
     <ul class="rules">
       <li>Siapa pun yang berhenti di bandara boleh membeli tiket IDR 400k untuk terbang ke bandara lain. Separuh tiket untuk pemilik bandara asal dan separuh untuk pemilik bandara tujuan; bagian bandara yang belum dimiliki masuk ke bank, dan bagian bandara milik sendiri tidak dibayar.</li>
-      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak. Semua pilihan lelang dan penawaran ada di ikon palu di bagian atas layar.</li>
+      <li>Properti dan utilitas bisa dilelang pemiliknya. Lawan juga bisa membuka lelang dengan mengajukan penawaran atas properti pemain lain; di akhir lelang pemiliknya memilih menerima atau menolak. Semua pilihan lelang dan penawaran ada di ikon palu di bagian atas layar. Petak yang sudah dibangun atau ditingkatkan tetap bisa dilelang dan ditawar, mulai harga dasar sampai nilai totalnya; bangunan, peningkatan, dan usaha ikut berpindah ke pemilik baru.</li>
       <li>Kredit bank tersedia dengan bunga 1–10% per bulan. Makin besar asetmu dibanding pinjaman, makin kecil bunganya.</li>
     </ul>
-    <div class="btns"><button class="btn pri" type="button" data-act="closeRules">Tutup</button></div>
   </div>
 </div>
 
@@ -630,10 +685,10 @@ const T=[
 {n:'Petung',ab:'PTG',g:1,p:1600},
 {n:'SPBE Babulu',s:'SPBE|Babulu',ab:'SPBE',k:'fuel'},
 {n:'SPBU Sotek',s:'SPBU|Sotek',ab:'SPBU',k:'fuel'},
-{n:'Maridan',ab:'MRD',g:2,p:1200},
+{n:'Riko',ab:'RKO',g:2,p:2400},
 {n:'Jembatan Pulau Balang',t:'bridge',s:'Jemb.|P. Balang',d:'Jembatan|Pulau Balang',ab:'JPB'},
 {n:'Bandara VVIP IKN',s:'Bandara|VVIP IKN',ab:'VVIP',k:'air'},
-{n:'Riko',ab:'RKO',g:2,p:2400},
+{n:'Maridan',ab:'MRD',g:2,p:1200},
 {n:'Pemaluan',ab:'PML',g:3,p:3200},
 {n:'SPBU Simpang HTI',s:'SPBU|Smp. HTI',d:'SPBU|Simpang HTI',ab:'SPBU',k:'fuel'},
 {n:'PLTS IKN',s:'PLTS|IKN',ab:'PLTS',k:'solar'},
@@ -647,13 +702,13 @@ const T=[
 {n:'Simpang Samboja',s:'Simpang|Samboja',ab:'SPS',g:5,p:1200},
 {n:'SPBU KM 38',s:'SPBU|KM 38',ab:'KM38',k:'fuel'},
 {n:'Loa Janan',s:'Loa|Janan',d:'Loa Janan',ab:'LJN',g:6,p:2400},
-{n:'Palaran',ab:'PLR',g:6,p:3200},
+{n:'Samarinda Seberang',s:'Samarinda|Seberang',ab:'SMS',g:7,p:2800},
 {n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Mahakam IV'},
 {n:'PLTU Embalut',s:'PLTU|Embalut',ab:'PLTU',k:'power'},
 {n:'Kota Samarinda',c1:'Kota',c2:'Samarinda',ab:'SMD',g:9,p:4000},
 {n:'Bandara APT Pranoto',s:'Bandara|Pranoto',d:'Bandara|APT Pranoto',ab:'AAP',k:'air'},
 {n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Mahkota 2'},
-{n:'Samarinda Seberang',s:'Samarinda|Seberang',ab:'SMS',g:7,p:2800},
+{n:'Palaran',ab:'PLR',g:6,p:3200},
 {n:'Sanga-Sanga',s:'Sanga-|Sanga',d:'Sanga-Sanga',ab:'SGS',g:7,p:2400},
 {n:'PLTU Muara Jawa',s:'PLTU|M. Jawa',d:'PLTU|Muara Jawa',ab:'PLTU',k:'power'},
 {n:'Cari Wangsit',t:'wangsit',loc:'Jembatan Dondang'},
@@ -664,7 +719,10 @@ const T=[
 {n:'Kuala Samboja',s:'Kuala|Samboja',ab:'KSB',g:8,p:2000}
 ];
 /* urutan petak versi 6 (44 petak, kilang di ujung) */
+const OLDS={};
 const OLD6=['Bandara SAMS Sepinggan','Mulai','Kota Balikpapan','PLTU Teluk Balikpapan','Pelabuhan Kariangau','W:Teluk Balikpapan','Pelabuhan Penajam','Penajam','Petung','SPBE Babulu','SPBU Sotek','Maridan','Jembatan Pulau Balang','Bandara VVIP IKN','Riko','Pemaluan','SPBU Simpang HTI','PLTS IKN','Ibu Kota Nusantara','Bumi Harapan','SPBU Bukit Raya','Sukaraja','Semoi','Mentawir','W:Hutan Bukit Bangkirai','Simpang Samboja','SPBU KM 38','Loa Janan','Palaran','W:Jembatan Mahakam IV','PLTU Embalut','Kota Samarinda','Bandara APT Pranoto','W:Jembatan Mahkota 2','Samarinda Seberang','Sanga-Sanga','PLTU Muara Jawa','W:Jembatan Dondang','Muara Jawa/Handil','SPBU Muara Jawa','Teluk Dalam','PLTGU Senipah','Kuala Samboja','Kilang Migas Balikpapan'];
+/* versi 7: kilang setelah Mulai */
+const OLD7=(()=>{ const a=OLD6.slice(0,-1); a.splice(2,0,'Kilang Migas Balikpapan'); return a; })();
 /* urutan petak versi 5 (48 petak), untuk memindahkan permainan tersimpan */
 const OLD5=['Bandara SAMS Sepinggan','Mulai','Kota Balikpapan','PLTU Teluk Balikpapan','Pelabuhan Kariangau','W:Teluk Balikpapan','Pelabuhan Penajam','Penajam','Petung','SPBE Babulu','Sotek','Maridan','Jembatan Pulau Balang','Bandara VVIP IKN','Riko','PLTS IKN','Pemaluan','SPBU Simpang HTI','Ibu Kota Nusantara','Bumi Harapan','SPBU Bukit Raya','Sukaraja','Tengin Baru','Semoi','Mentawir','W:Hutan Bukit Bangkirai','Simpang Samboja','SPBU KM 38','Batuah','Loa Janan Ulu','Loa Janan Ilir','Palaran','W:Jembatan Mahakam IV','PLTU Embalut','Kota Samarinda','Bandara APT Pranoto','W:Jembatan Mahkota 2','Samarinda Seberang','Sanga-Sanga','PLTU Muara Jawa','W:Jembatan Dondang','Muara Jawa/Handil','SPBU Muara Jawa','Teluk Dalam','PLTGU Senipah','Kuala Samboja','Samboja','Kilang Migas Balikpapan'];
 const N=T.length, IX=n=>{ const i=T.findIndex(t=>t.n===n); if(i<0)throw new Error('Petak tidak ada: '+n); return i; };
@@ -792,16 +850,16 @@ const GEO=(()=>{
   const TW=11.6, TH=6.8, R=8.4, H=112;
   /* posisi relatif di peta (utara di atas), satuan = % lebar papan */
   const P={
-    'Bandara SAMS Sepinggan':[82,95],'Mulai':[78,103],'Kilang Migas Balikpapan':[66.5,104],'Kota Balikpapan':[53,101],'PLTU Teluk Balikpapan':[51,88.2],'Pelabuhan Kariangau':[49.5,80.2],
-    'W:Teluk Balikpapan':[40,89],'Pelabuhan Penajam':[28,95.5],'Penajam':[22.5,104],'Petung':[10,106],'SPBE Babulu':[7,97.5],'SPBU Sotek':[9,89.5],'Maridan':[20,84.4],
-    'Jembatan Pulau Balang':[37.5,75],'Bandara VVIP IKN':[25.5,71],'Riko':[13,75],'Pemaluan':[6,67],'SPBU Simpang HTI':[6,59.6],'PLTS IKN':[6,52],
+    'Bandara SAMS Sepinggan':[82,95],'Mulai':[77,104.4],'Kilang Migas Balikpapan':[66.5,104],'Kota Balikpapan':[53,101],'PLTU Teluk Balikpapan':[56,89],'Pelabuhan Kariangau':[46.4,82.4],
+    'W:Teluk Balikpapan':[39,90.4],'Pelabuhan Penajam':[30.6,97.8],'Penajam':[21,105],'Petung':[8.6,107],'SPBE Babulu':[7,97.5],'SPBU Sotek':[9,89.5],'Riko':[20,84.4],
+    'Jembatan Pulau Balang':[37.5,75],'Bandara VVIP IKN':[25.5,71],'Maridan':[13,75],'Pemaluan':[6,67],'SPBU Simpang HTI':[6,59.6],'PLTS IKN':[6,52],
     'Ibu Kota Nusantara':[14,40],'Bumi Harapan':[29,43],'SPBU Bukit Raya':[23,52],'Sukaraja':[20,60],'Semoi':[33,59.5],'Mentawir':[41,67],
-    'W:Hutan Bukit Bangkirai':[47,58.6],'Simpang Samboja':[50,50],'SPBU KM 38':[56.5,42],'Loa Janan':[43,40.4],'Palaran':[43,31.6],
-    'W:Jembatan Mahakam IV':[43,21],'PLTU Embalut':[37,8.5],'Kota Samarinda':[56,10.5],'Bandara APT Pranoto':[74,7],'W:Jembatan Mahkota 2':[70,19.6],'Samarinda Seberang':[64.5,30.6],'Sanga-Sanga':[76.8,34.4],
+    'W:Hutan Bukit Bangkirai':[47,58.6],'Simpang Samboja':[50,50],'SPBU KM 38':[56.5,42],'Loa Janan':[43,40.4],'Samarinda Seberang':[43,31.6],
+    'W:Jembatan Mahakam IV':[43,21],'PLTU Embalut':[37,8.5],'Kota Samarinda':[56,10.5],'Bandara APT Pranoto':[74,7],'W:Jembatan Mahkota 2':[70,19.6],'Palaran':[64.5,30.6],'Sanga-Sanga':[76.8,34.4],
     'PLTU Muara Jawa':[87.5,40.2],'W:Jembatan Dondang':[85.6,48],'Muara Jawa/Handil':[86.5,57],'SPBU Muara Jawa':[83,64.6],'Teluk Dalam':[85.5,72],'PLTGU Senipah':[82.5,79.4],'Kuala Samboja':[80.5,86.6]
   };
   const g=T.map(t=>{ const p=P[t.t==='wangsit'?'W:'+t.loc:t.n]; if(!p)throw new Error('Posisi peta tidak ada: '+t.n); return {x:p[0],y:p[1],corner:t.g===9}; });
-  return {TW,TH,R,H,g,ttl:[15,11],deck:[69,48],jail:[68,61],dice:[66,74]};
+  return {TW,TH,R,H,g,ttl:[15,11],deck:[69,48],jail:[68,61],dice:[68.5,73]};
 })();
 
 /* ================= Helpers ================= */
@@ -844,6 +902,8 @@ function pay(from,to,amt){ if(amt<=0)return; const p=P(from); p.cash-=amt; if(to
 const hasBiz=i=>hasPos(i)||!!(S.biz?.[i]&&Object.keys(S.biz[i]).length);
 const bizVal=i=>{ let v=posVal(i); const b=S.biz?.[i]||{}; for(const k in b)v+=BIZ[k][b[k]].c; return v; };
 const UTP={air:300,port:250,power:250,solar:200,fuel:200,refinery:450}, FARE=400;
+const tileVal=i=>{ const t=T[i]; return t.p+(t.g?(S.houses[i]||0)*GRP[t.g].h:0)+upPaid(i)+bizVal(i); };
+const offRange=i=>{ const mn=T[i].p, v=Math.round(tileVal(i)/100)*100; return [mn,Math.max(v,Math.round(mn*1.5/100)*100)]; };
 const upPaid=i=>S.up[i]===true?T[i].uc:(S.up[i]||0);
 function utilProfit(i){ let v=UTP[T[i].k]*(S.up[i]?2:1); const c=cutCount(i); return c?Math.ceil(v/2**c):v; }
 const COAL_PLANTS=PLANTS.filter(i=>T[i].n.startsWith('PLTU ')), GAS_PLANTS=PLANTS.filter(i=>T[i].n.startsWith('PLTGU'));
@@ -882,7 +942,7 @@ function maxRaise(j){
 
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
-  S={v:7,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
+  S={v:8,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
     turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},burn:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     month:STEPM[0],step:0,repUsed:false,police:null,msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
@@ -1026,21 +1086,25 @@ async function doFly(dest){
   land();
 }
 function doNoFly(){ if(S.pending?.type!=='fly')return; S.pending=null; settle(); }
-function sabotage(pl){
+function sabotage(pl,nr){
   if(!S||S.own[pl]!==S.turn||S.mort[pl]||S.blk[pl]||S.phase==='busy'||S.phase==='over')return;
   S.blk[pl]={by:S.turn};
   const hit=AREA[pl].filter(i=>S.own[i]!=null&&S.own[i]!==S.turn);
   log(`${cur().name} menyabotase ${T[pl].n}: pemadaman listrik di ${AREA[pl].length} wilayah layanan. ${hit.length} properti lawan kena sewa setengah sampai giliran ${cur().name} berikutnya.`);
-  render();
+  if(!nr)render();
 }
-function cutSupply(kind,x){
+const sabTargets=()=>PLANTS.filter(x=>S.own[x]===S.turn&&!S.mort[x]&&!S.blk[x]);
+const cutTargets=kd=>{ const st=kd==='b'?S.cutB:S.cutL; return SPBU.filter(x=>S.own[x]!=null&&S.own[x]!==S.turn&&!P(S.own[x]).out&&st[x]==null); };
+function sabAll(){ const l=sabTargets(); if(!l.length)return; for(const x of l)sabotage(x,true); render(); }
+function cutAll(kd){ const src=kd==='b'?KILANG:SPBE; if(S.own[src]!==S.turn||S.mort[src])return; const l=cutTargets(kd); if(!l.length)return; for(const x of l)cutSupply(kd,x,true); render(); }
+function cutSupply(kind,x,nr){
   const src=kind==='b'?KILANG:SPBE, st=kind==='b'?S.cutB:S.cutL;
-  if(!S||S.phase==='busy'||S.phase==='over'||S.own[src]!==S.turn||S.mort[src]||Object.values(st).includes(S.turn))return;
+  if(!S||S.phase==='busy'||S.phase==='over'||S.own[src]!==S.turn||S.mort[src])return;
   if(!SPBU.includes(x)||S.own[x]==null||S.own[x]===S.turn||P(S.own[x]).out||st[x]!=null)return;
   st[x]=S.turn;
   const pos=kind==='b'?S.eb:S.el, n=T.map((t,i)=>i).filter(i=>pos[i]!=null&&S.own[i]!==S.turn&&nearestSPBU(i).includes(x)).length;
   log(`${cur().name} memutus suplai ${kind==='b'?'BBM':'LPG'} ke ${T[x].n} milik ${P(S.own[x]).name}. Profit SPBU itu jadi setengah${n?` dan ${n} pos ${kind==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa`:''} sampai giliran ${cur().name} berikutnya.`);
-  render();
+  if(!nr)render();
 }
 function settle(){
   S.pending=null; S.mod=null;
@@ -1340,7 +1404,6 @@ const AUC_ACTS=['aucBid','aucPass','aucAccept','aucReject'], AUC_INC=[100,500,10
 function aucWhy(i,o){
   const t=T[i]; if(!t.p||o==null||S.own[i]!==o)return 'x';
   if(S.mort[i])return 'Properti yang sedang digadai tidak bisa dilelang.';
-  if(t.t==='prop'&&S.houses[i])return 'Jual dulu semua bangunan di petak ini sebelum dilelang.';
   return '';
 }
 const aucReady=()=>!!S&&!S.auc&&!S.deal&&(S.phase==='roll'||S.phase==='end')&&cur().cash>=0;
@@ -1356,12 +1419,12 @@ function aucStep(from){
 function startAuction(i){
   if(!aucReady()||S.own[i]!==S.turn||aucWhy(i,S.turn))return;
   const order=aucOrder(S.turn,S.turn); if(!order.length)return;
-  S.auc={i,seller:S.turn,kind:'own',min:Math.max(100,Math.round(T[i].p/200)*100),high:null,order,active:[...order],cur:order[0],phase:'bid'};
+  S.auc={i,seller:S.turn,kind:'own',min:Math.max(100,Math.round(tileVal(i)/200)*100),high:null,order,active:[...order],cur:order[0],phase:'bid'};
   log(`${cur().name} melelang ${T[i].n}. Penawaran dibuka mulai ${fmt(S.auc.min)}.`); render();
 }
 function makeOffer(arg){
   const i=arg%100, amt=Math.floor(arg/100), me=S.turn, o=S.own[i];
-  if(!aucReady()||S.offerUsed||o==null||o===me||P(o).out||aucWhy(i,o)||!(amt>=100)||amt>cur().cash)return;
+  if(!aucReady()||S.offerUsed||o==null||o===me||P(o).out||aucWhy(i,o)||amt<offRange(i)[0]||amt>offRange(i)[1]||amt>cur().cash)return;
   S.offerUsed=true;
   const order=aucOrder(o,o);
   S.auc={i,seller:o,kind:'offer',by:me,min:amt,high:{who:me,amt},order,active:[...order],cur:me,phase:'bid'};
@@ -1450,6 +1513,8 @@ function nmHTML(t){
   const ln=x=>x.split('|').map(esc).join('<br>');
   return `<span class="nm"><span class="full">${ln(t.d||t.s)}</span><span class="ab">${ln(t.s)}</span></span>`;
 }
+const BRIDGE_SVG=(()=>{ let c=''; for(const px of [20,40]) for(const k of [1,2,3,4]){ c+=`<path d="M${px} 3.5 L${px-k*4.2} 15.6 M${px} 3.5 L${px+k*4.2} 15.6"/>`; }
+  return `<svg viewBox="0 0 60 22" aria-hidden="true"><path d="M0 19 q5 -1.4 10 0 t10 0 t10 0 t10 0 t10 0 t10 0" fill="none" stroke="#9CD3F0" stroke-width=".8" opacity=".8"/><g stroke="#EAF1F5" stroke-width=".45" fill="none">${c}</g><rect x="0" y="15.4" width="60" height="2.1" rx=".6" fill="#F4F7F8" stroke="#33414D" stroke-width=".4"/><g fill="#FFFFFF" stroke="#33414D" stroke-width=".45"><path d="M18.6 21 L19.3 2 L20.7 2 L21.4 21Z"/><path d="M38.6 21 L39.3 2 L40.7 2 L41.4 21Z"/></g><circle cx="20" cy="2.2" r=".7" fill="#E5484D"/><circle cx="40" cy="2.2" r=".7" fill="#E5484D"/></svg>`; })();
 const utype=t=>t.k==='air'?'Bandara':t.k==='port'?'Pelabuhan':t.k==='refinery'?'Kilang':t.n.split(' ')[0];
 function tileInner(t){
   let band='',body=nmHTML(t);
@@ -1457,8 +1522,8 @@ function tileInner(t){
     case 'prop': band=`<span class="band" style="--g:${GRP[t.g].c};--gt:${GRP[t.g].t}"></span>`; body+=`<span class="pr">${fk(t.p)}</span>`; break;
     case 'util': return `<span class="band u">${icon(UT[t.k].ic)}</span><span class="ul">${esc(utype(t))}</span>`;
     case 'wangsit': return `<span class="band w"><span class="dia"><b>?</b></span></span><span class="ul">Cari Wangsit</span>`;
-    case 'go': band=`<span class="band go">${icon('down')}</span>`; body+=`<span class="pr">profit</span>`; break;
-    case 'bridge': band=`<span class="band br">${icon('bridge')}</span>`; body+=`<span class="pr">→ Bpp / IKN</span>`; break;
+    case 'go': return `<span class="band go">${icon('down')}<span class="gt">Mulai</span><span class="gs">profit</span></span>`;
+    case 'bridge': return `<span class="band br">${BRIDGE_SVG}</span><span class="ul">Jembatan Pulau Balang</span>`;
   }
   return `<span class="own"></span><span class="body">${body}</span>${band}`;
 }
@@ -1499,7 +1564,7 @@ function mapSVG(){
   const sea=smooth(MAP.sea)+` L104 ${H+2} L104 -2 Z`;
   const bay=smooth(MAP.bayE)+' L'+MAP.bayW.map(p=>p.join(' ')).join(' L')+' Z';
   const bayD=smooth([...MAP.bayE,...MAP.bayW]);
-  const bridges=[['Jembatan Pulau Balang',[[32.4,75.4],[44.6,76.6]]],['W:Jembatan Mahakam IV',[[43,18.6],[43,26]]],['W:Jembatan Mahkota 2',[[70,17.8],[70.2,25.4]]],['W:Jembatan Dondang',[[85.6,44.4],[85.6,51.6]]]];
+  const bridges=[['W:Jembatan Mahakam IV',[[43,18.6],[43,26]]],['W:Jembatan Mahkota 2',[[70,17.8],[70.2,25.4]]],['W:Jembatan Dondang',[[85.6,44.4],[85.6,51.6]]]];
   const br=bridges.map(([n,[a,b]])=>`<path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width="2.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#56606A" stroke-width="1.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width=".25" stroke-dasharray="1 .7"/>`).join('');
   const [bx,by]=c(BRIDGE), [px,py]=c(BPP), [ix,iy]=c(IKN), R=GEO.R;
   const arrow=(d,tx,ty,ang)=>`<path d="${d}" fill="none" stroke="var(--road)" stroke-width=".55" stroke-dasharray="1.6 1.1" stroke-linecap="round"/><polygon points="0,0 -2,-1.1 -2,1.1" transform="translate(${tx} ${ty}) rotate(${ang})" fill="var(--road)"/>`;
@@ -1516,7 +1581,7 @@ function mapSVG(){
     <path d="${smooth(MAP.sea)}" fill="none" stroke="var(--shore)" stroke-width=".5"/>
     <path d="${bay}" fill="var(--sea)"/><path d="${bay}" fill="url(#wv)"/>
     <path d="${smooth(MAP.bayE)}" fill="none" stroke="var(--shore)" stroke-width=".4"/><path d="${smooth(MAP.bayW)}" fill="none" stroke="var(--shore)" stroke-width=".4"/>
-    <ellipse cx="39.4" cy="74" rx="1.4" ry=".9" fill="var(--land)"/>
+    <ellipse cx="39.4" cy="77.4" rx="1.4" ry=".8" fill="var(--land)"/>
     <path d="${smooth(MAP.river)}" fill="none" stroke="var(--sea)" stroke-width="3.4" stroke-linecap="round"/>
     ${MAP.delta.map(d=>`<path d="${smooth(d)}" fill="none" stroke="var(--sea)" stroke-width="1.5" stroke-linecap="round"/>`).join('')}
     <path d="${smooth(MAP.river)}" fill="none" stroke="var(--sea-2)" stroke-width=".25" stroke-dasharray="2 2.4"/>
@@ -1526,9 +1591,14 @@ function mapSVG(){
     <path d="${roads}" fill="none" stroke="var(--road)" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="${roads}" fill="none" stroke="var(--road-c)" stroke-width=".18" stroke-dasharray="1 1"/>
     <path d="${ferryL}" fill="none" stroke="#FFFFFF" stroke-width=".55" stroke-dasharray="1.4 1" stroke-linecap="round"/>
-    <g transform="translate(45.6 85.2) rotate(-35)"><path d="M-1.8 0 h3.6 l-.8 1 h-2z" fill="#fff"/><rect x="-.7" y="-1.1" width="1.4" height="1.1" fill="#fff"/></g>
+    <path id="mvF" d="M43.6 82.8 Q 38.2 88.8, 34 96.4" fill="none"/>
+    <path id="mvL" d="M112 116.5 C 92 114.4, 72 113.6, 54 114 C 47 113.6, 44.8 106, 44.4 98 C 44.1 93, 44 89.8, 44 86.8" fill="none"/>
+    <path id="mvB" d="${smooth([[-9,0],...MAP.river.slice(0,-1),[88,25.6],[91,29.6],[95.6,32.6],[104,35.4],[116,38]])}" fill="none"/>
+    <g id="shipB" opacity="0"><rect x="-4.4" y="-.75" width="3.4" height="1.5" rx=".25" fill="#5B3A1E" stroke="#2A1A0C" stroke-width=".15"/><path d="M-4.1 -.4 q.7 -.6 1.4 0 q.6 -.55 1.3 0 v.8 h-2.7z" fill="#111"/><path d="M-1 0 H.4" stroke="#DDD" stroke-width=".1"/><path d="M.4 -.45 H1.6 L2 0 L1.6 .45 H.4z" fill="#C0392B" stroke="#5A1610" stroke-width=".12"/><rect x=".7" y="-.25" width=".55" height=".5" fill="#F4F4F4"/></g>
+    <g id="shipF" opacity="0"><path d="M-1.5 -.55 H1.1 L1.7 0 L1.1 .55 H-1.5z" fill="#F7FAFC" stroke="#1E2A35" stroke-width=".14"/><rect x="-1.1" y="-.32" width="1.6" height=".64" rx=".12" fill="#2F6FED"/><rect x="-.5" y="-.18" width=".5" height=".36" fill="#E5484D"/></g>
+    <g id="shipL" opacity="0"><path d="M-3.2 -.85 H2.3 Q3.7 0 2.3 .85 H-3.2 Q-3.6 0 -3.2 -.85z" fill="#FFFFFF" stroke="#1E2A35" stroke-width=".15"/><rect x="-2.6" y="-.55" width="4" height="1.1" rx=".25" fill="#DDE6EE"/><rect x="-2.3" y="-.3" width="3.3" height=".6" rx=".15" fill="#9CC6E8"/><circle cx="-1.2" cy="0" r=".32" fill="#F08A24"/><circle cx="-.1" cy="0" r=".32" fill="#F08A24"/></g>
     ${br}
-    ${arrow(`M43.8 75.2 C 53 74.6, 58.6 77.4, 58.6 84 L 58.6 93.2`,58.6,94.4,90)}
+    ${arrow(`M44.6 75.2 C 56 74.4, 62.6 76.8, 62.6 84 L 62.6 94 C 62.6 96.4, 62.4 97.2, 62 97.8`,61.5,98.6,122)}
     ${arrow(`M33.6 71.2 C 32.4 68, 31 65.3, 27 65.3 L 17 65.2 C 13.6 65.2, 13 63.6, 13 60 L 13 50.6`,13,49.2,-90)}
     ${lbl(97.4,64,'SELAT MAKASSAR','sea',90,1.9)}
     ${lbl(40.6,103.4,'Teluk Balikpapan','sea',-82,1.5)}
@@ -1536,6 +1606,28 @@ function mapSVG(){
     ${lbl(54.6,66.3,'Hutan Bukit Bangkirai','land',0,1.2)}
     ${lbl(16.2,64.6,'S. Sepaku','sea',48,1)}
   </svg>`;
+}
+/* ---------- kapal: feri Kariangau–Penajam, tongkang batu bara Mahakam, kapal penumpang ---------- */
+let seaRAF=0;
+function startSea(){
+  cancelAnimationFrame(seaRAF);
+  const get=id=>document.getElementById(id), mv=[['F','mvF'],['B','mvB'],['L','mvL']].map(([k,p])=>({g:get('ship'+k),p:get(p)})).filter(m=>m.g&&m.p);
+  if(mv.length<3)return;
+  const [F,B,L]=mv; for(const m of mv)m.len=m.p.getTotalLength(); F.sc=1.2; B.sc=1.4; L.sc=1.1;
+  const sm=x=>x*x*(3-2*x);
+  const put=(m,f,rev,show=1)=>{ const l=Math.max(0,Math.min(1,f))*m.len, p=m.p.getPointAtLength(l), q=m.p.getPointAtLength(Math.min(m.len,l+.4)), r=m.p.getPointAtLength(Math.max(0,l-.4));
+    let a=Math.atan2(q.y-r.y,q.x-r.x)*180/Math.PI; if(rev)a+=180;
+    m.g.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) rotate(${a.toFixed(1)}) scale(${m.sc})`); m.g.setAttribute('opacity',show); };
+  if(RM){ put(F,0,false); B.g.setAttribute('opacity',0); L.g.setAttribute('opacity',0); return; }
+  const t0=performance.now()/1000-Math.random()*30;
+  const tick=()=>{
+    const t=performance.now()/1000-t0;
+    { const c=t%24; if(c<4)put(F,0,false); else if(c<11)put(F,sm((c-4)/7),false); else if(c<15)put(F,1,true); else if(c<22)put(F,1-sm((c-15)/7),true); else put(F,0,false); }
+    { const c=(t+20)%75; if(c<55)put(B,c/55,false); else B.g.setAttribute('opacity',0); }
+    { const c=(t+25)%130; if(c<45)L.g.setAttribute('opacity',0); else if(c<65)put(L,1-(1-(c-45)/20)**2,false); else if(c<97)put(L,1,false); else if(c<99)put(L,1,false); else if(c<119)put(L,1-((c-99)/20)**2,true); else L.g.setAttribute('opacity',0); }
+    seaRAF=requestAnimationFrame(tick);
+  };
+  tick();
 }
 function buildBoard(){
   const st=$('#stage'), H=GEO.H;
@@ -1550,7 +1642,7 @@ function buildBoard(){
       el.dataset.city=i===IKN?'ikn':i===BPP?'bpp':'smd';
     } else {
       el.className=`tile k-${t.t}`;
-      if(t.t!=='util'&&t.t!=='wangsit'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
+      if(t.t!=='util'&&t.t!=='wangsit'&&t.t!=='bridge'&&t.t!=='go'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
       el.innerHTML=tileInner(t);
     }
     el.addEventListener('click',()=>{ detail=i; detailHelp=false; renderDetail(); updateTiles(); });
@@ -1567,6 +1659,7 @@ function buildBoard(){
   for(const k of [0,1]) $('#d'+k).innerHTML=`<span class="cube">${[1,2,3,4,5,6].map(f=>`<span class="face f${f}">${[0,1,2,3,4,5,6,7,8].map(x=>`<i${FACES[f].includes(x)?' class="on"':''}></i>`).join('')}</span>`).join('')}</span>`;
   const fx=document.createElement('div'); fx.id='fx'; st.appendChild(fx);
   const tl=document.createElement('div'); tl.id='toks'; st.appendChild(tl);
+  requestAnimationFrame(startSea);
   const pl=document.createElement('div'); pl.id='pol'; pl.innerHTML=`<div id="polcar" hidden><svg viewBox="0 0 40 22" aria-hidden="true"><ellipse class="halo" cx="20" cy="6" rx="13" ry="7" fill="rgba(229,72,77,.5)"/><path d="M3 15.5 V12 Q3 10 5 9.6 L11 9 L14.5 4.6 Q15.4 3.6 17 3.6 H27 Q28.6 3.6 29.6 4.8 L32.6 9 L36 9.8 Q38 10.3 38 12.4 V15.5 Z" fill="#F7F9FB" stroke="#1E2A35" stroke-width=".7"/><path d="M15.6 5.2 H21 V9 H12.8 Z M22.2 5.2 H27 L30 9 H22.2 Z" fill="#9CC6E8" stroke="#1E2A35" stroke-width=".4"/><rect x="3.4" y="11.4" width="34.4" height="2.2" fill="#1D4ED8"/><text x="20.5" y="13.1" font-size="2" font-weight="900" text-anchor="middle" fill="#fff" font-family="Overpass,system-ui,sans-serif">POLISI</text><rect class="lr" x="16" y="1" width="4" height="2.6" rx=".6" fill="#E5484D"/><rect class="lb" x="21" y="1" width="4" height="2.6" rx=".6" fill="#2F6FED"/><g class="wh"><circle cx="10.5" cy="16" r="3.2" fill="#1E2A35"/><circle cx="10.5" cy="16" r="1.3" fill="#C9D1D9"/><rect x="10.1" y="13.2" width=".8" height="5.6" fill="#1E2A35"/></g><g class="wh"><circle cx="30.5" cy="16" r="3.2" fill="#1E2A35"/><circle cx="30.5" cy="16" r="1.3" fill="#C9D1D9"/><rect x="30.1" y="13.2" width=".8" height="5.6" fill="#1E2A35"/></g></svg></div>`; st.appendChild(pl);
 }
 const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
@@ -1753,9 +1846,20 @@ function hudWhy(){
   if(!myTurn()||S.auc||S.deal||polBusy())return 'Hanya bisa dipakai pada giliranmu sendiri, saat tidak ada lelang, nego, atau pemeriksaan polisi yang berjalan.';
   return '';
 }
+const offVal={};
+function offerUI(i,big){
+  const [mn,mx]=offRange(i), c=cur().cash, v=Math.min(mx,Math.max(mn,offVal[i]??mn)), dis=!aucReady()||S.offerUsed;
+  return `<span class="ofr"><small>${fk(mn)}</small><input type="range" min="${mn}" max="${mx}" step="100" value="${v}" data-oi="${i}" aria-label="Nilai tawaran untuk ${esc(T[i].n)}" ${dis||mx===mn?'disabled':''}><small>${fk(mx)}</small><button class="btn ${big?'':'sm '}pri" type="button" data-act="makeOffer" data-arg="${v*100+i}" data-ob="${i}" ${dis||v>c?'disabled':''}>Tawar ${fk(v)}</button></span>`;
+}
+document.addEventListener('input',e=>{
+  const r=e.target.closest?.('input[data-oi]'); if(!r||!S)return;
+  const i=+r.dataset.oi, v=+r.value; offVal[i]=v;
+  const b=r.parentElement.querySelector(`[data-ob="${i}"]`); if(!b)return;
+  b.dataset.arg=v*100+i; b.textContent=`Tawar ${fk(v)}`; b.disabled=!aucReady()||S.offerUsed||v>cur().cash;
+});
 function aucMenuHTML(){
   const me=S.turn, why=hudWhy();
-  let h=`<p class="rep-intro">Jual petak milikmu lewat lelang, atau ajukan penawaran untuk petak milik lawan. Penawaran membuka lelang: pemain lain boleh menawar lebih tinggi, lalu pemiliknya memilih menerima atau menolak.</p>`;
+  let h=`<p class="rep-intro">Jual petak milikmu lewat lelang, atau ajukan penawaran untuk petak milik lawan. Geser penawaran ke kiri untuk harga lebih murah (mulai harga dasar) dan ke kanan untuk lebih tinggi (sampai nilai total bangunan dan peningkatannya). Penawaran membuka lelang: pemain lain boleh menawar lebih tinggi, lalu pemiliknya memilih menerima atau menolak. Bangunan, peningkatan, dan usaha ikut berpindah ke pemilik baru.</p>`;
   if(why)return h+`<p class="hint warn">${esc(why)}</p>`;
   if(!aucReady())h+=`<p class="hint warn">Lelang dan penawaran bisa dilakukan sebelum melempar dadu atau sebelum mengakhiri giliran${cur().cash<0?', dan setelah utang lunas':''}.</p>`;
   const row=(i,btns,note='')=>`<div class="hrow"><span class="dot" style="background:${T[i].g?GRP[T[i].g].c:'#9AA7A0'}"></span><span class="hn2"><b>${esc(T[i].n)}</b><span>${fk(T[i].p)}${note}</span></span><span class="btns">${btns}</span></div>`;
@@ -1768,8 +1872,8 @@ function aucMenuHTML(){
   for(const o of opp){ const ts=ownedBy(o); if(!ts.length)continue; any=true;
     h+=`<p class="hown"><span class="dot" style="background:${P(o).color}"></span>${esc(P(o).name)}</p>`;
     h+=ts.map(i=>{ const w=aucWhy(i,o); if(w)return row(i,'',` · ${esc(w==='x'?'tidak bisa ditawar':w)}`);
-      const offs=[...new Set([.6,1,1.4].map(f=>Math.max(100,Math.round(T[i].p*f/100)*100)))];
-      return row(i,offs.map(x=>B(`Tawar ${fk(x)}`,'makeOffer',{arg:x*100+i,cls:'sm',dis:x>cur().cash||!aucReady()||S.offerUsed})).join('')); }).join('');
+      const lv=S.houses[i]?` · ${lc(lvName(i,S.houses[i]))}`:S.up[i]?' · ditingkatkan':'';
+      return row(i,offerUI(i),`${lv} · nilai ${fk(tileVal(i))}`); }).join('');
   }
   if(!any)h+=`<p class="hint">Lawan belum punya petak.</p>`;
   return h;
@@ -1781,16 +1885,15 @@ function sabMenuHTML(){
   let n=0;
   const mine=PLANTS.filter(x=>S.own[x]===me&&!S.mort[x]);
   if(mine.length){ n++;
-    h+=`<p class="lbl2">Pemadaman listrik</p><p class="hint">Properti lawan di wilayah layanan pembangkit itu hanya menarik setengah sewa.</p><div class="btns">${mine.map(x=>{
+    const free=sabTargets();
+    h+=`<p class="lbl2">Pemadaman listrik</p><p class="hint">Properti lawan di wilayah layanan pembangkit itu hanya menarik setengah sewa.</p><div class="btns">${mine.length>1?B(`Padamkan seluruh pembangkit (${free.length})`,'sabAll',{cls:'pri',dis:!free.length}):''}${mine.map(x=>{
       const k=AREA[x].filter(i=>S.own[i]!=null&&S.own[i]!==me).length;
       return S.blk[x]?B(`${esc(T[x].n)}: sedang padam`,'noop',{cls:'sm',dis:true}):B(`Padamkan ${esc(T[x].n)} (${k} properti lawan)`,'sabotage',{arg:x,cls:'sm'});}).join('')}</div>`; }
   for(const [kd,src,w] of [['b',KILANG,'BBM'],['l',SPBE,'LPG']]){
     if(S.own[src]!==me||S.mort[src])continue; n++;
-    const st=kd==='b'?S.cutB:S.cutL, on=Object.keys(st).map(Number).find(x=>st[x]===me);
-    const tg=SPBU.filter(x=>S.own[x]!=null&&S.own[x]!==me&&!P(S.own[x]).out);
-    h+=`<p class="lbl2">Putus suplai ${w} · ${esc(T[src].n)}</p><p class="hint">Profit SPBU sasaran jadi setengah, dan pos ${kd==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa. Satu SPBU per giliran.</p>`;
-    h+=on!=null?`<div class="btns">${B(`${w} ke ${esc(T[on].n)}: sedang diputus`,'noop',{cls:'sm',dis:true})}</div>`
-      :tg.length?`<div class="btns">${tg.map(x=>B(`Putus ${w} ke ${esc(T[x].n)} (${esc(P(S.own[x]).name)})`,kd==='b'?'cutB':'cutL',{arg:x,cls:'sm'})).join('')}</div>`
+    const st=kd==='b'?S.cutB:S.cutL, all=SPBU.filter(x=>S.own[x]!=null&&S.own[x]!==me&&!P(S.own[x]).out), free=cutTargets(kd);
+    h+=`<p class="lbl2">Putus suplai ${w} · ${esc(T[src].n)}</p><p class="hint">Profit SPBU sasaran jadi setengah, dan pos ${kd==='b'?'bensin':'LPG'} eceran di wilayahnya tidak menghasilkan sewa.</p>`;
+    h+=all.length?`<div class="btns">${all.length>1?B(`Putus ${w} ke seluruh SPBU lawan (${free.length})`,kd==='b'?'cutAllB':'cutAllL',{cls:'pri',dis:!free.length}):''}${all.map(x=>st[x]!=null?B(`${w} ke ${esc(T[x].n)}: diputus`,'noop',{cls:'sm',dis:true}):B(`Putus ${w} ke ${esc(T[x].n)} (${esc(P(S.own[x]).name)})`,kd==='b'?'cutB':'cutL',{arg:x,cls:'sm'})).join('')}</div>`
       :`<p class="hint">Belum ada SPBU milik lawan.</p>`;
   }
   if(!n)h+=`<p class="hint warn">Kamu belum memiliki pembangkit listrik, Kilang Migas Balikpapan, atau SPBE Babulu yang aktif, jadi belum ada sabotase yang bisa dilakukan.</p>`;
@@ -1828,6 +1931,7 @@ function renderHud(){
   const hc=$('#hCash'); hc.innerHTML=`<span class="lg">${fmt(p.cash)}</span><span class="sh">${p.cash<0?'−':''}${fk(Math.abs(p.cash))}</span>`; hc.classList.toggle('neg',p.cash<0);
   $('#hProf').innerHTML=`${pr>=0?'+':''}${fk(pr)}<span class="lg">/bln</span>`;
   hud.hidden=false;
+  { const hc=$('#hChat'); if(hc)hc.hidden=!S.net; }
   const [k]=newsAt(m), w=woodCost(m), pct=z=>{ const v=Math.round((LAND[z][Math.min(m,420)]-1)*100); return `${v>0?'+':v<0?'−':''}${Math.abs(v)}%`; };
   const en=$('#edgeNews'), el=$('#edgeLand');
   if(en)en.innerHTML=`<b>${esc(calStr(m))}</b> · ${esc(NEWS_S[k]||'')}${w?` · kayu bakar ${fk(w)}/bulan`:''}`;
@@ -1841,13 +1945,13 @@ function renderDetail(){
   if(detail==null||!S){ pop.hidden=true; popLast=null; return; }
   if(pop.hidden||popLast!==detail){ popLast=detail; requestAnimationFrame(()=>{ const d=$('#dpanel'); if(RM||!d)return; d.classList.remove('popin'); void d.offsetWidth; d.classList.add('popin'); }); }
   $('#dpanel').classList.toggle('help',detailHelp);
-  const close=`<div class="dt-tools"><button class="qbtn${detailHelp?' on':''}" type="button" data-act="toggleHelp" aria-label="Aturan petak ini" title="Aturan petak ini">?</button><button class="btn sm" type="button" data-act="closeDetail">Tutup</button></div>`;
+  const close=`<div class="dt-tools"><button class="qbtn${detailHelp?' on':''}" type="button" data-act="toggleHelp" aria-label="Aturan petak ini" title="Aturan petak ini">?</button><button class="xbtn" type="button" data-act="closeDetail" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div>`;
   if(detail===-3){
     const m=S.month||0, pc=x=>{ const v=Math.round((x-1)*100); return `${v>0?'+':v<0?'−':''}${Math.abs(v)}%`; };
     const zone=z=>LANDT.filter(i=>zoneOf(i)===z);
     const row=(nm,z)=>`<tr><td><b>${nm}</b><br><span class="muted">${zone(z).map(i=>`${esc(T[i].n)} ${fk(T[i].p)}`).join(' · ')}</span></td><td>${pc(LAND[z][Math.min(m,420)])}</td></tr>`;
     const [,nw]=newsAt(m);
-    el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:var(--road)"></span><div style="min-width:0"><h3 class="dt-title">Harga lahan</h3><div class="dt-sub">${esc(calStr(m))} · dibanding Juli 2019</div></div><div class="dt-tools"><button class="btn sm" type="button" data-act="closeDetail">Tutup</button></div></div>
+    el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:var(--road)"></span><div style="min-width:0"><h3 class="dt-title">Harga lahan</h3><div class="dt-sub">${esc(calStr(m))} · dibanding Juli 2019</div></div><div class="dt-tools"><button class="xbtn" type="button" data-act="closeDetail" aria-label="Tutup" title="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button></div></div>
       <p class="dt-sum">Rata-rata seluruh wilayah: <b>${pc(landAvg(m))}</b></p>
       <table class="rt lt"><tr><th>Wilayah</th><th>Kenaikan</th></tr>${row('Kecamatan Sepaku','sepaku')}${row('Riko & Maridan','near')}${row('Wilayah lain','other')}
       <tr><td><b>Ibu Kota Nusantara</b><br><span class="muted">${m<IKN_START?'Sebelum proyek IKN dimulai (Januari 2022)':'Sejak proyek IKN dimulai Januari 2022'}</span></td><td>${fk(T[IKN].p)}</td></tr>
@@ -1896,8 +2000,8 @@ function renderDetail(){
       const cb=S.cutB[i], cl=S.cutL[i];
       body+=`<p class="dt-note">Pemilik Kilang Migas Balikpapan bisa memutus suplai BBM, dan pemilik SPBE Babulu bisa memutus suplai LPG, ke SPBU ini: tiap pemutusan membuat profitnya setengah, dan pos eceran jenis itu di wilayah layanannya tidak menghasilkan sewa.${cb!=null?` <b>Suplai BBM diputus</b> oleh ${esc(P(cb).name)}.`:''}${cl!=null?` <b>Suplai LPG diputus</b> oleh ${esc(P(cl).name)}.`:''}</p>`;
     }
-    if(i===KILANG)body+=`<p class="dt-note">Pemiliknya bisa membangun pos bensin eceran di properti mana pun, dan sekali per putaran boleh memutus suplai BBM ke satu SPBU milik lawan.</p>`;
-    if(i===SPBE)body+=`<p class="dt-note">Pemiliknya bisa membangun pos LPG eceran di properti mana pun, dan sekali per putaran boleh memutus suplai LPG ke satu SPBU milik lawan.</p>`;
+    if(i===KILANG)body+=`<p class="dt-note">Pemiliknya bisa membangun pos bensin eceran di properti mana pun, dan boleh memutus suplai BBM ke SPBU milik lawan sampai giliran berikutnya.</p>`;
+    if(i===SPBE)body+=`<p class="dt-note">Pemiliknya bisa membangun pos LPG eceran di properti mana pun, dan boleh memutus suplai LPG ke SPBU milik lawan sampai giliran berikutnya.</p>`;
     if(PLANTS.includes(i)){
       const bl=S.blk[i];
       body+=`<p class="dt-note">Wilayah layanan (${AREA[i].length} properti): ${AREA[i].map(x=>T[x].n).join(', ')}. Pemiliknya boleh menyabotase dengan pemadaman: sewa properti lawan di wilayah ini jadi setengah sampai giliran si pemilik berikutnya.${bl?` <b>Sedang padam</b> oleh ${esc(P(bl.by).name)}.`:''}</p>`;
@@ -1955,11 +2059,11 @@ function renderDetail(){
     acts=`<div class="btns dt-acts">${a.join('')}</div>`+acts;
   }
   if(o!=null&&o!==S.turn&&myTurn()&&!S.auc&&!P(o).out&&t.p){
-    const w=aucWhy(i,o), c=cur().cash, offs=[...new Set([.6,1,1.4].map(f=>Math.max(100,Math.round(t.p*f/100)*100)))];
+    const w=aucWhy(i,o);
     acts+=`<p class="dt-note"><b>Ajukan penawaran</b> untuk membuka lelang. Pemain lain boleh menawar lebih tinggi, lalu ${esc(P(o).name)} memilih menerima atau menolak. Sekali per giliran.</p>`;
     if(w)acts+=`<p class="hint">${w}</p>`;
     else if(S.offerUsed)acts+=`<p class="hint">Kamu sudah mengajukan penawaran di giliran ini.</p>`;
-    else acts+=`<div class="btns dt-acts">${offs.map(x=>B(`Tawar ${fk(x)}`,'makeOffer',{arg:x*100+i,dis:x>c||!aucReady()})).join('')}</div>`;
+    else acts+=`<div class="btns dt-acts">${offerUI(i,true)}</div><p class="hint">Geser ke kiri untuk harga lebih murah (mulai harga dasar ${fk(t.p)}), ke kanan untuk lebih tinggi (sampai ${fk(offRange(i)[1])}, nilai petak termasuk bangunan dan peningkatannya).</p>`;
   }
   const help=detailHelp?'':'<p class="hint dt-sum">Tekan ? untuk membaca aturan dan rincian petak ini.</p>';
   el.innerHTML=`<div class="dt-head"><span class="dt-sw" style="--g:${sw}"></span><div style="min-width:0"><h3 class="dt-title">${esc(t.n)}</h3><div class="dt-sub">${esc(sub)}</div></div>${close}</div>${own}${acts}<div class="dbody">${body}</div>${help}`;
@@ -2119,11 +2223,11 @@ function botRescueLoan(){
 function botAuction(){
   const a=S.auc, x=aucActor(), q=P(x), L=q.bot, t=T[a.i];
   if(a.phase==='confirm'){
-    const keep=(isFullSet(a.i)||ownsRestOf(a.i,x)?1.6:1.15)*(t.p+bizVal(a.i))*(L==='pendatang'?.9:L==='mafia'?1.1:1);
+    const keep=(isFullSet(a.i)||ownsRestOf(a.i,x)?1.6:1.15)*tileVal(a.i)*(L==='pendatang'?.9:L==='mafia'?1.1:1);
     return a.high.amt>=keep?aucAccept():aucReject();
   }
   const key=ownsRestOf(a.i,x)||blocksRival(a.i,x)||(t.g===9);
-  let v=(t.p+bizVal(a.i)*.8)*(key?(L==='mafia'?1.7:1.4):1)*(L==='pendatang'?.8:L==='mafia'?1.05:1);
+  let v=(tileVal(a.i)-bizVal(a.i)*.2)*(key?(L==='mafia'?1.7:1.4):1)*(L==='pendatang'?.8:L==='mafia'?1.05:1);
   if(L==='pendatang')v*=.8+Math.random()*.3;
   const lim=Math.min(v,q.cash-reserveFor(x)*(L==='mafia'?.3:.6));
   const next=(a.high?a.high.amt:a.min-100)+100;
@@ -2135,7 +2239,7 @@ function botOffer(){
   for(const i of T.map((t,k)=>k)){
     const o=S.own[i]; if(o==null||o===j||P(o).out||aucWhy(i,o))continue;
     if(!ownsRestOf(i,j))continue;
-    const amt=Math.round(T[i].p*1.3/100)*100; if(p.cash-amt<res*.5)continue;
+    const [mn,mx]=offRange(i), amt=Math.min(mx,Math.max(mn,Math.round(tileVal(i)*1.1/100)*100)); if(p.cash-amt<res*.5)continue;
     makeOffer(amt*100+i); return true;
   }
   return false;
@@ -2235,6 +2339,35 @@ function send(c,m){ try{ if(c&&c.open)c.send(m); }catch(e){} }
 function broadcast(m){ if(NET.role!=='host')return; for(const g of NET.guests.values())if(g.on)send(g.conn,m); }
 function queueSync(){ if(syncT||NET.role!=='host')return; syncT=setTimeout(()=>{ syncT=null; if(S?.net)broadcast({t:'state',S:{...S,log:S.log.slice(0,60)},on:onTokens()}); },0); }
 function lobbyList(){ return [{name:NET.name,host:true},...[...NET.guests.values()].filter(g=>g.on).map(g=>({name:g.name}))]; }
+/* --- obrolan (khusus online, tidak disimpan) --- */
+let CHAT=[], chatUnread=0;
+function chatWho(tok){
+  const p=S?.players?.find(q=>q.dev===tok); if(p)return {name:p.name,color:p.color};
+  if(tok===NET.token)return {name:NET.name||'Host',color:'#00704A'};
+  const g=NET.guests.get(tok); return {name:g?.name||'Teman',color:'#56675E'};
+}
+const chatClean=m=>({tok:String(m?.tok||'').slice(0,20),name:String(m?.name||'Teman').slice(0,16),color:/^#[0-9a-f]{6}$/i.test(m?.color)?m.color:'#56675E',text:String(m?.text||'').slice(0,200),ts:+m?.ts||Date.now()});
+function chatAdd(m,quiet){
+  m=chatClean(m); if(!m.text)return;
+  CHAT.push(m); if(CHAT.length>100)CHAT.shift();
+  if(!quiet&&m.tok!==NET.token&&$('#chatOv').hidden)chatUnread++;
+  renderChatBadge(); if(!$('#chatOv').hidden)renderChat();
+}
+function hostChat(tok,text){ const w=chatWho(tok), m={tok,name:w.name,color:w.color,text,ts:Date.now()}; chatAdd(m); broadcast({t:'chat',m}); }
+function chatSend(){
+  const inp=$('#chatIn'), text=inp.value.trim().slice(0,200); if(!text)return;
+  if(NET.role==='host'){ inp.value=''; hostChat(NET.token,text); }
+  else if(NET.role==='guest'&&NET.connected){ inp.value=''; send(NET.conn,{t:'chat',text}); }
+  inp.focus();
+}
+function renderChatBadge(){ const b=$('#chatBadge'); if(!b)return; b.hidden=!chatUnread; b.textContent=chatUnread>9?'9+':chatUnread; $('#hChat')?.setAttribute('aria-label',chatUnread?`Obrolan, ${chatUnread} pesan baru`:'Obrolan'); }
+function renderChat(){
+  const box=$('#chatList'); if(!box)return;
+  const hm=t=>{ const d=new Date(t); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); };
+  box.innerHTML=CHAT.length?CHAT.map(m=>`<div class="cmsg${m.tok===NET.token?' me':''}"><span class="cwho"><span class="dot" style="background:${m.color}"></span>${esc(m.name)} · ${hm(m.ts)}</span><span class="ctext">${esc(m.text)}</span></div>`).join(''):'<p class="hint">Belum ada pesan. Sapa lawan mainmu, atau mulai negosiasi di sini.</p>';
+  box.scrollTop=box.scrollHeight;
+}
+function openChat(){ if(!S?.net)return; chatUnread=0; renderChatBadge(); renderChat(); $('#chatOv').hidden=false; $('#chatIn').disabled=NET.role==='guest'&&!NET.connected; setTimeout(()=>$('#chatIn').focus(),50); }
 function sendLobby(){ broadcast({t:'lobby',list:lobbyList()}); syncOnline(); }
 
 function makePeer(id,onOpen){
@@ -2301,8 +2434,10 @@ function hostData(c,d){
     else if(seat) log(`${seat.name} tersambung lagi.`);
     sendLobby();
     if(S?.net){ render(); send(c,{t:'state',S:{...S,log:S.log.slice(0,60)},on:onTokens()}); }
+    send(c,{t:'chathist',list:CHAT.slice(-60)});
     return;
   }
+  if(d.t==='chat'){ const tok=c.tok, now=Date.now(); if(!tok||!NET.guests.get(tok))return; const g=NET.guests.get(tok); g.ct=(g.ct||[]).filter(x=>now-x<5000); if(g.ct.length>=6)return; g.ct.push(now); const text=String(d.text||'').trim().slice(0,200); if(text)hostChat(tok,text); return; }
   if(d.t==='act'){
     const tok=c.tok, a=String(d.a||''), f=ACTS[a];
     if(!tok||!f||!S?.net||S.phase==='over'||UI_ONLY.includes(a)||HOST_ONLY.includes(a))return;
@@ -2371,6 +2506,8 @@ function guestData(c,d){
   if(NET.conn!==c||!d||typeof d!=='object')return;
   NET.seen=Date.now();
   if(d.t==='ping')return;
+  if(d.t==='chat'){ chatAdd(d.m); return; }
+  if(d.t==='chathist'){ CHAT=[]; (Array.isArray(d.list)?d.list:[]).forEach(m=>chatAdd(m,true)); return; }
   if(d.t==='lobby'){ NET.lobby=Array.isArray(d.list)?d.list:[]; if(!S||S.phase==='over')NET.msg='Terhubung. Menunggu host memulai permainan.'; syncOnline(); renderNet(); return; }
   if(d.t==='state'&&d.S){ NET.on=Array.isArray(d.on)?d.on:[]; NET.msg=''; NET.err=false; S=d.S; applyPrices(); $('#setup').hidden=true; render(); return; }
   if(d.t==='dice'){ guestDice(); return; }
@@ -2397,6 +2534,7 @@ function netTick(){
 }
 setInterval(netTick,4000);
 function resetNet(){
+  CHAT=[]; chatUnread=0; renderChatBadge(); if($('#chatOv'))$('#chatOv').hidden=true;
   const pr=NET.peer, role=NET.role;
   clearTimeout(NET.rt); clearTimeout(NET.ct);
   if(role==='host')broadcast({t:'bye'});
@@ -2458,12 +2596,12 @@ function onlinePrimary(){
     PENDING=null; syncResume(); return joinRoom(code,name);
   }
 }
-const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank','toggleHelp','openRules','closeRules','openReport','closeReport','openAuc','openSab','closeHud'], HOST_ONLY=['takeover','openSetup'];
+const UI_ONLY=['showDetail','closeDetail','showOver','noop','toggleBank','toggleHelp','openRules','closeRules','openReport','closeReport','openAuc','openSab','closeHud','openChat','closeChat'], HOST_ONLY=['takeover','openSetup'];
 const BASE_TITLE=document.title;
 
 /* ================= Persistence & setup ================= */
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
-function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v>=5&&s.v<=7&&Array.isArray(s.players))return s; }catch(e){} return null; }
+function loadSaved(){ try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&s.v>=5&&s.v<=8&&Array.isArray(s.players))return s; }catch(e){} return null; }
 function syncNames(){
   const box=$('#names'), prev=[...box.querySelectorAll('input')].map(x=>x.value), cpu=setupMode==='cpu'||setupMode==='online', n=cpu?1:setupCount;
   box.innerHTML=Array.from({length:n},(_,i)=>`<label><span class="chip" style="--pc:${PCOL[i]}">${i+1}</span><input id="name${i}" maxlength="16" value="${esc(prev[i]??DEFAULT_NAMES[i])}" aria-label="${cpu?'Nama kamu':'Nama pemain '+(i+1)}"></label>`).join('');
@@ -2498,6 +2636,8 @@ const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeL
   showDetail(i){ detail=i; detailHelp=false; renderDetail(); updateTiles(); },
   toggleHelp(){ detailHelp=!detailHelp; renderDetail(); },
   openRules(){ $('#rulesOv').hidden=false; }, closeRules(){ $('#rulesOv').hidden=true; },
+  openChat, closeChat(){ $('#chatOv').hidden=true; },
+  sabAll, cutAllB:()=>cutAll('b'), cutAllL:()=>cutAll('l'),
   openReport, closeReport(){ $('#repOv').hidden=true; }, openAuc(){ openHud('auc'); }, openSab(){ openHud('sab'); }, closeHud(){ $('#hudOv').hidden=true; hudMode=null; }, report:doReport, polPay, polRefuse};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-act]'); if(!b||b.disabled)return;
@@ -2542,6 +2682,8 @@ $('#bLook').addEventListener('click',()=>{ overClosed=true; render(); });
 $('#dpop').addEventListener('click',e=>{ if(e.target.id==='dpop'){ detail=null; renderDetail(); updateTiles(); } });
 $('#rulesOv').addEventListener('click',e=>{ if(e.target.id==='rulesOv')$('#rulesOv').hidden=true; });
 $('#hudOv').addEventListener('click',e=>{ if(e.target.id==='hudOv')ACTS.closeHud(); });
+$('#chatOv').addEventListener('click',e=>{ if(e.target.id==='chatOv')$('#chatOv').hidden=true; });
+$('#chatForm').addEventListener('submit',e=>{ e.preventDefault(); chatSend(); });
 $('#repOv').addEventListener('click',e=>{
   if(e.target.id==='repOv'){ $('#repOv').hidden=true; return; }
   const a=e.target.closest('[data-rj]'), b=e.target.closest('[data-rk]');
@@ -2551,6 +2693,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&!$('#rulesOv').hidden){ $('#rulesOv').hidden=true; return; }
   if(e.key==='Escape'&&!$('#repOv').hidden){ $('#repOv').hidden=true; return; }
   if(e.key==='Escape'&&!$('#hudOv').hidden){ ACTS.closeHud(); return; }
+  if(e.key==='Escape'&&!$('#chatOv').hidden){ $('#chatOv').hidden=true; return; }
   if(e.key==='Escape'&&detail!=null){ detail=null; renderDetail(); updateTiles(); }
 });
 
@@ -2569,10 +2712,10 @@ function migrate5(x,OLD=OLD5){
   x.players.forEach(p=>{ p.pos=near(p.pos||0); });
   x.pending=null; x.auc=null; x.deal=null; x.police=null; x.here=null; x.mod=null;
   if(x.phase==='decide'||x.phase==='busy')x.phase='end';
-  x.v=7; return x;
+  x.v=8; return x;
 }
 function fixState(x){
-  if(x.v===5)migrate5(x); else if(x.v===6)migrate5(x,OLD6);
+  if(x.v===5)migrate5(x); else if(x.v===6)migrate5(x,OLD6); else if(x.v===7)migrate5(x,OLD7);
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
   x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.burn??={}; x.players?.forEach(q=>{ q.laps??=0; }); if(x.step==null){ x.step=x.month||0; x.month=monthAt(x.step); } x.repUsed??=false; x.police??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.police?.ph==='drive'){ S=x; finishPolice(); }
@@ -2590,7 +2733,7 @@ function resumeSaved(){
 }
 function boot(data){
   buildBoard();
-  if(data?.S?.v>=5&&data?.S?.v<=7){ S=fixState(data.S); detail=data.detail??null; render(); return; }
+  if(data?.S?.v>=5&&data?.S?.v<=8){ S=fixState(data.S); detail=data.detail??null; render(); return; }
   const saved=loadSaved(), ns=loadNet(); let room=null;
   try{ room=new URLSearchParams(location.search).get('room'); }catch(e){}
   S=null; setDie(0,3); setDie(1,4);
