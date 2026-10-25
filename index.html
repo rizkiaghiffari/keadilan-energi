@@ -9,6 +9,7 @@
 :root{
   --bg:#E3E8E1; --surface:#F7F8F4; --tile:#FBFCF8; --ink:#14201B; --muted:#56675E; --hair:#C9D3CC;
   --board:#174A36; --board-2:#1E5A43; --road:#F1C232;
+  --mland:#F2EFE9; --mpark:#D7EBCF; --mforest:#B7DCA8; --mforest2:#9DCE8C; --mwater:#A3D3F5; --mwater2:#C8E5FA; --mroad:#E9ECEF; --mroadc:#B3BAC2; --mink:#3C4043; --msub:#5F6368; --mhalo:#FFFFFF; --mwink:#3E7DB4; --marrow:#E37400; --mborder:#9AA0A6; --mtoll:#FDE293; --mtollc:#E8A33D; --mdelta:#93C987;
   --land:#2C6A47; --land-2:#357A53; --forest:#164A2C; --forest-2:#2F7A45; --sea:#2A79A6; --sea-2:#7FC0E2; --shore:#D8E9C8; --road-c:#6B4E12;
   --sign:#00704A; --on-sign:#FFFFFF; --warn:#F2B705; --warn-ink:#1B1600; --brown:#7B4A26;
   --uband:#E4E9E3; --danger:#B3261E; --on-danger:#FFFFFF;
@@ -20,6 +21,7 @@
   :root:not([data-theme="light"]){
     --bg:#0D1411; --surface:#141D19; --tile:#1B2621; --ink:#E3ECE6; --muted:#94A79D; --hair:#2A3A32;
     --board:#0F3226; --board-2:#14402F; --road:#D8AE2C;
+    --mland:#2A3037; --mpark:#2D4034; --mforest:#2F4D38; --mforest2:#3A5E44; --mwater:#1D3D5C; --mwater2:#2B5578; --mroad:#4B545E; --mroadc:#1C2127; --mink:#E8EAED; --msub:#AEB4BA; --mhalo:#1E2328; --mwink:#7FA9D1; --marrow:#FDD663; --mborder:#6F767D; --mtoll:#B8954A; --mtollc:#6E5523; --mdelta:#2E5A3B;
     --land:#1A4430; --land-2:#205038; --forest:#0D2E1C; --forest-2:#1D5232; --sea:#17496A; --sea-2:#3F7FA6; --shore:#8DAA88; --road-c:#4A360C;
     --sign:#0A7A51; --on-sign:#FFFFFF; --warn:#E9B10C; --warn-ink:#1B1600; --brown:#8A5630;
     --uband:#243129; --danger:#D9473C; --on-danger:#FFFFFF;
@@ -29,6 +31,7 @@
 :root[data-theme="dark"]{
   --bg:#0D1411; --surface:#141D19; --tile:#1B2621; --ink:#E3ECE6; --muted:#94A79D; --hair:#2A3A32;
   --board:#0F3226; --board-2:#14402F; --road:#D8AE2C;
+  --mland:#2A3037; --mpark:#2D4034; --mforest:#2F4D38; --mforest2:#3A5E44; --mwater:#1D3D5C; --mwater2:#2B5578; --mroad:#4B545E; --mroadc:#1C2127; --mink:#E8EAED; --msub:#AEB4BA; --mhalo:#1E2328; --mwink:#7FA9D1; --marrow:#FDD663; --mborder:#6F767D; --mtoll:#B8954A; --mtollc:#6E5523; --mdelta:#2E5A3B;
   --land:#1A4430; --land-2:#205038; --forest:#0D2E1C; --forest-2:#1D5232; --sea:#17496A; --sea-2:#3F7FA6; --shore:#8DAA88; --road-c:#4A360C;
   --sign:#0A7A51; --on-sign:#FFFFFF; --warn:#E9B10C; --warn-ink:#1B1600; --brown:#8A5630;
   --uband:#243129; --danger:#D9473C; --on-danger:#FFFFFF;
@@ -99,10 +102,10 @@ button{font:inherit}
 .corner.mort::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 .8cqw,rgba(0,0,0,.28) .8cqw 1.3cqw)}
 
 .ttl{position:absolute;transform:translate(-50%,-50%);width:28cqw;display:flex;flex-direction:column;align-items:flex-start;gap:.5cqw;text-align:left;z-index:1;pointer-events:none}
-.ttl .eb{font:700 clamp(7px,1.45cqw,14px)/1.1 var(--font-display);color:var(--road)}
-.ttl h1{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:.35cqw;color:#fff;text-transform:uppercase;text-shadow:0 .2cqw .6cqw rgba(0,0,0,.35)}
-.ttl p{margin:0;font:600 clamp(6px,1.25cqw,12px)/1.25 var(--font-body);color:#E6F0EA;text-shadow:0 1px 2px rgba(0,0,0,.4)}
-.ttl p b{color:var(--road);font-weight:800}
+.ttl .eb{font:700 clamp(7px,1.45cqw,14px)/1.1 var(--font-display);color:var(--sign)}
+.ttl h1{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:.35cqw;color:var(--mink);text-transform:uppercase;text-shadow:0 0 .4cqw var(--mhalo),0 0 .4cqw var(--mhalo)}
+.ttl p{margin:0;font:600 clamp(6px,1.25cqw,12px)/1.25 var(--font-body);color:var(--msub);text-shadow:0 0 .3cqw var(--mhalo),0 0 .3cqw var(--mhalo)}
+.ttl p b{color:var(--mink);font-weight:800}
 .ttl .enews{margin-top:.3cqw}
 .ttl .lmore{pointer-events:auto;appearance:none;border:0;cursor:pointer;background:var(--road);color:#1B1600;font:900 clamp(8px,1.2cqw,12px)/1 var(--font-display);border-radius:99px;padding:.15cqw .7cqw .35cqw;margin-left:.3cqw;vertical-align:middle;min-width:20px;min-height:14px}
 .ttl .lmore:hover{filter:brightness(1.1)}
@@ -313,17 +316,46 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
 }
 @media (max-width:340px){ .hera{display:none} }
 .ml{font-family:'Overpass',system-ui,sans-serif;font-weight:800;letter-spacing:.08em}
-.ml.sea{fill:#DDF0FA;opacity:.85;font-style:italic;font-weight:700;letter-spacing:.04em}
-.ml.land{fill:#E6F2D9;opacity:.9}
+.ml.sea{fill:var(--mwink);font-style:italic;font-weight:700;letter-spacing:.04em}
+.ml.land{fill:var(--msub)}
+.ml.forest{fill:#2E7D32;paint-order:stroke;stroke:var(--mhalo);stroke-width:.25}
+.zp{fill:none;stroke:none;visibility:hidden}
+#devs .dbg{fill:#FFFFFF;stroke:#9AA0A6;stroke-width:.6}
+#devs .dev.il .dbg{fill:#FFE4D6;stroke:#E8710A;stroke-width:.9}
+#devs .dev.off{opacity:.4}
+#devs .pplbl{fill:var(--mink);paint-order:stroke;stroke:var(--mhalo);stroke-width:.3;font-family:'Overpass',system-ui,sans-serif}
+#devs .pport{filter:drop-shadow(0 .15px .3px rgba(0,0,0,.4))}
+#devs .dev{filter:drop-shadow(0 .15px .25px rgba(0,0,0,.35))}
 .dp.popin{animation:popin .34s cubic-bezier(.2,.9,.3,1.12)}
 @keyframes popin{from{opacity:0;transform:perspective(900px) rotateX(16deg) translateY(28px) scale(.9)}to{opacity:1;transform:none}}
 #dpop:not([hidden]){animation:fadein .2s ease-out}
 @keyframes fadein{from{background:rgba(5,15,11,0)}}
 #fx{position:absolute;inset:0;pointer-events:none;z-index:4}
-/* properti: kepala petak putih, berwarna pemilik setelah dibeli */
-.tile.k-prop .band{background:var(--oc,#FFFFFF);border-bottom:1px solid rgba(0,0,0,.14)}
+/* properti: wilayah di peta + titik kecil dan nama */
+.stage svg.base *{pointer-events:none}
+.stage svg.base{background:var(--mland)}
+#regions .reg path{pointer-events:all;cursor:pointer;fill:#000;fill-opacity:0;transition:fill-opacity .2s}
+#regions .reg:hover path{fill-opacity:.05}
+#regions .reg.sel path{fill-opacity:.08}
+#rowners .rbo{display:none}
+#rowners .rbo.owned{display:inline}
+#rowners .rbo.mort{opacity:.45}
+#rowners .rbo.blk{filter:brightness(.5)}
+.rbd{fill:none;stroke:var(--mborder);stroke-width:.15;stroke-dasharray:.9 .55;stroke-linecap:round}
+.tile.k-prop{width:2.9cqw;height:2.9cqw;min-width:11px;min-height:11px;border-radius:50%;overflow:visible;background:var(--oc,#FFFFFF);border:.42cqw solid var(--mink);box-shadow:0 .2cqw .5cqw rgba(0,0,0,.5);display:block;z-index:2}
 .tile.k-prop .own{display:none}
-.tile.k-prop .band .pip{box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.tile.k-prop .band{position:absolute;bottom:calc(100% + .35cqw);left:50%;transform:translateX(-50%);background:none!important;border:0;height:auto;flex:none;display:flex;gap:.25cqw;white-space:nowrap}
+.tile.k-prop .band .pip{box-shadow:0 0 0 1px rgba(0,0,0,.55)}
+.tile.k-prop .body{position:absolute;top:calc(100% + .2cqw);left:50%;transform:translateX(-50%);background:none!important;width:max-content;padding:0;gap:.12cqw}
+.tile.k-prop .nm{color:var(--mink);font-size:clamp(6px,1.28cqw,13px);text-shadow:0 0 .2cqw var(--mhalo),0 0 .2cqw var(--mhalo),0 0 .4cqw var(--mhalo),0 0 .4cqw var(--mhalo)}
+.tile.k-prop .pr{color:var(--msub);text-shadow:0 0 .2cqw var(--mhalo),0 0 .2cqw var(--mhalo),0 0 .4cqw var(--mhalo)}
+.tile.k-prop .pr.up{color:#188038}.tile.k-prop .pr.dn{color:#C5221F}
+.tile.k-prop:hover{box-shadow:0 0 0 .35cqw rgba(255,255,255,.55),0 .2cqw .5cqw rgba(0,0,0,.5)}
+.tile.k-prop.here{outline:none;box-shadow:0 0 0 .5cqw var(--hl),0 .2cqw .5cqw rgba(0,0,0,.5)}
+.tile.k-prop.sel{box-shadow:0 0 0 .45cqw var(--warn),0 .2cqw .5cqw rgba(0,0,0,.5)}
+.tile.k-prop.mort::after,.tile.k-prop.blk::before{border-radius:50%}
+.tile.k-prop.mort .body{opacity:.6}
+@container (max-width:470px){ .tile.k-prop .nm .ab{font-size:1.75cqw} }
 /* utilitas & cari wangsit: ikon bundar + nama jenis */
 :is(.tile.k-util,.tile.k-wangsit){width:9.6cqw;height:7.6cqw;background:transparent;box-shadow:none;overflow:visible;align-items:center;justify-content:center;gap:.3cqw;border-radius:0}
 :is(.tile.k-util,.tile.k-wangsit) .band{order:0;flex:none;width:5.4cqw;height:5.4cqw;min-width:20px;min-height:20px;border-radius:50%;background:var(--tile);color:var(--ink);border:.55cqw solid var(--oc,#B9C4BD);box-shadow:0 .3cqw .7cqw rgba(0,0,0,.45);position:relative;display:grid;place-items:center;transition:transform .15s}
@@ -610,6 +642,11 @@ table.rt{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
       <li>Usaha ilegal (kebun sawit dan tambang batu bara dengan bakar hutan, pos bensin dan LPG eceran) lebih murah dan lebih untung, tetapi bisa terkena razia Cari Wangsit: masuk penjara dan usahanya disita negara.</li>
       <li>Utilitas (bandara, pelabuhan, pembangkit listrik, SPBU/SPBE, kilang) tidak memungut sewa. Pemiliknya menerima profit bulanan, dan peningkatan utilitas melipatgandakan profit itu.</li>
     </ul>
+    <h3>Pelabuhan tambahan</h3>
+    <ul class="rules">
+      <li>Pemilik yang sudah membangun hotel bisa membangun pelabuhan di propertinya: Pelabuhan Handil II di Muara Jawa/Handil, Pelabuhan Yos Sudarso di Kota Samarinda, dan Pelabuhan Semayang di Kota Balikpapan. Biaya IDR 3.500k, profit +700k tiap lewat Mulai.</li>
+      <li>Jika Pelabuhan Semayang dibangun, kapal penumpang besar singgah di Semayang, bukan lagi di Kariangau.</li>
+    </ul>
     <h3>Lapor polisi</h3>
     <ul class="rules">
       <li>Tekan ikon sirene di bagian atas untuk melaporkan lawan atas dugaan lahan sawit ilegal, tambang ilegal, penimbunan BBM (pos bensin eceran), atau penimbunan LPG bersubsidi (pos LPG eceran). Satu laporan per giliran, sebelum melempar dadu atau sebelum mengakhiri giliran.</li>
@@ -852,14 +889,15 @@ const GEO=(()=>{
   const P={
     'Bandara SAMS Sepinggan':[82,95],'Mulai':[77,104.4],'Kilang Migas Balikpapan':[66.5,104],'Kota Balikpapan':[53,101],'PLTU Teluk Balikpapan':[56,89],'Pelabuhan Kariangau':[46.4,82.4],
     'W:Teluk Balikpapan':[39,90.4],'Pelabuhan Penajam':[30.6,97.8],'Penajam':[21,105],'Petung':[8.6,107],'SPBE Babulu':[7,97.5],'SPBU Sotek':[9,89.5],'Riko':[20,84.4],
-    'Jembatan Pulau Balang':[37.5,75],'Bandara VVIP IKN':[25.5,71],'Maridan':[13,75],'Pemaluan':[6,67],'SPBU Simpang HTI':[6,59.6],'PLTS IKN':[6,52],
+    'Jembatan Pulau Balang':[37.5,75],'Bandara VVIP IKN':[25.5,71],'Maridan':[13,75],'Pemaluan':[6,67],'SPBU Simpang HTI':[6,60.4],'PLTS IKN':[6,50.4],
     'Ibu Kota Nusantara':[14,40],'Bumi Harapan':[29,43],'SPBU Bukit Raya':[23,52],'Sukaraja':[20,60],'Semoi':[33,59.5],'Mentawir':[41,67],
     'W:Hutan Bukit Bangkirai':[47,58.6],'Simpang Samboja':[50,50],'SPBU KM 38':[56.5,42],'Loa Janan':[43,40.4],'Samarinda Seberang':[43,31.6],
     'W:Jembatan Mahakam IV':[43,21],'PLTU Embalut':[37,8.5],'Kota Samarinda':[56,10.5],'Bandara APT Pranoto':[74,7],'W:Jembatan Mahkota 2':[70,19.6],'Palaran':[64.5,30.6],'Sanga-Sanga':[76.8,34.4],
     'PLTU Muara Jawa':[87.5,40.2],'W:Jembatan Dondang':[85.6,48],'Muara Jawa/Handil':[86.5,57],'SPBU Muara Jawa':[83,64.6],'Teluk Dalam':[85.5,72],'PLTGU Senipah':[82.5,79.4],'Kuala Samboja':[80.5,86.6]
   };
   const g=T.map(t=>{ const p=P[t.t==='wangsit'?'W:'+t.loc:t.n]; if(!p)throw new Error('Posisi peta tidak ada: '+t.n); return {x:p[0],y:p[1],corner:t.g===9}; });
-  return {TW,TH,R,H,g,ttl:[15,11],deck:[69,48],jail:[68,61],dice:[68.5,73]};
+  const extra=[['Kota Balikpapan',69,93.5],['Kota Balikpapan',62,82]];
+  return {TW,TH,R,H,g,extra,ttl:[15,11],deck:[69,48],jail:[68,61],dice:[68.5,73]};
 })();
 
 /* ================= Helpers ================= */
@@ -899,8 +937,28 @@ const setMsg=t=>{S.msg=t;};
 const gain=(j,amt)=>{P(j).cash+=amt;};
 function pay(from,to,amt){ if(amt<=0)return; const p=P(from); p.cash-=amt; if(to>=0)P(to).cash+=amt; if(p.cash<0)p.debtTo=to; }
 
-const hasBiz=i=>hasPos(i)||!!(S.biz?.[i]&&Object.keys(S.biz[i]).length);
-const bizVal=i=>{ let v=posVal(i); const b=S.biz?.[i]||{}; for(const k in b)v+=BIZ[k][b[k]].c; return v; };
+/* pelabuhan tambahan milik properti (syarat: hotel di properti itu) */
+const PORT={c:3500,p:700};
+const PORTX={
+  'Muara Jawa/Handil':{n:'Pelabuhan Handil II',x:93.1,y:57.8,rd:'M86.5 57.6 C 89 57.2, 90.6 58.2, 92 57.9'},
+  'Kota Samarinda':{n:'Pelabuhan Yos Sudarso',x:56.8,y:21.1,rd:'M56.3 18.8 L56.6 20'},
+  'Kota Balikpapan':{n:'Pelabuhan Semayang',x:46,y:91,rd:'M48.3 94.2 C 47.6 93.2, 47.2 92.4, 46.9 91.8'}
+};
+const portOf=i=>PORTX[T[i]?.n];
+const hasPort=i=>!!S.port?.[i];
+function portWhy(i){
+  const px=portOf(i); if(!px)return 'x';
+  if(hasPort(i))return 'x';
+  if(S.own[i]!==S.turn)return 'x';
+  if(S.mort[i])return 'Tebus dulu petak ini.';
+  if((S.houses[i]||0)<5)return `Bangun hotel dulu di ${T[i].n} untuk membuka ${px.n}.`;
+  if(cur().cash<PORT.c)return 'Uang tunai tidak cukup.';
+  return '';
+}
+function portBuild(i){ if(!manageable(i)||portWhy(i))return; pay(S.turn,-1,PORT.c); (S.port??={})[i]=1; log(`${cur().name} membangun ${portOf(i).n} di ${T[i].n} (${fmt(PORT.c)}).`); render(); }
+function portSell(i){ if(!manageable(i)||!hasPort(i))return; delete S.port[i]; gain(S.turn,PORT.c/2); log(`${cur().name} menutup ${portOf(i).n} (+${fmt(PORT.c/2)}).`); render(); }
+const hasBiz=i=>hasPos(i)||hasPort(i)||!!(S.biz?.[i]&&Object.keys(S.biz[i]).length);
+const bizVal=i=>{ let v=posVal(i)+(S.port?.[i]?PORT.c:0); const b=S.biz?.[i]||{}; for(const k in b)v+=BIZ[k][b[k]].c; return v; };
 const UTP={air:300,port:250,power:250,solar:200,fuel:200,refinery:450}, FARE=400;
 const tileVal=i=>{ const t=T[i]; return t.p+(t.g?(S.houses[i]||0)*GRP[t.g].h:0)+upPaid(i)+bizVal(i); };
 const offRange=i=>{ const mn=T[i].p, v=Math.round(tileVal(i)/100)*100; return [mn,Math.max(v,Math.round(mn*1.5/100)*100)]; };
@@ -920,6 +978,7 @@ function tileProfit(i){
   if(S.eb[i]!=null&&!posOff(i,'b'))il+=ECER_P.b;
   if(S.el[i]!=null&&!posOff(i,'l'))il+=ECER_P.l;
   if(T[i].t==='util')lg+=utilProfit(i);
+  if(S.port?.[i])lg+=PORT.p;
   const h=S.houses[i]||0; if(T[i].t==='prop'&&i!==IKN&&h>=3){ let v=BLD_P[h]; if(blackout(i)!=null)v=Math.ceil(v/2); lg+=v; }
   return {lg,il};
 }
@@ -943,7 +1002,7 @@ function maxRaise(j){
 /* ================= Rules ================= */
 function newGame(names,bots=[]){
   S={v:8,players:names.map((n,i)=>({name:n,color:PCOL[i],bot:bots[i]||null,cash:START,pos:MULAI,out:false,debtTo:-1,jail:false,jt:0})),
-    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},burn:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
+    turn:0,round:1,phase:'roll',dice:[3,4],doubles:0,again:false,own:{},houses:{},mort:{},up:{},eb:{},el:{},biz:{},port:{},burn:{},loans:{},auc:null,offerUsed:false,dl:{},deal:null,dealTried:[],blk:{},cutB:{},cutL:{},flyOff:false,
     deck:shuffle([...CARDS.keys()]),pending:null,mod:null,here:null,
     month:STEPM[0],step:0,repUsed:false,police:null,msg:`Giliran ${names[0]}. Lempar dadu untuk mulai.`,log:[],winner:null};
   S.players.forEach(q=>q.laps=0); applyPrices();
@@ -962,7 +1021,7 @@ function tickMortgages(j){
     if(!S.mort[k])continue;
     S.mort[k]--;
     if(S.mort[k]<=0){
-      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');
+      delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; if(S.port)delete S.port[k]; dropDeal(k,'b'); dropDeal(k,'l');
       log(`${P(j).name} tidak menebus ${T[k].n} tepat waktu. Bank menyita petak ini dan menjualnya lagi.`);
     } else log(`Sisa waktu tebus ${T[k].n}: ${S.mort[k]} kali lagi melewati Mulai.`);
   }
@@ -1466,7 +1525,7 @@ function autoRaise(j){
   }
   while(p.cash<0){
     const k=ownedBy(j).find(hasBiz); if(k==null)break;
-    p.cash+=bizVal(k)/2; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');
+    p.cash+=bizVal(k)/2; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; if(S.port)delete S.port[k]; dropDeal(k,'b'); dropDeal(k,'l');
   }
   while(p.cash<0){
     const u=ownedBy(j).filter(k=>S.up[k]); if(u.length){ p.cash+=upPaid(u[0])/2; delete S.up[u[0]]; continue; }
@@ -1490,7 +1549,7 @@ function bankrupt(){
     const cr=P(c); cr.cash+=Math.max(0,p.cash); props.forEach(k=>S.own[k]=c);
     log(`${p.name} bangkrut. Properti dan sisa hartanya diserahkan ke ${cr.name}.`);
   } else {
-    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; dropDeal(k,'b'); dropDeal(k,'l');});
+    props.forEach(k=>{delete S.own[k]; delete S.mort[k]; delete S.up[k]; delete S.eb[k]; delete S.el[k]; delete S.biz[k]; if(S.port)delete S.port[k]; dropDeal(k,'b'); dropDeal(k,'l');});
     log(`${p.name} bangkrut. Semua propertinya kembali ke bank.`);
   }
   if(S.loans)delete S.loans[me];
@@ -1543,69 +1602,241 @@ const MAP={
   river:[[-2,5],[7,10.5],[15,16.5],[24,20],[34,21.5],[44,22],[54,23.2],[63,23],[72,21.6],[81,22.4],[88,25],[94,27]],
   delta:[[[86,24.2],[90,22],[95,21.4]],[[88,25.6],[91,29.6],[95.6,32.6]],[[84.6,23.6],[88.4,29],[90.6,34.6],[94.8,38]]],
   dondang:[[73.6,55.4],[78,52.4],[82,49.6],[86,48.6],[90,48],[94.4,47.6]],
-  sepaku:[[2,44],[10,53],[17,62],[25,67],[32,68],[39,71]],
+  sepaku:[[-1,56.2],[5,56],[11,57.2],[15.6,61.4],[19.6,65.2],[25,66.6],[31,67.2],[35.6,69],[39.4,71.2]],
+  baymid:[[38.6,74],[37.6,79],[38.4,85],[39.6,91],[39.6,98],[39.4,104],[38.8,109],[38.6,118]],
+  deltaZ:[[82,22.6],[83.6,18],[88,15.4],[93.4,14.2],[92.6,21],[95.5,26],[96.2,33],[95.6,39.6],[93.4,41.6],[90.4,37.2],[88,31.6],[85,27.2],[82,24.6]],
   forest:[49,58.6,8.6,5.4]
 };
+/* ---------- wilayah properti (Voronoi dari titik properti + titik utilitas di dalamnya) ---------- */
+const REGION_OF={'Bandara SAMS Sepinggan':'Kota Balikpapan','Mulai':'Kota Balikpapan','Kilang Migas Balikpapan':'Kota Balikpapan','PLTU Teluk Balikpapan':'Kota Balikpapan','Pelabuhan Kariangau':'Kota Balikpapan',
+  'Pelabuhan Penajam':'Penajam','SPBE Babulu':'Petung','SPBU Sotek':'Riko','Bandara VVIP IKN':'Riko','SPBU Simpang HTI':'Pemaluan','PLTS IKN':'Ibu Kota Nusantara','SPBU Bukit Raya':'Sukaraja',
+  'W:Hutan Bukit Bangkirai':'Mentawir','SPBU KM 38':'Simpang Samboja','PLTU Embalut':'Kota Samarinda','Bandara APT Pranoto':'Kota Samarinda','PLTU Muara Jawa':'Sanga-Sanga','SPBU Muara Jawa':'Muara Jawa/Handil','PLTGU Senipah':'Kuala Samboja'};
+const tkey=i=>T[i].t==='wangsit'?'W:'+T[i].loc:T[i].n;
+const regionOf=i=>T[i].g?i:(REGION_OF[tkey(i)]?IX(REGION_OF[tkey(i)]):null);
+function voronoiCells(pts,W,H){
+  return pts.map((a,i)=>{
+    let poly=[[0,0,-1],[W,0,-1],[W,H,-1],[0,H,-1]]; // [x,y,label edge keluar]
+    pts.forEach((b,j)=>{ if(j===i||!poly.length)return;
+      const nx=b[0]-a[0], ny=b[1]-a[1], c=(nx*(a[0]+b[0])+ny*(a[1]+b[1]))/2, side=p=>nx*p[0]+ny*p[1]-c;
+      const out=[];
+      for(let k=0;k<poly.length;k++){ const A=poly[k], B=poly[(k+1)%poly.length], sa=side(A), sb=side(B);
+        const X=()=>{ const t=sa/(sa-sb); return [A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t]; };
+        if(sa<=0&&sb<=0) out.push([B[0],B[1],null,A[2]]);
+        else if(sa<=0&&sb>0){ const I=X(); out.push([I[0],I[1],null,A[2]]); }
+        else if(sa>0&&sb<=0){ const I=X(); out.push([I[0],I[1],null,j]); out.push([B[0],B[1],null,A[2]]); }
+      }
+      poly=out.map((p,k)=>[p[0],p[1],out[(k+1)%out.length][3]]);
+    });
+    return poly;
+  });
+}
+const RZ_N=['Kota Samarinda'], RZ_SW=['Penajam','Petung','Riko','Maridan','Pemaluan'];
+const zoneName=r=>RZ_N.includes(T[r].n)?'N':RZ_SW.includes(T[r].n)?'SW':'S';
+function zonePaths(){
+  const H=GEO.H, rv=MAP.river, N=smooth(rv)+` L106 ${rv.at(-1)[1]} L106 -4 L-4 -4 L-4 ${rv[0][1]} Z`;
+  const SW=smooth(MAP.sepaku)+' L'+MAP.baymid.map(p=>p.join(' ')).join(' L')+` L-4 ${H+6} L-4 ${MAP.sepaku[0][1]} Z`;
+  return {N,SW,S:`M-4 -4 H106 V${H+6} H-4Z ${N} ${SW}`};
+}
+const REG={};
+function regionsSVG(){
+  const Z=zonePaths(), zs={N:[],SW:[],S:[]};
+  T.forEach((t,i)=>{ const r=regionOf(i); if(r==null)return; zs[zoneName(r)].push({x:GEO.g[i].x,y:GEO.g[i].y,r}); });
+  (GEO.extra||[]).forEach(([n,x,y])=>{ const r=IX(n); zs[zoneName(r)].push({x,y,r}); });
+  REG.zones=zs; REG.cells={}; const outl={};
+  let fills='', dash='';
+  for(const z of ['N','SW','S']){
+    const sd=zs[z], cells=voronoiCells(sd.map(p=>[p.x,p.y]),100,GEO.H), by={}; let bd='';
+    cells.forEach((c,k)=>{ if(c.length<3)return; const r=sd[k].r, d='M'+c.map(p=>p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' L')+'Z'; (by[r]??=[]).push(d);
+      c.forEach((p,m)=>{ const j=p[2]; if(j==null||j<0||sd[j].r===r)return; const q=c[(m+1)%c.length], seg=`M${p[0].toFixed(2)} ${p[1].toFixed(2)} L${q[0].toFixed(2)} ${q[1].toFixed(2)} `;
+        outl[r]=(outl[r]||'')+seg; if(j>k)bd+=seg; }); });
+    for(const r in by)REG.cells[r]=by[r].join(' ');
+    fills+=`<g clip-path="url(#cz${z})">${Object.entries(by).map(([r,ds])=>`<g class="reg" data-r="${r}"><path d="${ds.join(' ')}"/></g>`).join('')}<path class="rbd" d="${bd}"/></g>`;
+  }
+  const coast=`${smooth(MAP.sea)} ${smooth(MAP.bayE)} ${smooth(MAP.bayW)}`;
+  const wide=(d,w)=>`<path d="${d}" stroke-width="${w}"/>`;
+  const BW=.62, rivers=wide(smooth(MAP.river),3.4+BW)+MAP.delta.map(d=>wide(smooth(d),1.5+BW)).join('')+wide(smooth(MAP.dondang),1.3+BW)+wide(smooth(MAP.sepaku),1.3+BW);
+  const defs=`<clipPath id="czN"><path d="${Z.N}"/></clipPath><clipPath id="czSW"><path d="${Z.SW}"/></clipPath><clipPath id="czS"><path d="${Z.S}" clip-rule="evenodd"/></clipPath>`
+    +Object.keys(REG.cells).map(r=>`<clipPath id="cr${r}"><path d="${REG.cells[r]}"/></clipPath>`).join('');
+  const owners=Object.keys(REG.cells).map(r=>`<g class="rbo" data-r="${r}" clip-path="url(#cz${zoneName(+r)})"><g clip-path="url(#cr${r})"><g mask="url(#landM)" fill="none" stroke="var(--rc)" stroke-linejoin="round" stroke-dasharray="1.2 .6">${wide(outl[r]||'',BW)}</g></g></g>`).join('');
+  const zhide=`<path id="zpN" d="${Z.N}" class="zp"/><path id="zpSW" d="${Z.SW}" class="zp"/>`;
+  return {defs, fills:`<g id="regions">${fills}</g>`, owners:`<g id="rowners">${owners}</g>`, zhide};
+}
+/* wilayah pada titik (x,y): zona dulu (dibatasi sungai), lalu titik properti terdekat di zona itu */
+function regionAt(x,y){
+  const pt=new DOMPoint(x,y), zN=document.getElementById('zpN'), zSW=document.getElementById('zpSW');
+  if(document.getElementById('wDelta')?.isPointInFill(pt))return null;
+  const z=zN&&zN.isPointInFill(pt)?'N':zSW&&zSW.isPointInFill(pt)?'SW':'S';
+  let best=null,bd=1e9; for(const p of REG.zones[z]){ const d=(p.x-x)**2+(p.y-y)**2; if(d<bd){ bd=d; best=p.r; } } return best;
+}
+function onLand(x,y){
+  const pt=new DOMPoint(x,y);
+  for(const id of ['wSea','wBay'])if(document.getElementById(id)?.isPointInFill(pt))return false;
+  for(const el of document.querySelectorAll('.wriv'))if(el.isPointInStroke(pt))return false;
+  return x>.8&&x<99.2&&y>.8&&y<GEO.H-.8;
+}
+/* ---------- jalan: lengkung alami, abu-abu muda dengan garis tepi ---------- */
+const BRIDGE_W=[30.9,74.5], BRIDGE_E=[44.2,74.5];
+function roadPath(i){
+  const c=k=>{ k=(k+N)%N; if(k===BRIDGE)return BRIDGE_W; const g=GEO.g[k]; return [g.x,g.y]; };
+  const p0=c(i-1),a=c(i),b=c(i+1),p3=c(i+2), L=Math.hypot(b[0]-a[0],b[1]-a[1]);
+  const h=((i*73+11)%9)/4-1, nx=-(b[1]-a[1])/L, ny=(b[0]-a[0])/L, off=h*Math.min(1.6,L*.07);
+  const m=[(a[0]+b[0])/2+nx*off,(a[1]+b[1])/2+ny*off];
+  const f=v=>v.toFixed(2), cp=(p,q,r,t)=>[p[0]+(r[0]-q[0])/t,p[1]+(r[1]-q[1])/t];
+  const c1=cp(a,p0,m,6), c2=cp(m,a,b,-6), c3=cp(m,a,b,6), c4=cp(b,m,p3,-6);
+  return `M${f(a[0])} ${f(a[1])} C${f(c1[0])} ${f(c1[1])},${f(c2[0])} ${f(c2[1])},${f(m[0])} ${f(m[1])} C${f(c3[0])} ${f(c3[1])},${f(c4[0])} ${f(c4[1])},${f(b[0])} ${f(b[1])}`;
+}
 function treesSVG(){
   const [cx,cy,rx,ry]=MAP.forest; let h='', s=7;
   const r=()=>{ s=(s*9301+49297)%233280; return s/233280; };
   for(let k=0;k<70;k++){ const a=r()*Math.PI*2, d=Math.sqrt(r()), x=cx+Math.cos(a)*rx*d, y=cy+Math.sin(a)*ry*d, z=.9+r()*.7;
-    h+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${z.toFixed(2)}" fill="var(--forest)"/><circle cx="${(x-z*.3).toFixed(2)}" cy="${(y-z*.3).toFixed(2)}" r="${(z*.45).toFixed(2)}" fill="var(--forest-2)"/>`; }
+    h+=`<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${z.toFixed(2)}" fill="var(--mforest2)" opacity=".75"/>`; }
   return h;
 }
 function mapSVG(){
   const H=GEO.H, c=i=>[GEO.g[i].x,GEO.g[i].y];
   const W2=IX('Cari Wangsit'), ferry=[IX('Pelabuhan Kariangau'),T.findIndex(t=>t.loc==='Teluk Balikpapan'),IX('Pelabuhan Penajam')];
-  let roads='', ferryL='';
+  let roads='', ferryL='', rcore='';
   for(let i=0;i<N;i++){ const j=(i+1)%N, a=c(i), b=c(j);
     const fr=ferry.includes(i)&&ferry.includes(j);
     if(fr)ferryL+=`M${a[0]} ${a[1]} L${b[0]} ${b[1]} `;
-    else roads+=`M${a[0]} ${a[1]} L${b[0]} ${b[1]} `; }
+    else{ const d=roadPath(i); roads+=d+' '; rcore+=`<path id="rd${i}" d="${d}"/>`; } }
+  const RG=regionsSVG();
   const sea=smooth(MAP.sea)+` L104 ${H+2} L104 -2 Z`;
   const bay=smooth(MAP.bayE)+' L'+MAP.bayW.map(p=>p.join(' ')).join(' L')+' Z';
   const bayD=smooth([...MAP.bayE,...MAP.bayW]);
   const bridges=[['W:Jembatan Mahakam IV',[[43,18.6],[43,26]]],['W:Jembatan Mahkota 2',[[70,17.8],[70.2,25.4]]],['W:Jembatan Dondang',[[85.6,44.4],[85.6,51.6]]]];
   const br=bridges.map(([n,[a,b]])=>`<path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width="2.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#56606A" stroke-width="1.6"/><path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]}" stroke="#E9EEF0" stroke-width=".25" stroke-dasharray="1 .7"/>`).join('');
   const [bx,by]=c(BRIDGE), [px,py]=c(BPP), [ix,iy]=c(IKN), R=GEO.R;
-  const arrow=(d,tx,ty,ang)=>`<path d="${d}" fill="none" stroke="var(--road)" stroke-width=".55" stroke-dasharray="1.6 1.1" stroke-linecap="round"/><polygon points="0,0 -2,-1.1 -2,1.1" transform="translate(${tx} ${ty}) rotate(${ang})" fill="var(--road)"/>`;
+  const arrow=(d,tx,ty,ang)=>`<path d="${d}" fill="none" stroke="var(--mtollc)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="var(--mtoll)" stroke-width=".85" stroke-linecap="round" stroke-linejoin="round"/><polygon points=".4,0 -1.8,-1.2 -1.8,1.2" transform="translate(${tx} ${ty}) rotate(${ang})" fill="var(--mtollc)"/>`;
   const lbl=(x,y,t,cls,rot=0,sz=1.5)=>`<text class="ml ${cls}" x="${x}" y="${y}" font-size="${sz}" text-anchor="middle" dominant-baseline="middle"${rot?` transform="rotate(${rot} ${x} ${y})"`:''}>${t}</text>`;
   return `<svg class="base" viewBox="0 0 100 ${H}" preserveAspectRatio="none" aria-hidden="true">
     <defs>
-      <pattern id="wv" width="6" height="3" patternUnits="userSpaceOnUse"><path d="M0 1.5 q1.5 -1 3 0 t3 0" fill="none" stroke="var(--sea-2)" stroke-width=".22"/></pattern>
-      <clipPath id="landClip"><rect x="0" y="0" width="100" height="${H}"/></clipPath>
+      <pattern id="wv" width="6" height="3" patternUnits="userSpaceOnUse"><path d="M0 1.5 q1.5 -1 3 0 t3 0" fill="none" stroke="var(--mwater2)" stroke-width=".18"/></pattern>
+      <mask id="noDelta" maskUnits="userSpaceOnUse" x="-5" y="-5" width="110" height="${H+10}"><rect x="-5" y="-5" width="110" height="${H+10}" fill="#fff"/><path d="${smooth(MAP.deltaZ)}Z" fill="#000"/></mask>
+      <mask id="landM" maskUnits="userSpaceOnUse" x="-5" y="-5" width="110" height="${H+10}"><rect x="-5" y="-5" width="110" height="${H+10}" fill="#fff"/><path d="${sea}" fill="#000"/><path d="${bay}" fill="#000"/><path d="${smooth(MAP.deltaZ)}Z" fill="#000"/>
+        <g fill="none" stroke="#000" stroke-linecap="round"><path d="${smooth(MAP.river)}" stroke-width="3.4"/>${MAP.delta.map(d=>`<path d="${smooth(d)}" stroke-width="1.5"/>`).join('')}<path d="${smooth(MAP.dondang)}" stroke-width="1.3"/><path d="${smooth(MAP.sepaku)}" stroke-width="1.3"/></g></mask>
+      ${RG.defs}
     </defs>
-    <rect x="0" y="0" width="100" height="${H}" fill="var(--land)"/>
-    <g opacity=".5">${[[12,26,9,5],[66,76,7,5],[28,58,7,5],[74,40,6,5],[60,30,6,3],[10,88,7,5]].map(([x,y,a,b])=>`<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}" fill="var(--land-2)"/>`).join('')}</g>
-    <path d="${smooth(MAP.sepaku)}" fill="none" stroke="var(--sea)" stroke-width=".9" stroke-linecap="round"/>
-    <path d="${sea}" fill="var(--sea)"/><path d="${sea}" fill="url(#wv)"/>
-    <path d="${smooth(MAP.sea)}" fill="none" stroke="var(--shore)" stroke-width=".5"/>
-    <path d="${bay}" fill="var(--sea)"/><path d="${bay}" fill="url(#wv)"/>
-    <path d="${smooth(MAP.bayE)}" fill="none" stroke="var(--shore)" stroke-width=".4"/><path d="${smooth(MAP.bayW)}" fill="none" stroke="var(--shore)" stroke-width=".4"/>
-    <ellipse cx="39.4" cy="77.4" rx="1.4" ry=".8" fill="var(--land)"/>
-    <path d="${smooth(MAP.river)}" fill="none" stroke="var(--sea)" stroke-width="3.4" stroke-linecap="round"/>
-    ${MAP.delta.map(d=>`<path d="${smooth(d)}" fill="none" stroke="var(--sea)" stroke-width="1.5" stroke-linecap="round"/>`).join('')}
-    <path d="${smooth(MAP.river)}" fill="none" stroke="var(--sea-2)" stroke-width=".25" stroke-dasharray="2 2.4"/>
-    <path d="${smooth(MAP.dondang)}" fill="none" stroke="var(--sea)" stroke-width="1.3" stroke-linecap="round"/>
+    <rect x="0" y="0" width="100" height="${H}" fill="var(--mland)"/>
+    <g>${[[12,26,9,5],[66,76,7,5],[28,58,7,5],[74,40,6,5],[60,30,6,3],[10,88,7,5]].map(([x,y,a,b])=>`<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}" fill="var(--mpark)"/>`).join('')}</g>
+    <ellipse cx="${MAP.forest[0]}" cy="${MAP.forest[1]}" rx="${MAP.forest[2]+1.2}" ry="${MAP.forest[3]+1}" fill="var(--mforest)"/>
     <g>${treesSVG()}</g>
-    <path d="${roads}" fill="none" stroke="var(--road-c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="${roads}" fill="none" stroke="var(--road)" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="${roads}" fill="none" stroke="var(--road-c)" stroke-width=".18" stroke-dasharray="1 1"/>
-    <path d="${ferryL}" fill="none" stroke="#FFFFFF" stroke-width=".55" stroke-dasharray="1.4 1" stroke-linecap="round"/>
-    <path id="mvF" d="M43.6 82.8 Q 38.2 88.8, 34 96.4" fill="none"/>
+    <g mask="url(#noDelta)">${RG.fills}</g>
+    <path id="wDelta" d="${smooth(MAP.deltaZ)}Z" fill="var(--mdelta)"/>
+    <path id="wSea" d="${sea}" fill="var(--mwater)"/><path d="${sea}" fill="url(#wv)"/>
+    <path id="wBay" d="${bay}" fill="var(--mwater)"/><path d="${bay}" fill="url(#wv)"/>
+    <ellipse cx="39.4" cy="77.4" rx="1.4" ry=".8" fill="var(--mland)"/>
+    <g fill="none" stroke="var(--mwater)" stroke-linecap="round"><path class="wriv" d="${smooth(MAP.river)}" stroke-width="3.4"/>${MAP.delta.map(d=>`<path class="wriv" d="${smooth(d)}" stroke-width="1.5"/>`).join('')}<path class="wriv" d="${smooth(MAP.dondang)}" stroke-width="1.3"/><path class="wriv" d="${smooth(MAP.sepaku)}" stroke-width="1.3"/></g>
+    ${RG.owners}
+    ${RG.zhide}
+    <path d="${roads}" fill="none" stroke="var(--mroadc)" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>
+    <g id="rdcore" fill="none" stroke="var(--mroad)" stroke-width=".7" stroke-linecap="round" stroke-linejoin="round">${rcore}</g>
+    <g id="devs"></g>
+    <path d="${ferryL}" fill="none" stroke="var(--mwink)" stroke-width=".45" stroke-dasharray="1.4 1" stroke-linecap="round"/>
+    <path id="mvF" d="M43.6 82.8 Q 38.2 88.8, 34 96.4" fill="none" class="mvp"/>
     <path id="mvL" d="M112 116.5 C 92 114.4, 72 113.6, 54 114 C 47 113.6, 44.8 106, 44.4 98 C 44.1 93, 44 89.8, 44 86.8" fill="none"/>
+    <path id="mvL2" d="M112 116.5 C 92 114.4, 72 113.6, 54 114 C 47 113.6, 44.6 106, 44.3 100 C 44.1 96.4, 44 94, 44 91.8" fill="none"/>
     <path id="mvB" d="${smooth([[-9,0],...MAP.river.slice(0,-1),[88,25.6],[91,29.6],[95.6,32.6],[104,35.4],[116,38]])}" fill="none"/>
     <g id="shipB" opacity="0"><rect x="-4.4" y="-.75" width="3.4" height="1.5" rx=".25" fill="#5B3A1E" stroke="#2A1A0C" stroke-width=".15"/><path d="M-4.1 -.4 q.7 -.6 1.4 0 q.6 -.55 1.3 0 v.8 h-2.7z" fill="#111"/><path d="M-1 0 H.4" stroke="#DDD" stroke-width=".1"/><path d="M.4 -.45 H1.6 L2 0 L1.6 .45 H.4z" fill="#C0392B" stroke="#5A1610" stroke-width=".12"/><rect x=".7" y="-.25" width=".55" height=".5" fill="#F4F4F4"/></g>
     <g id="shipF" opacity="0"><path d="M-1.5 -.55 H1.1 L1.7 0 L1.1 .55 H-1.5z" fill="#F7FAFC" stroke="#1E2A35" stroke-width=".14"/><rect x="-1.1" y="-.32" width="1.6" height=".64" rx=".12" fill="#2F6FED"/><rect x="-.5" y="-.18" width=".5" height=".36" fill="#E5484D"/></g>
     <g id="shipL" opacity="0"><path d="M-3.2 -.85 H2.3 Q3.7 0 2.3 .85 H-3.2 Q-3.6 0 -3.2 -.85z" fill="#FFFFFF" stroke="#1E2A35" stroke-width=".15"/><rect x="-2.6" y="-.55" width="4" height="1.1" rx=".25" fill="#DDE6EE"/><rect x="-2.3" y="-.3" width="3.3" height=".6" rx=".15" fill="#9CC6E8"/><circle cx="-1.2" cy="0" r=".32" fill="#F08A24"/><circle cx="-.1" cy="0" r=".32" fill="#F08A24"/></g>
     ${br}
-    ${arrow(`M44.6 75.2 C 56 74.4, 62.6 76.8, 62.6 84 L 62.6 94 C 62.6 96.4, 62.4 97.2, 62 97.8`,61.5,98.6,122)}
-    ${arrow(`M33.6 71.2 C 32.4 68, 31 65.3, 27 65.3 L 17 65.2 C 13.6 65.2, 13 63.6, 13 60 L 13 50.6`,13,49.2,-90)}
+    ${arrow(`M44.2 74.5 C 56 74.2, 62.4 76.8, 62.4 84 L 62.4 94 C 62.4 96, 62.2 96.9, 61.8 97.6`,61.4,98.3,118)}
+    ${arrow(`M30.9 74.4 C 31.6 71, 31.4 68.6, 30 66.4 C 28.8 64.6, 28.6 62.6, 28.6 60 L 28.5 52.4 C 28.4 49.2, 26 46.4, 22.6 45`,21.6,44.6,202)}
     ${lbl(97.4,64,'SELAT MAKASSAR','sea',90,1.9)}
     ${lbl(40.6,103.4,'Teluk Balikpapan','sea',-82,1.5)}
     ${lbl(26,19,'Sungai Mahakam','sea',12,1.3)}
-    ${lbl(54.6,66.3,'Hutan Bukit Bangkirai','land',0,1.2)}
-    ${lbl(16.2,64.6,'S. Sepaku','sea',48,1)}
+    ${lbl(54.6,66.3,'Hutan Bukit Bangkirai','forest',0,1.2)}
+    ${lbl(9,58.4,'S. Sepaku','sea',8,1)}
   </svg>`;
+}
+/* ---------- ikon pengembangan properti di sepanjang jalan ---------- */
+const DEVG={
+  1:'<path d="M-3.4 .2 L0 -3 L3.4 .2 V3.2 H-3.4Z" fill="#E8710A"/><rect x="-.9" y="1" width="1.8" height="2.2" fill="#fff"/>',
+  2:'<path d="M-4 .6 L-2 -1.8 L0 .6 V3.2 H-4Z M0 .6 L2 -1.8 L4 .6 V3.2 H0Z" fill="#C5221F"/><path d="M-2.6 1.6 h1.2 M1.4 1.6 h1.2" stroke="#fff" stroke-width=".8"/>',
+  3:'<rect x="-3" y="-3.4" width="6" height="6.8" rx=".4" fill="#8430CE"/><path d="M-1.6 -2 h1 M.6 -2 h1 M-1.6 0 h1 M.6 0 h1 M-1.6 2 h1 M.6 2 h1" stroke="#fff" stroke-width=".9"/>',
+  4:'<rect x="-3.8" y="-2.6" width="7.6" height="5.8" rx=".6" fill="#1967D2"/><path d="M-2.6 2 V-1.2 M-2.6 .6 H2.6 V2 M-1.6 -.3 h1.6" stroke="#fff" stroke-width=".8" fill="none"/>',
+  5:'<rect x="-2.6" y="-4" width="5.2" height="8" rx=".5" fill="#B3261E"/><path d="M-1.2 -1.9 V1.9 M1.2 -1.9 V1.9 M-1.2 0 H1.2" stroke="#fff" stroke-width=".8"/>',
+  eb:'<rect x="-2.8" y="-3.4" width="3.8" height="6.8" rx=".5" fill="#E53935"/><rect x="-2.1" y="-2.6" width="2.4" height="1.6" fill="#fff"/><path d="M1 -1.6 L2.8 -.4 V2.2" stroke="#E53935" stroke-width=".8" fill="none"/>',
+  el:'<rect x="-2.2" y="-2.4" width="4.4" height="5.8" rx="1.6" fill="#43A047"/><rect x="-1" y="-3.8" width="2" height="1.6" rx=".3" fill="#43A047"/><path d="M-2.2 .4 H2.2" stroke="#fff" stroke-width=".6"/>',
+  sawit:'<path d="M0 3.6 V-.8" stroke="#6D4C41" stroke-width=".9"/><path d="M0 -.8 q-2.6 -1.6 -3.8 .8 M0 -.8 q2.6 -1.6 3.8 .8 M0 -.8 q-1.4 -2.6 -3.2 -2.4 M0 -.8 q1.4 -2.6 3.2 -2.4" stroke="#2E7D32" stroke-width="1" fill="none" stroke-linecap="round"/>',
+  bara:'<path d="M-3.8 3 L-1.6 -.6 L0 .8 L1.8 -1.6 L3.8 3Z" fill="#202124"/><path d="M-2.6 -3.2 L1 0" stroke="#795548" stroke-width=".8"/><path d="M-3.6 -2 Q-2.6 -3.8 -1 -3.6" stroke="#5F6368" stroke-width=".8" fill="none"/>',
+  migas:'<path d="M-2.4 3.6 L0 -3.6 L2.4 3.6 M-1.6 1.2 H1.6 M-.8 -1.2 H.8" stroke="#37474F" stroke-width=".8" fill="none"/><circle cx="0" cy="-3.4" r=".7" fill="#F9AB00"/>',
+  ptm:'<rect x="-1.8" y="-3" width="3.6" height="6" rx=".5" fill="#1E88E5"/><rect x="-1.1" y="-2.2" width="2.2" height="1.4" fill="#fff"/>',
+  plg:'<g fill="#7CB342"><rect x="-3.8" y="-1.2" width="2.2" height="4.2" rx=".8"/><rect x="-1.1" y="-1.2" width="2.2" height="4.2" rx=".8"/><rect x="1.6" y="-1.2" width="2.2" height="4.2" rx=".8"/></g>'
+};
+const DEVN={1:'rumah tinggal',2:'rumah kontrakan',3:'kos-kosan',4:'penginapan',5:'hotel',eb:'pos bensin eceran',el:'pos LPG eceran',sawit:'kebun sawit',bara:'tambang batu bara',migas:'tambang migas',ptm:'pertamini',plg:'pangkalan LPG'};
+const DEVSLOT={};
+function devObstacles(){
+  const ob=[], box=(x,y,hw,hh)=>ob.push([x-hw,y-hh,x+hw,y+hh]);
+  T.forEach((t,i)=>{ const g=GEO.g[i];
+    if(g.corner)box(g.x,g.y,8.8,8.8);
+    else if(t.t==='prop'){ box(g.x,g.y,1.7,1.7); box(g.x,g.y+3.3,Math.min(6.2,(t.d||t.s||t.n).split('|').reduce((m,x)=>Math.max(m,x.length),0)*.5+.6),2); }
+    else if(t.t==='go')box(g.x,g.y,5.4,5.4);
+    else if(t.t==='bridge')box(g.x,g.y,7.6,4.4);
+    else box(g.x,g.y,3.2,3.9); });
+  for(const n in PORTX){ const q=PORTX[n]; box(q.x,q.y,2.2,2.6); }
+  box(GEO.deck[0],GEO.deck[1],6.6,4.6); box(GEO.jail[0],GEO.jail[1],6.6,4.6); box(GEO.dice[0],GEO.dice[1],6.4,3.2); box(15,11,14.5,10.5);
+  return ob;
+}
+function computeDevSlots(){
+  const ob=devObstacles(), S2=.74;
+  const freeAt=(x,y,i,taken)=>{ if(regionAt(x,y)!==i)return false;
+    for(const [dx,dy] of [[0,0],[-S2,-S2],[S2,-S2],[-S2,S2],[S2,S2]])if(!onLand(x+dx,y+dy))return false;
+    for(const o of ob)if(x+S2>o[0]&&x-S2<o[2]&&y+S2>o[1]&&y-S2<o[3])return false;
+    for(const t of taken)if(Math.hypot(t[0]-x,t[1]-y)<1.7)return false;
+    return true; };
+  T.forEach((t,i)=>{ if(t.t!=='prop'||i===IKN)return;
+    const g=GEO.g[i], main=[], cands=[];
+    for(const [id,fromEnd] of [[`rd${i}`,false],[`rd${(i-1+N)%N}`,true]]){
+      const p=document.getElementById(id); if(!p)continue; const L=p.getTotalLength();
+      for(let d=g.corner?9.5:2.4;d<L-1.5;d+=1.8){ const l=fromEnd?L-d:d, a=p.getPointAtLength(l), b=p.getPointAtLength(Math.min(L,l+.3)), c=p.getPointAtLength(Math.max(0,l-.3));
+        const tx=b.x-c.x, ty=b.y-c.y, tl=Math.hypot(tx,ty)||1, nx=-ty/tl, ny=tx/tl;
+        for(const sd of [1,-1])cands.push([d,a.x+nx*1.3*sd,a.y+ny*1.3*sd]);
+        for(const sd of [1,-1])cands.push([d+1,a.x+nx*3.1*sd,a.y+ny*3.1*sd]); } }
+    cands.sort((u,v)=>u[0]-v[0]);
+    for(const c of cands){ if(main.length>=12)break; if(freeAt(c[1],c[2],i,main))main.push([c[1],c[2]]); }
+    let br=null;
+    if(main.length<12){
+      let best=null;
+      for(let k=0;k<24;k++){ const a=k*Math.PI/12, ux=Math.cos(a), uy=Math.sin(a); let r=g.corner?9.5:2.4, ok=0;
+        for(;r<14;r+=.6){ const x=g.x+ux*r, y=g.y+uy*r; if(regionAt(x,y)!==i||!onLand(x,y))break; let hit=false; for(const o of ob)if(x+.5>o[0]&&x-.5<o[2]&&y+.5>o[1]&&y-.5<o[3]&&!(Math.abs(x-g.x)<2&&Math.abs(y-g.y)<2)){ hit=true; break; } if(hit&&r>4)break; ok=r; }
+        if(!best||ok>best.r)best={r:ok,ux,uy}; }
+      if(best&&best.r>=3.6){ const {ux,uy}=best, r=best.r, x0=g.x+ux*(g.corner?8.8:1.6), y0=g.y+uy*(g.corner?8.8:1.6), x1=g.x+ux*r, y1=g.y+uy*r, mx=(x0+x1)/2-uy*.8, my=(y0+y1)/2+ux*.8;
+        const slots=[];
+        for(let d=(g.corner?10.5:2.8);d<r-.4;d+=1.8) for(const sd of [1,-1]){ const x=g.x+ux*d-uy*1.25*sd, y=g.y+uy*d+ux*1.25*sd; if(freeAt(x,y,i,[...main,...slots]))slots.push([x,y]); }
+        br={d:`M${x0.toFixed(2)} ${y0.toFixed(2)} Q${mx.toFixed(2)} ${my.toFixed(2)},${x1.toFixed(2)} ${y1.toFixed(2)}`,slots}; }
+    }
+    const used=[...main,...(br?br.slots:[])], extra=[];
+    if(used.length<12){ const cs=[]; for(let dx=-20;dx<=20;dx+=.9)for(let dy=-20;dy<=20;dy+=.9){ const r=Math.hypot(dx,dy); if(r>2&&r<20)cs.push([r,g.x+dx,g.y+dy]); }
+      cs.sort((u,v)=>u[0]-v[0]); for(const c of cs){ if(used.length+extra.length>=12)break; if(freeAt(c[1],c[2],i,[...used,...extra]))extra.push([c[1],c[2]]); } }
+    DEVSLOT[i]={main,br,extra};
+  });
+}
+function devList(i){
+  const l=[], h=S.houses[i]||0;
+  if(T[i].g!==9) for(let k=1;k<=h;k++)l.push(k);
+  if(S.eb[i]!=null)l.push('eb'); if(S.el[i]!=null)l.push('el');
+  for(const k of BIZ_ORDER){ const m=S.biz?.[i]?.[k]; if(m)l.push(k+(m==='i'?':i':'')); }
+  return l;
+}
+let devKey='';
+function renderDevs(){
+  const box=document.getElementById('devs'); if(!box||!S)return;
+  const parts=[], key=[];
+  for(const i in DEVSLOT){ const l=devList(+i); if(!l.length)continue; key.push(i+':'+l.join(',')+(posOff(+i,'b')?'B':'')+(posOff(+i,'l')?'L':''));
+    const {main,br,extra}=DEVSLOT[i], slots=[...main,...(br?br.slots:[]),...extra];
+    if(br&&l.length>main.length)parts.push(`<path d="${br.d}" fill="none" stroke="var(--mroadc)" stroke-width=".62" stroke-linecap="round"/><path d="${br.d}" fill="none" stroke="var(--mroad)" stroke-width=".38" stroke-linecap="round"/>`);
+    const over=l.length>slots.length?l.length-slots.length+1:0;
+    if(over&&slots.length){ const sl=slots[slots.length-1]; parts.push(`<g class="dev" transform="translate(${sl[0].toFixed(2)} ${sl[1].toFixed(2)}) scale(.21)"><title>${l.slice(slots.length-1).map(x=>DEVN[String(x).split(':')[0]]).join(', ')}</title><rect x="-5" y="-5" width="10" height="10" rx="2.2" class="dbg"/><text x="0" y="1.6" text-anchor="middle" font-size="4.6" font-weight="900" fill="#3C4043">+${over}</text></g>`); }
+    l.forEach((k,n)=>{ const sl=slots[n]; if(!sl||(over&&n>=slots.length-1))return; const [kk,il]=String(k).split(':'), off=(kk==='eb'&&posOff(+i,'b'))||(kk==='el'&&posOff(+i,'l'));
+      parts.push(`<g class="dev${il?' il':''}${off?' off':''}" transform="translate(${sl[0].toFixed(2)} ${sl[1].toFixed(2)}) scale(.21)"><title>${DEVN[kk]}${il?' ilegal':''} · ${esc(T[i].n)}</title><rect x="-5" y="-5" width="10" height="10" rx="2.2" class="dbg"/>${DEVG[kk]}</g>`); });
+  }
+  for(const n in PORTX){ const i=IX(n); if(!S.port?.[i])continue; const q=PORTX[n], o=S.own[i]; key.push('P'+i+':'+o);
+    parts.push(`<path d="${q.rd}" fill="none" stroke="var(--mroadc)" stroke-width=".62" stroke-linecap="round"/><path d="${q.rd}" fill="none" stroke="var(--mroad)" stroke-width=".38" stroke-linecap="round"/>`
+      +`<g class="pport" transform="translate(${q.x} ${q.y})"><title>${q.n}</title><circle r="1.55" fill="var(--tile)" stroke="${o!=null?P(o).color:'#9AA0A6'}" stroke-width=".38"/><g transform="translate(-1 -1) scale(.0833)" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ICONS.anchor}</g>`
+      +`<text y="2.75" text-anchor="middle" font-size=".95" font-weight="800" class="pplbl">${q.n.replace('Pelabuhan','Pel.')}</text></g>`); }
+  const k=key.join('|'); if(k===devKey)return; devKey=k; box.innerHTML=parts.join('');
 }
 /* ---------- kapal: feri Kariangau–Penajam, tongkang batu bara Mahakam, kapal penumpang ---------- */
 let seaRAF=0;
@@ -1614,6 +1845,7 @@ function startSea(){
   const get=id=>document.getElementById(id), mv=[['F','mvF'],['B','mvB'],['L','mvL']].map(([k,p])=>({g:get('ship'+k),p:get(p)})).filter(m=>m.g&&m.p);
   if(mv.length<3)return;
   const [F,B,L]=mv; for(const m of mv)m.len=m.p.getTotalLength(); F.sc=1.2; B.sc=1.4; L.sc=1.1;
+  const LA=L.p, LB=get('mvL2'), LAl=L.len, LBl=LB?LB.getTotalLength():0; let lc=-1;
   const sm=x=>x*x*(3-2*x);
   const put=(m,f,rev,show=1)=>{ const l=Math.max(0,Math.min(1,f))*m.len, p=m.p.getPointAtLength(l), q=m.p.getPointAtLength(Math.min(m.len,l+.4)), r=m.p.getPointAtLength(Math.max(0,l-.4));
     let a=Math.atan2(q.y-r.y,q.x-r.x)*180/Math.PI; if(rev)a+=180;
@@ -1624,7 +1856,8 @@ function startSea(){
     const t=performance.now()/1000-t0;
     { const c=t%24; if(c<4)put(F,0,false); else if(c<11)put(F,sm((c-4)/7),false); else if(c<15)put(F,1,true); else if(c<22)put(F,1-sm((c-15)/7),true); else put(F,0,false); }
     { const c=(t+20)%75; if(c<55)put(B,c/55,false); else B.g.setAttribute('opacity',0); }
-    { const c=(t+25)%130; if(c<45)L.g.setAttribute('opacity',0); else if(c<65)put(L,1-(1-(c-45)/20)**2,false); else if(c<97)put(L,1,false); else if(c<99)put(L,1,false); else if(c<119)put(L,1-((c-99)/20)**2,true); else L.g.setAttribute('opacity',0); }
+    { const c=(t+25)%130, cy=Math.floor((t+25)/130); if(cy!==lc&&c<45){ lc=cy; const sem=!!(S?.port?.[BPP])&&LB; L.p=sem?LB:LA; L.len=sem?LBl:LAl; }
+      if(c<45)L.g.setAttribute('opacity',0); else if(c<65)put(L,1-(1-(c-45)/20)**2,false); else if(c<97)put(L,1,false); else if(c<99)put(L,1,false); else if(c<119)put(L,1-((c-99)/20)**2,true); else L.g.setAttribute('opacity',0); }
     seaRAF=requestAnimationFrame(tick);
   };
   tick();
@@ -1633,6 +1866,7 @@ function buildBoard(){
   const st=$('#stage'), H=GEO.H;
   st.style.aspectRatio=`100 / ${H}`;
   st.innerHTML=mapSVG();
+  st.querySelector('#regions')?.addEventListener('click',e=>{ const g=e.target.closest('[data-r]'); if(!g)return; detail=+g.dataset.r; detailHelp=false; renderDetail(); updateTiles(); });
   T.forEach((t,i)=>{
     const g=GEO.g[i]; const el=document.createElement('button');
     el.type='button'; el.dataset.i=i; el.style.left=g.x+'%'; el.style.top=(g.y/H*100)+'%';
@@ -1642,7 +1876,7 @@ function buildBoard(){
       el.dataset.city=i===IKN?'ikn':i===BPP?'bpp':'smd';
     } else {
       el.className=`tile k-${t.t}`;
-      if(t.t!=='util'&&t.t!=='wangsit'&&t.t!=='bridge'&&t.t!=='go'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
+      if(t.t!=='util'&&t.t!=='wangsit'&&t.t!=='bridge'&&t.t!=='go'&&t.t!=='prop'){ el.style.width=GEO.TW+'cqw'; el.style.height=GEO.TH+'cqw'; }
       el.innerHTML=tileInner(t);
     }
     el.addEventListener('click',()=>{ detail=i; detailHelp=false; renderDetail(); updateTiles(); });
@@ -1660,6 +1894,7 @@ function buildBoard(){
   const fx=document.createElement('div'); fx.id='fx'; st.appendChild(fx);
   const tl=document.createElement('div'); tl.id='toks'; st.appendChild(tl);
   requestAnimationFrame(startSea);
+  try{ computeDevSlots(); }catch(e){ console.warn(e); } devKey='';
   const pl=document.createElement('div'); pl.id='pol'; pl.innerHTML=`<div id="polcar" hidden><svg viewBox="0 0 40 22" aria-hidden="true"><ellipse class="halo" cx="20" cy="6" rx="13" ry="7" fill="rgba(229,72,77,.5)"/><path d="M3 15.5 V12 Q3 10 5 9.6 L11 9 L14.5 4.6 Q15.4 3.6 17 3.6 H27 Q28.6 3.6 29.6 4.8 L32.6 9 L36 9.8 Q38 10.3 38 12.4 V15.5 Z" fill="#F7F9FB" stroke="#1E2A35" stroke-width=".7"/><path d="M15.6 5.2 H21 V9 H12.8 Z M22.2 5.2 H27 L30 9 H22.2 Z" fill="#9CC6E8" stroke="#1E2A35" stroke-width=".4"/><rect x="3.4" y="11.4" width="34.4" height="2.2" fill="#1D4ED8"/><text x="20.5" y="13.1" font-size="2" font-weight="900" text-anchor="middle" fill="#fff" font-family="Overpass,system-ui,sans-serif">POLISI</text><rect class="lr" x="16" y="1" width="4" height="2.6" rx=".6" fill="#E5484D"/><rect class="lb" x="21" y="1" width="4" height="2.6" rx=".6" fill="#2F6FED"/><g class="wh"><circle cx="10.5" cy="16" r="3.2" fill="#1E2A35"/><circle cx="10.5" cy="16" r="1.3" fill="#C9D1D9"/><rect x="10.1" y="13.2" width=".8" height="5.6" fill="#1E2A35"/></g><g class="wh"><circle cx="30.5" cy="16" r="3.2" fill="#1E2A35"/><circle cx="30.5" cy="16" r="1.3" fill="#C9D1D9"/><rect x="30.1" y="13.2" width=".8" height="5.6" fill="#1E2A35"/></g></svg></div>`; st.appendChild(pl);
 }
 const FACES={1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
@@ -1700,6 +1935,8 @@ function renderFx(){
 }
 function bizBadge(i){ const b=S.biz?.[i]; const n=b?Object.keys(b).length:0; return n?`<span class="bz${Object.values(b).includes('i')?' il':''}">${n}</span>`:''; }
 function updateTiles(){
+  if(S)document.querySelectorAll('#regions [data-r],#rowners [data-r]').forEach(g=>{ const i=+g.dataset.r, o=S.own[i];
+    g.style.setProperty('--rc',o!=null?P(o).color:'transparent'); g.classList.toggle('owned',o!=null); g.classList.toggle('mort',!!S.mort[i]); g.classList.toggle('blk',blackout(i)!=null); g.classList.toggle('sel',detail===i); });
   document.querySelectorAll('#stage [data-i]').forEach(el=>{
     const i=+el.dataset.i,t=T[i];
     const here=S&&S.here===i&&S.phase!=='over';
@@ -1719,8 +1956,7 @@ function updateTiles(){
         if(band.dataset.k!==k){ band.dataset.k=k; band.innerHTML=cityScene(i,h)||(h?'':''); }
       } else if(t.t==='prop'){
         const h=S.houses[i]||0;
-        band.innerHTML=(h&&h===maxLv(i)?`<span class="htl">${i===IKN?'Istana':'H'}</span>`:'<span class="pip"></span>'.repeat(h))+(S.eb[i]!=null?`<span class="pb${posOff(i,'b')?' off':''}"></span>`:'')+(S.el[i]!=null?`<span class="plg${posOff(i,'l')?' off':''}"></span>`:'');
-        band.innerHTML+=bizBadge(i);
+        if(t.t==='prop'&&t.g!==9){ band.innerHTML=''; } else band.innerHTML=(h&&h===maxLv(i)?`<span class="htl">${i===IKN?'Istana':'H'}</span>`:'<span class="pip"></span>'.repeat(h))+(S.eb[i]!=null?`<span class="pb${posOff(i,'b')?' off':''}"></span>`:'')+(S.el[i]!=null?`<span class="plg${posOff(i,'l')?' off':''}"></span>`:'');
       } else band.innerHTML=icon(UT[t.k].ic)+(S.up[i]?'<span class="upd"></span>':'')+bizBadge(i);
       lab+=`, ${o!=null?'milik '+P(o).name:'harga '+fk(t.p)}`;
     }
@@ -2015,8 +2251,8 @@ function renderDetail(){
     const tp=tileProfit(i), b=S.biz[i]||{};
     const list=[...BIZ_ORDER.filter(k=>b[k]).map(k=>`${BIZ[k].n}${b[k]==='i'?' (ilegal)':' (resmi)'} +${fk(BIZ[k][b[k]].p)}`),
       ...(S.eb[i]!=null?[`Pos bensin eceran (ilegal) +${fk(posOff(i,'b')?0:ECER_P.b)}`]:[]),...(S.el[i]!=null?[`Pos LPG eceran (ilegal) +${fk(posOff(i,'l')?0:ECER_P.l)}`]:[]),
-      ...((S.houses[i]||0)>=3&&i!==IKN?[`${lvName(i,S.houses[i])} +${fk(BLD_P[S.houses[i]])}`]:[])];
-    body+=`<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; ilegal dengan bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
+      ...((S.houses[i]||0)>=3&&i!==IKN?[`${lvName(i,S.houses[i])} +${fk(BLD_P[S.houses[i]])}`]:[]),...(hasPort(i)?[`${portOf(i).n} (resmi) +${fk(PORT.p)}`]:[])];
+    body+=`${portOf(i)?`<p class="dt-note"><b>${portOf(i).n}</b> bisa dibangun pemilik setelah ada hotel di ${esc(T[i].n)}: biaya ${fk(PORT.c)}, profit +${fk(PORT.p)} tiap lewat Mulai.</p>`:''}<p class="dt-note"><b>Usaha</b> · profit tiap pemilik lewat Mulai: ${fmt(tp.lg+tp.il)}${list.length?`<br>${list.map(esc).join('<br>')}`:'<br>Belum ada usaha.'}<br>Bisa dibuka di sini: ${bizAt(i).map(k=>`${BIZ[k].n} (resmi ${fk(BIZ[k].r.c)} → +${fk(BIZ[k].r.p)}${BIZ[k].i?`; ilegal dengan bakar hutan ${fk(BIZ[k].i.c)} → +${fk(BIZ[k].i.p)}`:''})`).join('; ')||'-'}${t.t==='prop'&&i!==IKN?`; pos bensin eceran → +${fk(ECER_P.b)}, pos LPG eceran → +${fk(ECER_P.l)}; kos-kosan +${fk(BLD_P[3])}, penginapan +${fk(BLD_P[4])}, hotel +${fk(BLD_P[5])}`:''}.</p>`;
   }
   let own='';
   const woodNote=t.p&&S.own[i]!=null&&needsWood(i)&&woodCost(S.month||0)?`<p class="hint warn">LPG langka: pemilik membayar kayu bakar ${fk(woodCost(S.month||0))}/bulan untuk petak ini sampai ada pos LPG eceran atau pangkalan LPG.</p>`:'';
@@ -2053,6 +2289,7 @@ function renderDetail(){
       for(const md of ['r','i']){ if(!BIZ[k][md])continue; const w=bizWhy(i,k,md);
         a.push(B(md==='r'?`Buka ${lc(BIZ[k].n)}${BIZ[k].i?' resmi':''} (${fk(BIZ[k][md].c)})`:`Buka ${lc(BIZ[k].n)} ilegal dengan bakar hutan (${fk(BIZ[k][md].c)})`,'bizBuild',{arg:i*100+BIZ_ORDER.indexOf(k)*2+(md==='i'?1:0),dis:!!w})); }
     }
+    if(portOf(i)){ if(hasPort(i))a.push(B(`Tutup ${portOf(i).n} (+${fk(PORT.c/2)})`,'portSell',{arg:i})); else { const w=portWhy(i); a.push(B(`Bangun ${portOf(i).n} (${fk(PORT.c)})`,'portBuild',{arg:i,dis:!!w})); if(w&&w!=='x')acts+=`<p class="hint"><b>${portOf(i).n}:</b> ${w}</p>`; } }
     { const w=aucWhy(i,S.turn); a.push(B('Lelang petak ini','startAuction',{arg:i,dis:!!w||!aucReady()})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
     if(S.mort[i])a.push(B(`Tebus (${fk(unmortCost(i))})`,'unmortgage',{arg:i,dis:cash<unmortCost(i)}));
     else{ const w=whyNoMort(i); a.push(B(`Gadaikan (+${fk(t.p/2)})`,'mortgage',{arg:i,dis:!!w})); if(w&&w!=='x')acts+=`<p class="hint">${w}</p>`; }
@@ -2085,7 +2322,7 @@ function render(){
   if(!S)return;
   applyPrices(); renderHud();
   { const k=S.auc?'a'+S.auc.i+'.'+S.auc.seller:S.deal?'d'+S.deal.i+S.deal.kind:S.police?.ph==='bribe'?'p'+S.police.stop:''; if(k&&k!==lastBlk&&detail!=null)detail=null; lastBlk=k; }
-  updateTiles(); renderTokens(); renderFx(); renderPolice(); if(!$('#hudOv').hidden)renderHudMenu(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
+  updateTiles(); renderDevs(); renderTokens(); renderFx(); renderPolice(); if(!$('#hudOv').hidden)renderHudMenu(); renderCenter(); renderTurn(); renderPlayers(); renderLog(); renderDetail(); renderOver();
   $('#bFinish').disabled=S.phase==='over'||S.phase==='busy'||NET.role==='guest';
   if(arm!=='#bNew')$('#bNew').textContent=NET.role==='guest'?'Keluar room':'Permainan baru';
   renderNet();
@@ -2147,6 +2384,7 @@ function botReport(){
 function botManage(){
   const p=cur(),j=S.turn,L=p.bot; if(p.cash<0)return;
   const res=reserveFor(j);
+  for(const k of ownedBy(j))if(portOf(k)&&!portWhy(k)&&p.cash-PORT.c>=res*(L==='pendatang'?1.5:1))portBuild(k);
   for(const k of ownedBy(j).filter(k=>S.mort[k]).sort((a,b)=>S.mort[a]-S.mort[b]||rentGuess(b)-rentGuess(a))){
     const urgent=S.mort[k]===1;
     if(L==='pendatang'&&!urgent)continue;
@@ -2631,7 +2869,7 @@ function setArm(id,fn){
   clearTimeout(armTimer); armTimer=setTimeout(()=>{ b.classList.remove('armed'); b.textContent=b.dataset.l; arm=null; },3500);
 }
 
-const ACTS={dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(1),bridgeIkn:()=>doBridge(2),bridgeStay:()=>doBridge(0),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
+const ACTS={portBuild,portSell,dealPropose,dealAccept,dealReject,dealCounter,bizBuild,bizSell,takeLoan,repayLoan,startAuction,makeOffer,aucBid,aucPass,aucAccept,aucReject,toggleBank(){ bankOpen=!bankOpen; renderTurn(); },cutB:x=>cutSupply('b',x),cutL:x=>cutSupply('l',x),takeover,doFly,doNoFly,sabotage,bridgeGo:()=>doBridge(1),bridgeIkn:()=>doBridge(2),bridgeStay:()=>doBridge(0),payFine,buildB:i=>buildPos(i,'b'),buildL:i=>buildPos(i,'l'),sellB:i=>sellPos(i,'b'),sellL:i=>sellPos(i,'l'),doRoll,doBuy,doSkip,doCard,endTurn,doAutoRaise,bankrupt,openSetup,build,sellHouse,upgrade,downgrade,mortgage,unmortgage,
   noop(){}, showOver(){ overClosed=false; renderOver(); }, closeDetail(){ detail=null; renderDetail(); updateTiles(); },
   showDetail(i){ detail=i; detailHelp=false; renderDetail(); updateTiles(); },
   toggleHelp(){ detailHelp=!detailHelp; renderDetail(); },
@@ -2717,7 +2955,7 @@ function migrate5(x,OLD=OLD5){
 function fixState(x){
   if(x.v===5)migrate5(x); else if(x.v===6)migrate5(x,OLD6); else if(x.v===7)migrate5(x,OLD7);
   for(const k in x.mort) if(x.mort[k]===true) x.mort[k]=MORT_PASSES;
-  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.loans??={}; x.auc??=null; x.burn??={}; x.players?.forEach(q=>{ q.laps??=0; }); if(x.step==null){ x.step=x.month||0; x.month=monthAt(x.step); } x.repUsed??=false; x.police??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
+  x.blk??={}; x.cutB??={}; x.cutL??={}; x.biz??={}; x.port??={}; x.loans??={}; x.auc??=null; x.burn??={}; x.players?.forEach(q=>{ q.laps??=0; }); if(x.step==null){ x.step=x.month||0; x.month=monthAt(x.step); } x.repUsed??=false; x.police??=null; x.dl??={}; x.deal??=null; x.dealTried??=[]; x.flyOff??=false;
   if(x.police?.ph==='drive'){ S=x; finishPolice(); }
   if(x.phase==='busy')x.phase=x.pending?'decide':'end';
   delete x.eb?.[IKN]; delete x.el?.[IKN]; if((x.houses?.[IKN]||0)>4)x.houses[IKN]=4;
